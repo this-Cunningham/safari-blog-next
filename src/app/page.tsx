@@ -1,33 +1,11 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
+import { BlogPostList } from './BlogPostList';
 import styles from './page.module.css'
 
 const inter = Inter({ subsets: ['latin'] });
 
-const SANITY_PROJECT_ID = process.env.SANITY_PROJECT_ID;
-const SANITY_DATASET = process.env.SANITY_DATASET;
-
-const createUrlQuery = (query: string) => encodeURIComponent(query);
-
-async function getSanityData() {
-  const QUERY = createUrlQuery('*[_type == "standard_blog_post"]')
-  const SANITY_URL = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${SANITY_DATASET}?query=${QUERY}`;
-
-  const res = await fetch(SANITY_URL);
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  // Recommendation: handle errors
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
-
 export default async function Home() {
-  const data = await getSanityData();
 
   return (
     <main className={styles.main}>
@@ -36,6 +14,8 @@ export default async function Home() {
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
         </p>
+        {/* @ts-expect-error Server Component */}
+        <BlogPostList />
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"

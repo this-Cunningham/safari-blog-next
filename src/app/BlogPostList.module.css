@@ -1,7 +1,7 @@
 .blogPost {
-  position: relative;
-  object-fit: contain;
-  height: 500px;
-  width: 500px;
   padding: 24px 8px;
+}
+
+.blogPostImage {
+  width: 100%;
 }

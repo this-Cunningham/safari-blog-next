@@ -8,8 +8,8 @@ const SANITY_DATASET = process.env.SANITY_DATASET;
 
 const createUrlQuery = (query: string) => encodeURIComponent(query);
 
-async function getSanityData(): Promise<{ result: StandardBlogPost[] }> {
-  const QUERY = createUrlQuery('*[_type == "standard_blog_post"]')
+export async function getSanityData<ResultType>(queryString: string): Promise<{ result: ResultType }> {
+  const QUERY = createUrlQuery(queryString)
   const SANITY_URL = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${SANITY_DATASET}?query=${QUERY}`;
 
   const res = await fetch(SANITY_URL);
@@ -49,14 +49,16 @@ const builder = imageUrlBuilder({
 const urlFor = (source: StandardBlogImage) => builder.image(source).url();
 
 export const BlogPostList = async () => {
-  const { result: blogPostList } = await getSanityData();
+  const { result: blogPostList } = await getSanityData<StandardBlogPost[]>('*[_type == "standard_blog_post"]');
 
   return (
     <>
       { blogPostList.map(blogPost => (
         <div key={ blogPost.standard_blog_title } className={styles.blogPost}>
           <h2>{ blogPost.standard_blog_title }</h2>
-          <Image src={ urlFor(blogPost.image) } alt="" fill priority/>
+          <picture>
+            <img alt="" src={ urlFor(blogPost.image) } className={ styles.blogPostImage }/>
+          </picture>
           <p>{ blogPost.text_content }</p>
         </div>
       ))}

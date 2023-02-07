@@ -269,3 +269,7 @@
     transform: rotate(0deg);
   }
 }
+
+.blogBody {
+  padding-top: 88px;
+}

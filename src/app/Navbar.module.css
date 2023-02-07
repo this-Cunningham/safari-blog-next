@@ -1,0 +1,19 @@
+.navbar {
+  height: 88px;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background: #373F51;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navItem {
+  color: #008DD5;
+}
+
+.navItem:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -5,3 +5,10 @@
 .blogPostImage {
   width: 100%;
 }
+
+.blogPost figcaption {
+  padding: 4px 0 8px;
+  color: grey;
+  font-size: 12px;
+  width: min-content;
+}

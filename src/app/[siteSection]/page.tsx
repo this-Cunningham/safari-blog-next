@@ -1,6 +1,4 @@
-/* eslint-disable semi */
-/* eslint-disable quotes */
-import { BlogPostList } from "../BlogPostList";
+import { BlogPostList } from '../../components/BlogPostList';
 
 export default async function SiteSection({ params }: { params: { siteSection: string }}) {
   const { siteSection } = params;
@@ -24,5 +22,5 @@ export default async function SiteSection({ params }: { params: { siteSection: s
         <div>where are we</div>
       )}
     </div>
-  )
+  );
 }

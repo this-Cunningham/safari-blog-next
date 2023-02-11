@@ -10,16 +10,17 @@
   align-items: center;
 }
 
+.navItem h3 {
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
 .navItem {
-  color: #e9d67a;
+  color: #9fb8ad;
 }
 
 .navItem:hover {
   text-decoration: underline;
+  color: #e9d67a;
   cursor: pointer;
-}
-
-.navItem h3 {
-  font-weight: 200;
-  letter-spacing: 2px;
 }

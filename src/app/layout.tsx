@@ -1,6 +1,7 @@
 import './globals.css';
 import { Navbar } from './Navbar';
 import { Montserrat } from '@next/font/google';
+import SideBar from 'src/components/SideBar';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -20,13 +21,12 @@ export default function RootLayout({
       */}
       <head />
       <body className={montserrat.className}>
-        <div className='appWrapper'>
           {/* @ts-expect-error Server Component */}
           <Navbar />
           <main className='contentWrapper'>
             {children}
+            <SideBar />
           </main>
-        </div>
       </body>
     </html>
   );

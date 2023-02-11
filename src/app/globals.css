@@ -18,7 +18,7 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: #1c2331;
   background: #f8f8f8;
   background-color: #E8ddcb;
 }
@@ -34,14 +34,30 @@ a {
   }
 }
 
-.appWrapper {
-  margin: 0 auto;
-  max-width: 1000px;
-}
-
+/* handle layout here */
 .contentWrapper {
-  margin-top: 88px;
+  margin: 96px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.sidebar-container {
+  display: none;
+}
+
+@media (min-width: 1020px) {
+  .contentWrapper {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 240px;
+  }
+
+  .sidebar-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: 2;
+  }
 }

@@ -36,7 +36,7 @@ p {
 /* handle layout here */
 .contentWrapper {
   max-width: 1440px;
-  margin: 96px auto;
+  margin: 104px auto;
   padding: 0 16px;
   display: flex;
   flex-direction: column;

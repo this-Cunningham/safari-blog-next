@@ -1,5 +1,5 @@
 import { client } from 'src/lib/sanity.client';
-import { MainImage } from '../../components/interfaces_blog'
+import { MainImage } from '../blog/interfaces_blog';
 
 export default async function Photos () {
   const allPhotos: MainImage[] = await client.fetch(`*[_type == "blogImage"]{

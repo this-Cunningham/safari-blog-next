@@ -1,0 +1,15 @@
+.blogPostList {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.blogPost {
+  padding: 0;
+  width: 100%;
+}
+
+.blogPost img {
+  width: 100%;
+  height: auto;
+}

@@ -30,7 +30,9 @@ export interface Location {
 }
 
 export interface MainImage {
+  _type: 'blogImage';
   _createdAt: string;
+  _id: string;
   author: {
     name: string;
     slug: {

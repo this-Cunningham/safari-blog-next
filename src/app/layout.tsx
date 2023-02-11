@@ -5,7 +5,7 @@ import SideBar from 'src/components/SideBar';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['200', '300', '500']
+  weight: ['200', '300']
 });
 
 export default function RootLayout({
@@ -21,12 +21,12 @@ export default function RootLayout({
       */}
       <head />
       <body className={montserrat.className}>
-          {/* @ts-expect-error Server Component */}
-          <Navbar />
           <main className='contentWrapper'>
             {children}
             <SideBar />
           </main>
+          {/* @ts-expect-error Server Component */}
+          <Navbar />
       </body>
     </html>
   );

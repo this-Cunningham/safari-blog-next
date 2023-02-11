@@ -1,8 +1,23 @@
 import { client } from 'src/lib/sanity.client';
-
+import Link from 'next/link';
 import { BlogPost } from './interfaces_blog';
 
 import styles from './BlogPostList.module.css';
+import { PortableText } from '@portabletext/react';
+
+interface BlockContentImg {
+  _type: 'blogImageRef';
+  image: {
+    asset: {
+      url: string;
+    }
+  }
+}
+const BlogImageBlockContent = ({ value }: { value: BlockContentImg; isInline?: boolean }) => {
+  return (
+    <img src={ value.image.asset.url} alt="" style={{ width: '50%'}}/>
+  );
+};
 
 export const BlogPostList = async () => {
   const blogPosts: BlogPost[] = await client.fetch(`*[_type == "blogPost"]{
@@ -14,7 +29,16 @@ export const BlogPostList = async () => {
       bio,
       authorImage{ asset->{path, url} }
     },
-    body,
+    body[]{
+      _type == 'blogImageRef' => @->{
+        caption,
+        image{
+          asset->
+        },
+        imageTags
+      },
+      _type != 'reference' => @,
+    },
     categories[]->{ title, description, slug{ current } },
     excerpt,
     location->{ locationName, mapLocation },
@@ -27,10 +51,18 @@ export const BlogPostList = async () => {
     <div>
       { blogPosts.map(blogPost => (
         <div key={ blogPost._id } className={styles.blogPost}>
-          <h1>{ blogPost.title }</h1>
+          <Link href={ `/blog/${blogPost.slug.current}`}>
+            <h1>{ blogPost.title }</h1>
+          </Link>
+          <p style={{ paddingLeft: '8px'}}>by: { blogPost.author.name }</p>
           <img src={ blogPost.mainImage.image.asset.url } alt={ blogPost.mainImage.caption } />
-          <p>{ blogPost.mainImage.caption }</p>
-          <p>{ blogPost.excerpt }</p>
+          <em>{ blogPost.mainImage.caption }</em>
+          <PortableText
+            value={ blogPost.body }
+            components={{
+              types: { blogImageRef: BlogImageBlockContent }
+            }}
+          />
         </div>
       ))}
     </div>

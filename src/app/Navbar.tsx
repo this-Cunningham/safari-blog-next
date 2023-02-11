@@ -1,20 +1,36 @@
+import Link from 'next/link';
+import { client } from 'src/lib/sanity.client';
+
 import styles from './Navbar.module.css';
 
-interface NavBarItem {
-  nav_bar_item_slug: 'Home' | 'About us' | 'Blog' | 'Safari Sloop';
-  _type: 'navBar';
+interface SiteSection {
+  _type: 'siteSection';
+  _id: string;
+  siteSectionName: string;
+  slug: {
+    current: string;
+  }
 }
 
 export const Navbar = async () => {
+  const [{ siteSectionItems: navBar }] = await client.fetch<[{ siteSectionItems: SiteSection[] }]>(`*[_type == "siteSections"]{
+    siteSectionItems[]->{
+      _id,
+      _type,
+      siteSectionName,
+      slug{current}
+    }
+  }`);
 
   return (
     <nav className={ styles.navbar }>
-      {/* { navBarItems.map(navItem => (
-        <div key={ navItem.nav_bar_item_slug } className={ styles.navItem }>
-          { navItem.nav_bar_item_slug }
+      { navBar.map(siteSection => (
+        <div key={ siteSection._id } className={ styles.navItem }>
+          <Link href={siteSection.slug.current}>
+            <h3>{ siteSection.siteSectionName }</h3>
+          </Link>
         </div>
-      ))} */}
+      ))}
     </nav>
-  )
-}
-
+  );
+};

@@ -20,6 +20,7 @@ body {
 body {
   color: rgb(var(--foreground-rgb));
   background: #f8f8f8;
+  background-color: #E8ddcb;
 }
 
 a {
@@ -36,4 +37,11 @@ a {
 .appWrapper {
   margin: 0 auto;
   max-width: 1000px;
+}
+
+.contentWrapper {
+  margin-top: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

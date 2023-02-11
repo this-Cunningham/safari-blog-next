@@ -1,5 +1,6 @@
 .blogPost {
   padding: 24px 8px;
+  width: min-content;
 }
 
 .blogPostImage {
@@ -10,5 +11,4 @@
   padding: 4px 0 8px;
   color: grey;
   font-size: 12px;
-  width: min-content;
 }

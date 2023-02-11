@@ -2,18 +2,24 @@
   height: 88px;
   position: fixed;
   left: 0;
+  top: 0;
   width: 100%;
-  background: #373F51;
+  background: #1c2331;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 .navItem {
-  color: #008DD5;
+  color: #e9d67a;
 }
 
 .navItem:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.navItem h3 {
+  font-weight: 200;
+  letter-spacing: 2px;
 }

@@ -1,5 +1,11 @@
-import './globals.css'
-import { Navbar } from './Navbar'
+import './globals.css';
+import { Navbar } from './Navbar';
+import { Montserrat } from '@next/font/google';
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['200', '300', '500']
+});
 
 export default function RootLayout({
   children,
@@ -13,13 +19,15 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
+      <body className={montserrat.className}>
         <div className='appWrapper'>
           {/* @ts-expect-error Server Component */}
           <Navbar />
-          {children}
+          <main className='contentWrapper'>
+            {children}
+          </main>
         </div>
       </body>
     </html>
-  )
+  );
 }

@@ -21,11 +21,11 @@ export const Navbar = async () => {
       slug{current}
     }
   }`);
-
   return (
     <nav className={ styles.navbar }>
-      { navBar.map(siteSection => (
-        <div key={ siteSection._id } className={ styles.navItem }>
+      { navBar.map((siteSection, index) => (
+        <div key={ siteSection._id } className={ styles.navItem }
+          style={{ animationDelay: `${(index / 3)}s`}}>
           <Link href={siteSection.slug.current}>
             <h3>{ siteSection.siteSectionName }</h3>
           </Link>

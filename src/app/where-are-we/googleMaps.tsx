@@ -44,7 +44,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
           },
           icon: {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: 16,
+            scale: index == locationList.length - 1 ? 20 : 16,
             fillColor: '#e9d67a',
             fillOpacity: 1,
             strokeWeight: 2,

@@ -1,6 +1,6 @@
 import { client } from 'src/lib/sanity.client';
 import Link from 'next/link';
-import { BlogPost } from './interfaces_blog';
+import { BlogPost } from '../interfaces_blog';
 
 import styles from './BlogPostList.module.css';
 import { PortableText } from '@portabletext/react';

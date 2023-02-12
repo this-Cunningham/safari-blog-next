@@ -20,15 +20,6 @@ export interface Category {
   title: string;
 }
 
-export interface Location {
-  locationName: string;
-  mapLocation: {
-    _type: string;
-    lat: number;
-    lng: number;
-  };
-}
-
 export interface MainImage {
   _type: 'blogImage';
   _createdAt: string;
@@ -62,4 +53,20 @@ export interface BlogPost {
     current: string;
   };
   title: string;
+}
+
+export interface Location {
+  _createdAt: string;
+  _id: string;
+  _rev: string;
+  _type: string;
+  _updatedAt: string;
+  locationName: string;
+  mapLocation: MapLocation;
+}
+
+export interface MapLocation {
+  _type: string;
+  lat: number;
+  lng: number;
 }

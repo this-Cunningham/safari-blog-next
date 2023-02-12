@@ -5,7 +5,6 @@ import SideBar from 'src/components/SideBar';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['200', '300']
 });
 
 export default function RootLayout({

@@ -86,7 +86,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
         strokeWeight: 2,
         icons: [{
           icon: arrow,
-          repeat: '25%',
+          repeat: '240px',
         }]
       });
 

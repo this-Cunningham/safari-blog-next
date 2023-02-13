@@ -11,7 +11,12 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
   const mapsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const loader = new Loader({ apiKey });
+    // made apikey an empty string if on localhost
+    // made apikey an empty string if on localhost
+    // made apikey an empty string if on localhost
+    // made apikey an empty string if on localhost
+    // made apikey an empty string if on localhost
+    const loader = new Loader({ apiKey: window.location.href.includes('localhost') ? '':apiKey });
 
     const initGoogleMaps = async () => {
       if (!mapsRef.current) {

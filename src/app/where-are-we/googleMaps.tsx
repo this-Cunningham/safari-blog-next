@@ -16,7 +16,9 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
     // made apikey an empty string if on localhost
     // made apikey an empty string if on localhost
     // made apikey an empty string if on localhost
-    const loader = new Loader({ apiKey: window.location.href.includes('localhost') ? '':apiKey });
+    const loader = new Loader({
+      apiKey: window.location.href.includes('localhost') ? '' : apiKey
+    });
 
     const initGoogleMaps = async () => {
       if (!mapsRef.current) {
@@ -63,7 +65,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
           <div><strong>Photos:</strong> Link To photos</div>
         `;
 
-        google.maps.event.addListener(marker, 'mouseover', function() {
+        google.maps.event.addListener(marker, 'click', function() {
           const infoWindow = new google.maps.InfoWindow({
             // content: `Date: ${location.date.toDateString()}`
             content: infoWindowHtml,

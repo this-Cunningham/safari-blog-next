@@ -14,15 +14,15 @@ export default async function Photos () {
       <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', paddingTop: '16px' }}>
         { allPhotos.map(photo => (
           <img src={photo.image.asset.url} alt="" key={ photo._id }
-            style={{ maxWidth: '300px', maxHeight: '150px', borderRadius: '8px'}} />
+            style={{ maxWidth: '300px', maxHeight: '150px', borderRadius: '8px', width: 'unset'}} />
         ))}
         { allPhotos.map(photo => (
           <img src={photo.image.asset.url} alt="" key={ photo._id }
-            style={{ maxWidth: '300px', maxHeight: '150px', borderRadius: '8px'}} />
+            style={{ maxWidth: '300px', maxHeight: '150px', borderRadius: '8px', width: 'unset'}} />
         ))}
         { allPhotos.map(photo => (
           <img src={photo.image.asset.url} alt="" key={ photo._id }
-            style={{ maxWidth: '300px', maxHeight: '150px', borderRadius: '8px'}} />
+            style={{ maxWidth: '300px', maxHeight: '150px', borderRadius: '8px', width: 'unset'}} />
         ))}
       </div>
     </div>

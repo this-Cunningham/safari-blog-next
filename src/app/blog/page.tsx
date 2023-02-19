@@ -1,15 +1,11 @@
-import { client } from 'src/lib/sanity.client';
+import { PortableText } from '@portabletext/react';
 import Link from 'next/link';
-import { BlogPost, BlockContentImg } from '../interfaces_blog';
+
+import { BlogImageBlockContent } from 'src/components/PortableText';
+import { client } from 'src/lib/sanity.client';
 
 import styles from './BlogPostList.module.css';
-import { PortableText } from '@portabletext/react';
-
-const BlogImageBlockContent = ({ value }: { value: BlockContentImg; isInline?: boolean }) => {
-  return (
-    <img src={ value.image.asset.url} alt="" style={{ width: '50%'}}/>
-  );
-};
+import { BlogPost } from '../interfaces_blog';
 
 export default async function BlogPostList () {
   const blogPosts: BlogPost[] = await client.fetch(`*[_type == "blogPost"]{

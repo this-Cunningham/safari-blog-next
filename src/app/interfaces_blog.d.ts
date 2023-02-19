@@ -24,13 +24,7 @@ export interface MainImage {
   _type: 'blogImage';
   _createdAt: string;
   _id: string;
-  author: {
-    name: string;
-    slug: {
-      _type: string;
-      current: string;
-    };
-  };
+  author: Author;
   caption: string;
   image: {
     asset: {

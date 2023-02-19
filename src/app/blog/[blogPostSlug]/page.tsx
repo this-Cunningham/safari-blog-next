@@ -1,15 +1,11 @@
 import Link from 'next/link';
-import { client } from 'src/lib/sanity.client';
-import { BlockContentImg, BlogPost } from 'src/app/interfaces_blog';
-
-import styles from '../BlogPostList.module.css';
 import { PortableText } from '@portabletext/react';
 
-const BlogImageBlockContent = ({ value }: { value: BlockContentImg; isInline?: boolean }) => {
-  return (
-    <img src={ value.image.asset.url} alt="" style={{ width: '50%'}}/>
-  );
-};
+import { client } from 'src/lib/sanity.client';
+import { BlogImageBlockContent } from 'src/components/PortableText';
+
+import { BlogPost } from 'src/app/interfaces_blog';
+import styles from '../BlogPostList.module.css';
 
 export default async function BlogPosts({ params }: { params: { blogPostSlug: string }}) {
   const { blogPostSlug } = params;

@@ -1,0 +1,9 @@
+.authors-container {
+  display: grid;
+  grid-template-columns: 300px 300px;
+  gap: 32px;
+}
+
+.about-us-container {
+  width: 100%;
+}

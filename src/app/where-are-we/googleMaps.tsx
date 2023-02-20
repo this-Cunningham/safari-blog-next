@@ -2,20 +2,15 @@
 import { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 
-import { Location } from '../interfaces_blog';
+import { PublishedLocation } from '../interfaces_blog';
 import styles from './googleMaps.module.css';
 
-const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) => {
+const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
   const { apiKey, locationList } = options;
 
   const mapsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // made apikey an empty string if on localhost
-    // made apikey an empty string if on localhost
-    // made apikey an empty string if on localhost
-    // made apikey an empty string if on localhost
-    // made apikey an empty string if on localhost
     const loader = new Loader({
       apiKey: window.location.href.includes('localhost') ? '' : apiKey
     });
@@ -111,7 +106,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
   return { mapsRef };
 };
 
-export default function GoogleMaps ({ locations }: { locations: Location[] }) {
+export default function GoogleMaps ({ locations }: { locations: PublishedLocation[] }) {
   const { mapsRef } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
     locationList: locations,

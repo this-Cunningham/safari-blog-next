@@ -1,4 +1,4 @@
-import { Location as PublishedLocation } from 'src/app/interfaces_blog';
+import { PublishedLocation as PublishedLocation } from 'src/app/interfaces_blog';
 import { BlogPost } from 'src/components/BlogPost';
 import { ImageTile } from 'src/components/ImageTile';
 import { client } from 'src/lib/sanity.client';

@@ -20,7 +20,7 @@ export interface Category {
   title: string;
 }
 
-export interface MainImage {
+export interface BlogImage {
   _type: 'blogImage';
   _createdAt: string;
   _id: string;
@@ -33,6 +33,7 @@ export interface MainImage {
     };
   };
   imageTags: string;
+  location: PublishedLocation;
 }
 
 export interface BlogPostData {
@@ -41,8 +42,8 @@ export interface BlogPostData {
   body: any[];
   categories: Category[];
   excerpt: string;
-  location: Location;
-  mainImage: MainImage;
+  location: PublishedLocation;
+  mainImage: BlogImage;
   publishedAt: string;
   slug: {
     current: string;
@@ -50,7 +51,7 @@ export interface BlogPostData {
   title: string;
 }
 
-export interface Location {
+export interface PublishedLocation {
   _createdAt: string;
   _id: string;
   _rev: string;
@@ -59,7 +60,7 @@ export interface Location {
   locationName: string;
   mapLocation: MapLocation;
   locationBlogPosts: BlogPostData[];
-  locationImages: MainImage[];
+  locationImages: BlogImage[];
   slug: {
     current: string;
   };

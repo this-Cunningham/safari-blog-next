@@ -1,7 +1,7 @@
 import { client } from 'src/lib/sanity.client';
 import GoogleMaps from './googleMaps';
 
-import { Location as BlogLocation } from '../interfaces_blog';
+import { PublishedLocation as BlogLocation } from '../interfaces_blog';
 
 export default async function WhereAreWe () {
   const locations: BlogLocation[] = await client.fetch(`*[_type == "location"]{

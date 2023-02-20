@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { MainImage } from 'src/app/interfaces_blog';
+import { BlogImage } from 'src/app/interfaces_blog';
 import styles from './ImageTile.module.css';
 
-export const ImageTile = ({ photo }: { photo: MainImage }) => (
+export const ImageTile = ({ photo }: { photo: BlogImage }) => (
   <Link href={ `photos/${photo._id}` }>
     <img
       className={ styles.imageTile }

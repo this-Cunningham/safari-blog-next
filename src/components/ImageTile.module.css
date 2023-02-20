@@ -1,0 +1,6 @@
+.imageTile {
+  width: 'unset';
+  max-width: '300px';
+  max-height: '150px';
+  border-radius: '8px';
+}

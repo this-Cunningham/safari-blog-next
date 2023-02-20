@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { client } from 'src/lib/sanity.client';
 import { Author } from '../interfaces_blog';
 
-import styles from './authors.module.css';
+import styles from './Authors.module.css';
 
 const AuthorPanel = ({ author }: { author: Author }) => (
   <div className={ styles['author-wrapper'] } key={ author.slug.current }>

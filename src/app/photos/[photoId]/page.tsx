@@ -13,7 +13,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
   return (
     <>
       <img src={ image.asset.url } alt="" style={{ width: 'auto', maxHeight: '70vh' }}/>
-      <p>Photo by: { author.name } - Taken in: { location.locationName }</p>
+      <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
       <p>{ caption }</p>
       <p>Tags: { imageTags }</p>
     </>

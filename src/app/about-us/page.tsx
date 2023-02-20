@@ -24,6 +24,10 @@ export default async function AboutUs () {
             <Link href={ `photos/by/${author.slug.current}` }>
               Photos by { author.name.split(' ')[0] }
             </Link>
+            <br />
+            <Link href={ `blog/by/${author.slug.current}`}>
+              Blogs by { author.name.split(' ')[0] }
+            </Link>
           </div>
         )) }
       </div>

@@ -58,6 +58,8 @@ export interface Location {
   _updatedAt: string;
   locationName: string;
   mapLocation: MapLocation;
+  locationBlogPosts: BlogPost[];
+  locationImages: MainImage[];
 }
 
 export interface MapLocation {

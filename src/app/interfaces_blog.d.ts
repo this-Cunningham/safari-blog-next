@@ -32,6 +32,7 @@ export interface MainImage {
       url: string;
     };
   };
+  imageTags: string;
 }
 
 export interface BlogPost {

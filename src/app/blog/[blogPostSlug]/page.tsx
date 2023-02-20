@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
 
-import { client } from 'src/lib/sanity.client';
 import { BlogImageBlockContent } from 'src/components/PortableText';
+import { client } from 'src/lib/sanity.client';
 
 import { BlogPost } from 'src/app/interfaces_blog';
 import styles from '../BlogPostList.module.css';

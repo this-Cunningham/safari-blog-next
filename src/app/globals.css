@@ -33,7 +33,7 @@ p {
 /* handle layout here */
 .contentWrapper {
   max-width: 1440px;
-  margin: 104px auto;
+  margin: 104px auto 0;
   padding: 0 16px;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ p {
   }
 
   .sidebar-container {
-    height: 80vh;
+    height: 60vh;
     position: sticky;
     top: 104px;
     display: flex;

@@ -5,6 +5,7 @@ import { MainImage } from '../interfaces_blog';
 
 export default async function Photos () {
   const allPhotos: MainImage[] = await client.fetch(`*[_type == "blogImage"]{
+    _id,
     image{
       asset->
     }

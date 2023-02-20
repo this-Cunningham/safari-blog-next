@@ -60,8 +60,9 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
 
         const infoWindowHtml = `
           <div><strong>${locationName}:</strong></div>
-          <a href='/location/${encodeURIComponent(locationSlug)}'><div><strong>Related Blog Posts:</strong></a> Link to Blog Posts</div>
-          <div><strong>Photos:</strong> Link To photos</div>
+          <a href='/location/${encodeURIComponent(locationSlug)}'>
+            <div>Go to related Blogs + Images</div>
+          </a>
         `;
 
         google.maps.event.addListener(marker, 'click', function() {

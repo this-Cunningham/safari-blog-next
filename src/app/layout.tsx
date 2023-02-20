@@ -7,6 +7,9 @@ const montserrat = Montserrat({
   subsets: ['latin'],
 });
 
+// revalidating at the root layout causes revalidation of entire app
+export const revalidate = 120; // in seconds
+
 export default function RootLayout({
   children,
 }: {

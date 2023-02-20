@@ -36,7 +36,11 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
       });
 
       const path = locationList.map((location, index) => {
-        const { locationName, mapLocation: { lat, lng } } = location;
+        const {
+          locationName,
+          mapLocation: { lat, lng },
+          slug: { current: locationSlug }
+        } = location;
 
         const marker = new google.maps.Marker({
           position: { lat, lng },
@@ -61,7 +65,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: Location[] }) =>
 
         const infoWindowHtml = `
           <div><strong>${locationName}:</strong></div>
-          <div><strong>Related Blog Posts:</strong> Link to Blog Posts</div>
+          <a href='/location/${encodeURIComponent(locationSlug)}'><div><strong>Related Blog Posts:</strong></a> Link to Blog Posts</div>
           <div><strong>Photos:</strong> Link To photos</div>
         `;
 

@@ -35,7 +35,7 @@ export interface MainImage {
   imageTags: string;
 }
 
-export interface BlogPost {
+export interface BlogPostData {
   _id: string;
   author: Author;
   body: any[];
@@ -54,12 +54,15 @@ export interface Location {
   _createdAt: string;
   _id: string;
   _rev: string;
-  _type: string;
+  _type: 'location';
   _updatedAt: string;
   locationName: string;
   mapLocation: MapLocation;
-  locationBlogPosts: BlogPost[];
+  locationBlogPosts: BlogPostData[];
   locationImages: MainImage[];
+  slug: {
+    current: string;
+  };
 }
 
 export interface MapLocation {

@@ -9,25 +9,8 @@ export default async function WhereAreWe () {
     _createdAt,
     locationName,
     mapLocation,
-    "locationBlogPosts": *[_type=='blogPost' && references(^._id)]{
-      _id,
-      title,
-      mainImage->,
-      author,
-      body,
-      slug,
-      publishedAt,
-      categories,
-  },
-    "locationImages": *[_type=='blogImage' && references(^._id)]{
-      _id,
-      image{
-        asset->
-      }
-    }
+    slug{ current },
   }`);
-
-  // this query needs to either populate location photos/blogPosts below the interactive google map or needs to direct to a route like blog/at/[location-slug] or "photos/at/[location-slug]" or create a new route for locations... "locations/[location-slug]"
 
   return (
     <div style={{ width: '100%' }}>

@@ -15,13 +15,13 @@ const AuthorPanel = ({ author }: { author: Author }) => (
     <div className={ styles['author-info'] }>
       <p>{ author.bio }</p>
 
-      <Link href={ `/photos/by/${author.slug.current}` }>
+      <Link href={ `/about-us/${author.slug.current}/photos` }>
         Photos by { author.name.split(' ')[0] }
       </Link>
 
       <br />
 
-      <Link href={ `/blog/by/${author.slug.current}`}>
+      <Link href={ `/about-us/${author.slug.current}/blogs`}>
         Blogs by { author.name.split(' ')[0] }
       </Link>
     </div>

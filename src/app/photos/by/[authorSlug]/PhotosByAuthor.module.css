@@ -1,0 +1,24 @@
+.photos-by-author-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.photoWrapper {
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.photoCaption {
+  margin: 0;
+  font-size: x-small;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 8px;
+}

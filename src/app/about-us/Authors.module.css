@@ -1,0 +1,30 @@
+.authors-container {
+  display: grid;
+  grid-template-rows: min-content;
+  gap: 32px;
+}
+
+.about-us-container {
+  width: 100%;
+}
+
+.author-wrapper {
+  display: flex;
+  gap: 16px;
+}
+
+
+.author-avatar {
+
+}
+
+.author-avatar img {
+  width: 320px;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 16px;
+}

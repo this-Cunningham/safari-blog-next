@@ -5,7 +5,6 @@ import { BlogImage } from 'src/app/interfaces_blog';
 import { ImageTile } from 'src/components/ImageTile';
 
 export default async function PhotosByAuthor ({ params }: { params: { authorSlug: string }}) {
-  console.log(params)
   const photosByAuthor: BlogImage[] = await client.fetch(`*[_type == "blogImage"
     && author._ref in *[_type == "author"
     && slug.current == "${params.authorSlug}"]._id]{

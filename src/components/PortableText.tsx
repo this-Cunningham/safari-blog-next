@@ -5,11 +5,13 @@ export const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => 
 );
 
 export const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: BlockContentImg[]} }) => (
-  <div style={{ display: 'flex', gap: '8px', height: '320px', overflow: 'scroll hidden' }}>
-    { value.collectionImages?.map((image) => (
-      <img src={ image.image.asset.url } alt="" key={ image.image.asset.url }
-        style={{ height: '100%', width: 'auto' }}
-      />
-    ))}
-  </div>
+  // <div style={{ overflow: 'scroll hidden' }}>
+    <div style={{ display: 'flex', gap: '8px', height: '320px', overflow: 'scroll hidden' }}>
+      { value.collectionImages?.map((image) => (
+        <img src={ image.image.asset.url } alt="" key={ image.image.asset.url }
+          style={{ height: '100%' }}
+        />
+      ))}
+    </div>
+  // </div>
 );

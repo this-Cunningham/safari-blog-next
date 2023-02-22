@@ -23,6 +23,17 @@ export default async function BlogPostList () {
         },
         imageTags
       },
+      _type == 'imageCollectionRef' => @->{
+        _id,
+        collectionName,
+        collectionImages[]->{
+          caption,
+          image{
+            asset->
+          },
+          imageTags
+        },
+      },
       _type != 'reference' => @,
     },
     categories[]->{ title, description, slug{ current } },

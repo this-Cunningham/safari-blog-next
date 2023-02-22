@@ -21,13 +21,16 @@ export default async function PhotosByAuthor ({ params }: { params: { authorSlug
       { !!photosByAuthor.length && (
         <>
           <h2 className={ styles.header }>Photos by { photosByAuthor[0].author?.name }</h2>
+
           <div className={ styles['photos-by-author-container'] }>
+
             { photosByAuthor.map(photo => (
               <div key={ photo._id } className={ styles.photoWrapper }>
                 <ImageTile photo={ photo } />
                 <p className={ styles.photoCaption }>{ photo.caption }</p>
               </div>
             ))}
+
           </div>
         </>
       )}

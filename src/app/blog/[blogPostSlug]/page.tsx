@@ -25,6 +25,17 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
         },
         imageTags
       },
+      _type == 'imageCollectionRef' => @->{
+        _id,
+        collectionName,
+        collectionImages[]->{
+          caption,
+          image{
+            asset->
+          },
+          imageTags
+        },
+      },
       _type != 'reference' => @,
     },
     categories[]->{ title, description, slug{ current } },

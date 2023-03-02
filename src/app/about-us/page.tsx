@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ImageWrapper } from 'src/components/ImgWrapper';
 import { client } from 'src/lib/sanity.client';
 import { Author } from '../interfaces_blog';
 
@@ -9,7 +10,7 @@ const AuthorPanel = ({ author }: { author: Author }) => (
 
     <div className={ styles['author-avatar'] }>
       <h4>{ author.name }</h4>
-      <img src={ author.authorImage.asset.url } alt={ author.name } />
+      <ImageWrapper src={ author.authorImage.asset.url } alt={ author.name } />
     </div>
 
     <div className={ styles['author-info'] }>

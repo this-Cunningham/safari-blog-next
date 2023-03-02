@@ -1,14 +1,15 @@
 import { BlockContentImg } from 'src/app/interfaces_blog';
+import { ImageWrapper } from './ImgWrapper';
 
 export const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => (
-  <img src={ value.image.asset.url} alt="" />
+  <ImageWrapper src={ value.image.asset.url} alt="" />
 );
 
 export const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: BlockContentImg[]} }) => (
-  <div style={{ display: 'flex', gap: '8px', height: '320px', overflow: 'scroll hidden' }}>
+  <div style={{ display: 'flex', gap: '8px', height: '320px', overflow: 'scroll hidden', padding: '12px 0' }}>
     { value.collectionImages?.map((image) => (
-      <img src={ image.image.asset.url } alt="" key={ image.image.asset.url }
-        style={{ height: '100%', maxWidth: 'auto' }}
+      <ImageWrapper src={ image.image.asset.url } alt="" key={ image.image.asset.url }
+        style={{ height: '100%', maxWidth: 'fit-content' }}
       />
     ))}
   </div>

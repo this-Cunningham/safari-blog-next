@@ -2,8 +2,8 @@ import { client } from 'src/lib/sanity.client';
 import GoogleMaps from './googleMaps';
 
 import { PublishedLocation } from '../interfaces_blog';
-import { BlogPost } from 'src/components/BlogPost';
 import { ImageTile } from 'src/components/ImageTile';
+import { BlogPostTile, BlogPostTileList } from 'src/components/BlogPostTile';
 
 export default async function WhereAreWe () {
   const publishedLocations: PublishedLocation[] = await client.fetch(`
@@ -14,6 +14,7 @@ export default async function WhereAreWe () {
     "locationBlogPosts": *[_type=='blogPost' && references(^._id)]{
       _id,
       title,
+      excerpt,
       mainImage->{_createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
       author->,
       body[]{
@@ -61,9 +62,20 @@ export default async function WhereAreWe () {
               : (
               <>
                 <h3>BlogPosts from { locationName }</h3>
-                { locationBlogPosts.map(blogPost => (
-                  <BlogPost blogPost={ blogPost } key={ blogPost._id }/>
-                )) }
+                <br />
+                <div>
+                  <BlogPostTileList>
+                    { locationBlogPosts.map(blogPost => (
+                      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
+                    )) }
+                    { locationBlogPosts.map(blogPost => (
+                      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
+                    )) }
+                    { locationBlogPosts.map(blogPost => (
+                      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
+                    )) }
+                  </BlogPostTileList>
+                </div>
               </>
             )}
 

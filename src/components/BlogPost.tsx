@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { PortableText } from '@portabletext/react';
 
 import styles from './BlogPost.module.css';
-import { BlogImageBlockContent, ImageCollectionBlockContent } from './PortableText';
-import { BlogPostData as BlogPostData } from 'src/app/interfaces_blog';
+import { BlogPostBlockContent } from './BlogPostBlockContent';
+import { BlogPostData } from 'src/app/interfaces_blog';
 import { ImageWrapper } from './ImgWrapper';
 
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
@@ -19,14 +18,6 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
 
     <em>{ blogPost.mainImage.caption }</em>
 
-    <PortableText
-      value={ blogPost.body }
-      components={{
-        types: {
-          blogImageRef: BlogImageBlockContent,
-          imageCollectionRef: ImageCollectionBlockContent,
-         }
-      }}
-    />
+    <BlogPostBlockContent value={ blogPost.body } />
   </div>
 );

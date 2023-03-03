@@ -1,0 +1,44 @@
+.blogPostTileList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--theme-spacing-xl);
+}
+
+.blogPostTileList::after {
+  content: '';
+  width: 280px;
+  flex-grow: 1;
+}
+
+.blogPostTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  width: 280px;
+  text-align: center;
+}
+
+.blogPostTile img {
+  width: 100%;
+}
+
+.contentContainer {
+  padding: var(--theme-spacing-m);
+}
+
+.contentContainer a {
+  text-decoration: underline;
+}
+
+.contentContainer p {
+  font-size: 12px;
+}
+
+.blog-tile-date {
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+
+

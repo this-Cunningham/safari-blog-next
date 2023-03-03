@@ -61,7 +61,7 @@ export default async function WhereAreWe () {
               <h3 key={ locationName }>No blog posts from { locationName }</h3>
               : (
               <>
-                <h3>BlogPosts from { locationName }</h3>
+                <h3 style={{ textAlign: 'center' }}>BlogPosts from { locationName }</h3>
                 <br />
                 <div>
                   <BlogPostTileList>

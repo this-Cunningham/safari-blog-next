@@ -4,6 +4,7 @@
   gap: var(--theme-spacing-xl);
 }
 
+/* this helps with spacing blog tiles if spare drops to new row */
 .blogPostTileList::after {
   content: '';
   width: 280px;

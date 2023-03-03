@@ -15,7 +15,7 @@ export default async function WhereAreWe () {
   return (
     <div style={{ width: '100%' }}>
       <h1>Location</h1>
-      <GoogleMaps locations={ locations }/>
+      <GoogleMaps locations={ locations } />
     </div>
   );
 }

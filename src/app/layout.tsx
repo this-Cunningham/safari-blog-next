@@ -24,7 +24,9 @@ export default function RootLayout({
       <head />
       <body className={montserrat.className}>
           <main className='contentWrapper'>
-            {children}
+            <div className="main-content-container">
+              {children}
+            </div>
             <SideBar />
           </main>
           {/* @ts-expect-error Server Component */}

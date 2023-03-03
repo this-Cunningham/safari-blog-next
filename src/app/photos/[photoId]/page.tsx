@@ -17,7 +17,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
     <>
       { blogImages.map(({ image, author, location, caption, imageTags }) => (
         <>
-          <ImageWrapper src={ image.asset.url } alt="" style={{ width: 'auto', maxHeight: '70vh' }}/>
+          <ImageWrapper src={ image.asset.url } alt="" style={{ width: 'auto', maxHeight: '70vh' }} />
           <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
           <p>{ caption }</p>
           <p>Tags: { imageTags }</p>

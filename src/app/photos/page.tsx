@@ -12,7 +12,7 @@ export default async function Photos () {
   }`);
 
   return (
-    <div>
+    <>
       <h1 style={{ textAlign: 'center' }}>Photos</h1>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', paddingTop: '16px' }}>
         { allPhotos.map(photo => (
@@ -24,6 +24,6 @@ export default async function Photos () {
         ))}
 
       </div>
-    </div>
+    </>
   );
 }

@@ -7,7 +7,7 @@
 /* this helps with spacing blog tiles if spare drops to new row */
 .blogPostTileList::after {
   content: '';
-  width: 280px;
+  width: 320px;
   flex-grow: 1;
 }
 
@@ -15,8 +15,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex-grow: 1;
-  width: 280px;
+  width: 320px;
   text-align: center;
 }
 
@@ -34,6 +35,7 @@
 
 .contentContainer p {
   font-size: 12px;
+  margin: 8px;
 }
 
 .blog-tile-date {

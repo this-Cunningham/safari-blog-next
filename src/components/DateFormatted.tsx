@@ -6,15 +6,9 @@ interface DateFormatProps extends ComponentPropsWithoutRef<'div'> {
 export const DateFormatter = ({ dateString, ...props }: DateFormatProps) => {
   const objectDate = new Date(dateString);
 
-  const day = objectDate.getDate();
-
-  const month = objectDate.getMonth() + 1;
-
-  const year = objectDate.getFullYear().toString().slice(-2);
-
-  const fullDate = `${month}/${day}/${year}`;
+  const formattedDateString = objectDate.toLocaleString('default', { month: 'short', day: 'numeric', year: 'numeric' });
 
   return (
-    <div { ...props }>{ fullDate }</div>
+    <div { ...props }>{ formattedDateString }</div>
   );
 };

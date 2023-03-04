@@ -1,12 +1,11 @@
 import { client } from 'src/lib/sanity.client';
 
-import styles from './BlogPostList.module.css';
 import { BlogPostData } from '../interfaces_blog';
-import { BlogPost } from 'src/components/BlogPost';
+import { BlogPostTileList } from 'src/components/BlogPostTile';
 
 export default async function BlogPostList () {
   const blogPosts: BlogPostData[] = await client.fetch(`
-  *[_type == "blogPost"]{
+  *[_type == "blogPost"] | order(publishedAt desc) {
     _id,
     title,
     author->{
@@ -45,10 +44,6 @@ export default async function BlogPostList () {
   }`);
 
   return (
-    <div className={ styles.blogPostList }>
-      { blogPosts.map(blogPost => (
-        <BlogPost blogPost={ blogPost } key={ blogPost._id } />
-      ))}
-    </div>
+    <BlogPostTileList blogPosts={ blogPosts } />
   );
 };

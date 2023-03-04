@@ -79,9 +79,11 @@ export default async function WhereAreWe () {
             { locationImages.length == 0 ? <h3>No images from { locationName }</h3> : (
               <>
                 <h3>Images from { locationName }</h3>
-                { locationImages.map(image => (
-                  <ImageTile photo={ image } key={ image._id }/>
-                ))}
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', paddingTop: '16px' }}>
+                  { locationImages.map(image => (
+                    <ImageTile photo={ image } key={ image._id }/>
+                  ))}
+                </div>
               </>
             )}
 

@@ -1,6 +1,6 @@
 .imageTile {
   width: fit-content;
-  max-width: 300px;
+  max-width: 240px;
   max-height: 150px;
   border-radius: 8px;
   transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;;

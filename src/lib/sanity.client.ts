@@ -10,5 +10,5 @@ export const client = createClient({
   dataset: SANITY_dataset,
   apiVersion: '2023-02-10',
   token: process.env.SANITY_ADMIN_API_TOKEN,
-  useCdn: false,
+  useCdn: false, // set to false for production for revalidation
 });

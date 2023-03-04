@@ -3,7 +3,7 @@ import GoogleMaps from './googleMaps';
 
 import { PublishedLocation } from '../interfaces_blog';
 import { ImageTile } from 'src/components/ImageTile';
-import { BlogPostTile, BlogPostTileList } from 'src/components/BlogPostTile';
+import { BlogPostTileList } from 'src/components/BlogPostTile';
 
 export default async function WhereAreWe () {
   const publishedLocations: PublishedLocation[] = await client.fetch(`
@@ -11,7 +11,7 @@ export default async function WhereAreWe () {
     locationName,
     mapLocation,
     slug{ current },
-    "locationBlogPosts": *[_type=='blogPost' && references(^._id)]{
+    "locationBlogPosts": *[_type=='blogPost' && references(^._id)] | order(publishedAt desc){
       _id,
       title,
       excerpt,
@@ -50,10 +50,19 @@ export default async function WhereAreWe () {
     }
   }`);
 
+  const locationsWithBlogPostsSorted = publishedLocations.filter(location => {
+    return location.locationBlogPosts.length !== 0;
+  }).sort((a, b) => {
+    const aTime = new Date(a.locationBlogPosts[0].publishedAt).getTime();
+    const bTime = new Date(b.locationBlogPosts[0].publishedAt).getTime();
+
+    return aTime - bTime;
+  });
+
   return (
     <div style={{ width: '100%' }}>
       <h1>Location</h1>
-      <GoogleMaps locations={ publishedLocations }>
+      <GoogleMaps locations={ locationsWithBlogPostsSorted }>
 
         { publishedLocations.map(({ locationName, locationBlogPosts, locationImages, _id }) => (
           <div data-location={locationName} key={ _id }>
@@ -63,19 +72,7 @@ export default async function WhereAreWe () {
               <>
                 <h3 style={{ textAlign: 'center' }}>BlogPosts from { locationName }</h3>
                 <br />
-                <div>
-                  <BlogPostTileList>
-                    { locationBlogPosts.map(blogPost => (
-                      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
-                    )) }
-                    { locationBlogPosts.map(blogPost => (
-                      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
-                    )) }
-                    { locationBlogPosts.map(blogPost => (
-                      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
-                    )) }
-                  </BlogPostTileList>
-                </div>
+                <BlogPostTileList blogPosts={ locationBlogPosts } />
               </>
             )}
 

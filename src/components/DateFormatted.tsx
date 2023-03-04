@@ -8,7 +8,7 @@ export const DateFormatter = ({ dateString, ...props }: DateFormatProps) => {
 
   const day = objectDate.getDate();
 
-  const month = objectDate.getMonth();
+  const month = objectDate.getMonth() + 1;
 
   const year = objectDate.getFullYear().toString().slice(-2);
 

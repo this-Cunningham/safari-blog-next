@@ -5,7 +5,7 @@ import { ImageWrapper } from './ImgWrapper';
 import styles from './BlogPostTile.module.css';
 import { DateFormatter } from './DateFormatted';
 
-export const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
+const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
 
   <div className={styles.blogPostTile}>
     <ImageWrapper src={ blogPost.mainImage.image.asset.url } alt={ blogPost.mainImage.caption } />
@@ -24,8 +24,10 @@ export const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
   </div>
 );
 
-export const BlogPostTileList = ({ children }: { children: React.ReactNode }) => (
+export const BlogPostTileList = ({ blogPosts }: { blogPosts: BlogPostData[] }) => (
   <div className={ styles.blogPostTileList }>
-    { children }
+     { blogPosts.map(blogPost => (
+      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
+    )) }
   </div>
 );

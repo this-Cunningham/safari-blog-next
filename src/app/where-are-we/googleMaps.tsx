@@ -9,7 +9,7 @@ import React from 'react';
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
   const { apiKey, locationList } = options;
 
-  const [selectedLocation, setSelectedLocation] = React.useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = React.useState<string | null>(locationList[locationList.length - 1].locationName);
   const mapsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

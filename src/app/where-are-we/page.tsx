@@ -40,7 +40,7 @@ export default async function WhereAreWe () {
       },
       slug,
       publishedAt,
-      categories,
+      tags[]->{"slug": slug.current, tagName},
   },
     "locationImages": *[_type=='blogImage' && references(^._id)]{
       _id,

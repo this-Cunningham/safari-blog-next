@@ -36,7 +36,7 @@ p {
 }
 
 /* handle layout here */
-.contentWrapper {
+.appWrapper {
   max-width: 1440px;
   margin: 104px auto 0;
   padding: 0 48px 48px;
@@ -54,7 +54,7 @@ p {
 }
 
 @media (min-width: 1020px) {
-  .contentWrapper {
+  .appWrapper {
     display: grid;
     align-items: start;
     gap: var(--theme-spacing-xl);

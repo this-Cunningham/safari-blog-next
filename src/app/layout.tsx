@@ -25,7 +25,7 @@ export default function RootLayout({
       <head />
       <body className={montserrat.className}>
         <NavAndSideBarProviders>
-          <main className='contentWrapper'>
+          <main className='appWrapper'>
             <div className="main-content-container">
               {children}
             </div>

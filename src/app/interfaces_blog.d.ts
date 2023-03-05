@@ -12,14 +12,6 @@ export interface Author {
   };
 }
 
-export interface Category {
-  description: string;
-  slug: {
-    current: string;
-  };
-  title: string;
-}
-
 export interface BlogImage {
   _type: 'blogImage';
   _createdAt: string;
@@ -36,11 +28,13 @@ export interface BlogImage {
   location: PublishedLocation;
 }
 
+type Tag = { slug: string, tagName: string };
+
 export interface BlogPostData {
   _id: string;
   author: Author;
   body: any[];
-  categories: Category[];
+  tags: Tag[];
   excerpt: string;
   location: PublishedLocation;
   mainImage: BlogImage;

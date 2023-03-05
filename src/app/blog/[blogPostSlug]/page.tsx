@@ -7,8 +7,8 @@ import { BlogPostData } from 'src/app/interfaces_blog';
 export default async function BlogPosts({ params }: { params: { blogPostSlug: string }}) {
   const { blogPostSlug } = params;
 
-  const blogPosts: BlogPostData[] = await client.fetch(`
-  *[_type == "blogPost" && slug.current == "${blogPostSlug}"]{
+  const blogPost: BlogPostData = await client.fetch(`//groq
+  *[_type == "blogPost" && slug.current == "${blogPostSlug}"][0]{
     _id,
     title,
     author->{
@@ -38,7 +38,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
       },
       _type != 'reference' => @,
     },
-    categories[]->{ title, description, slug{ current } },
+    tags[]->{"slug": slug.current, tagName},
     excerpt,
     location->{ locationName, mapLocation },
     mainImage->{_createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
@@ -48,9 +48,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
 
   return (
     <div className={ styles.blogPostList }>
-      { blogPosts.map(blogPost => (
-        <BlogPost blogPost={ blogPost} key={ blogPost._id } />
-      ))}
+      <BlogPost blogPost={ blogPost} key={ blogPost._id } />
     </div>
   );
 }

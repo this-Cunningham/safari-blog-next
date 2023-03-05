@@ -24,17 +24,23 @@ export interface BlogImage {
       url: string;
     };
   };
-  imageTags: string;
+  tags: TagInterface[];
   location: PublishedLocation;
 }
 
-type Tag = { slug: string, tagName: string };
+export interface TagInterface { slug: string, tagName: string };
+
+export interface AllTags {
+  blogTags: TagInterface[];
+  mainImageTags: TagInterface[];
+  imageCollectionTags: (TagInterface | null)[];
+}
 
 export interface BlogPostData {
   _id: string;
   author: Author;
   body: any[];
-  tags: Tag[];
+  tags: TagInterface[];
   excerpt: string;
   location: PublishedLocation;
   mainImage: BlogImage;

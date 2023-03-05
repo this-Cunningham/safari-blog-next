@@ -4,6 +4,7 @@ import styles from './BlogPost.module.css';
 import { BlogPostBlockContent } from './BlogPostBlockContent';
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { ImageWrapper } from './ImgWrapper';
+import { Tag } from './Tag';
 
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
   <div className={styles.blogPost}>
@@ -19,5 +20,14 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
     <em>{ blogPost.mainImage.caption }</em>
 
     <BlogPostBlockContent value={ blogPost.body } />
+
+    { !!blogPost.tags.length && (
+      <>
+        Tags: {' '}
+        { blogPost.tags.map(tag => (
+          <><Tag tag={ tag } key={ tag.slug } />{' '}</>
+          ))}
+      </>
+    )}
   </div>
 );

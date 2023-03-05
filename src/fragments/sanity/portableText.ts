@@ -5,7 +5,7 @@ _type == 'blogImageRef' => @->{
     image{
       asset->
     },
-    imageTags
+    tags[]->{"slug": slug.current, tagName},
   },
   _type == 'imageCollectionRef' => @->{
     _id,
@@ -15,7 +15,7 @@ _type == 'blogImageRef' => @->{
       image{
         asset->
       },
-      imageTags
+      tags[]->{"slug": slug.current, tagName},
     },
   },
   _type != 'reference' => @,

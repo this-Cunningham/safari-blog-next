@@ -4,7 +4,7 @@ import { BlogPostData } from '../interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
 
 export default async function BlogPostList () {
-  const blogPosts: BlogPostData[] = await client.fetch(`
+  const blogPosts: BlogPostData[] = await client.fetch(`//groq
   *[_type == "blogPost"] | order(publishedAt desc) {
     _id,
     title,
@@ -20,7 +20,7 @@ export default async function BlogPostList () {
         image{
           asset->
         },
-        imageTags
+        tags[]->{"slug": slug.current, tagName},
       },
       _type == 'imageCollectionRef' => @->{
         _id,
@@ -30,7 +30,7 @@ export default async function BlogPostList () {
           image{
             asset->
           },
-          imageTags
+          tags[]->{"slug": slug.current, tagName},
         },
       },
       _type != 'reference' => @,

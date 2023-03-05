@@ -1,0 +1,4 @@
+.tag-link {
+  text-decoration: underline;
+  font-size: var(--theme-spacing-m);
+}

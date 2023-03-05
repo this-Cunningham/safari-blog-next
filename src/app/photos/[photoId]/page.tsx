@@ -3,11 +3,11 @@ import { ImageWrapper } from 'src/components/ImgWrapper';
 import { client } from 'src/lib/sanity.client';
 
 export default async function DisplayImage ({ params }: { params: { photoId: string }}) {
-  const blogImages: BlogImage[] = await client.fetch(`
+  const blogImages: BlogImage[] = await client.fetch(`//groq
     *[_type == "blogImage" && _id == "${params.photoId}"]{
       author->{name, slug},
       image{ asset->{ url } },
-      imageTags,
+      tags[]->{"slug": slug.current, tagName},
       caption,
       location->{ locationName }
     }
@@ -15,12 +15,12 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
 
   return (
     <>
-      { blogImages.map(({ image, author, location, caption, imageTags }) => (
+      { blogImages.map(({ image, author, location, caption, tags }) => (
         <>
           <ImageWrapper src={ image.asset.url } alt="" style={{ width: 'auto', maxHeight: '70vh' }} />
           <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
           <p>{ caption }</p>
-          <p>Tags: { imageTags }</p>
+          {/* <p>Tags: { tags }</p> */}
         </>
       ))}
     </>

@@ -6,7 +6,7 @@ import { ImageTile } from 'src/components/ImageTile';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
 
 export default async function WhereAreWe () {
-  const publishedLocations: PublishedLocation[] = await client.fetch(`
+  const publishedLocations: PublishedLocation[] = await client.fetch(`//groq
   *[_type == "location"]{
     locationName,
     mapLocation,
@@ -23,7 +23,7 @@ export default async function WhereAreWe () {
           image{
             asset->
           },
-          imageTags
+          tags[]->{"slug": slug.current, tagName},
         },
         _type == 'imageCollectionRef' => @->{
           _id,
@@ -33,7 +33,7 @@ export default async function WhereAreWe () {
             image{
               asset->
             },
-            imageTags
+            tags[]->{"slug": slug.current, tagName},
           },
         },
         _type != 'reference' => @,

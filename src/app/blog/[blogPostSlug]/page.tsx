@@ -47,7 +47,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
   }`);
 
   const allTags: AllTags = await client.fetch(`//groq
-    *[_type == "blogPost" && _id == "${blogPost._id}"][0]{
+    *[_type == "blogPost" && _id == "${blogPost._id ?? null}"][0]{
       "blogTags": tags[]->{"slug": slug.current, tagName},
 
       "mainImageTags": mainImage->.tags[]->{"slug": slug.current, tagName},

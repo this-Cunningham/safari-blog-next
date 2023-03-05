@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import styles from './BlogPost.module.css';
 import { BlogPostBlockContent } from './BlogPostBlockContent';
 import { BlogPostData } from 'src/app/interfaces_blog';
@@ -9,9 +7,7 @@ import { Tag } from './Tag';
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
   <div className={styles.blogPost}>
 
-    <Link href={ `/blog/${blogPost.slug.current}`}>
-      <h1>{ blogPost.title }</h1>
-    </Link>
+    <h1>{ blogPost.title }</h1>
 
     <p>by: { blogPost.author.name }</p>
 

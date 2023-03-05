@@ -49,6 +49,7 @@ export interface BlogPostData {
     current: string;
   };
   title: string;
+  allTags: AllTags;
 }
 
 export interface PublishedLocation {

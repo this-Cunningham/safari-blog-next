@@ -26,7 +26,7 @@ const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
 
 export const BlogPostTileList = ({ blogPosts }: { blogPosts: BlogPostData[] }) => (
   <div className={ styles.blogPostTileList }>
-     { blogPosts.map(blogPost => (
+    { blogPosts.map(blogPost => (
       <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
     )) }
   </div>

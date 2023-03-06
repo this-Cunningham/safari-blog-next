@@ -8,34 +8,6 @@ export default async function BlogPostList () {
   *[_type == "blogPost"] | order(publishedAt desc) {
     _id,
     title,
-    author->{
-      name,
-      slug{ current },
-      bio,
-      authorImage{ asset->{path, url} }
-    },
-    body[]{
-      _type == 'blogImageRef' => @->{
-        caption,
-        image{
-          asset->
-        },
-        tags[]->{"slug": slug.current, tagName},
-      },
-      _type == 'imageCollectionRef' => @->{
-        _id,
-        collectionName,
-        collectionImages[]->{
-          caption,
-          image{
-            asset->
-          },
-          tags[]->{"slug": slug.current, tagName},
-        },
-      },
-      _type != 'reference' => @,
-    },
-    tags[]->{"slug": slug.current, tagName},
     excerpt,
     location->{ locationName, mapLocation },
     mainImage->{ _createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },

@@ -16,28 +16,6 @@ export default async function WhereAreWe () {
       title,
       excerpt,
       mainImage->{_createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
-      author->,
-      body[]{
-        _type == 'blogImageRef' => @->{
-          caption,
-          image{
-            asset->
-          },
-          tags[]->{"slug": slug.current, tagName},
-        },
-        _type == 'imageCollectionRef' => @->{
-          _id,
-          collectionName,
-          collectionImages[]->{
-            caption,
-            image{
-              asset->
-            },
-            tags[]->{"slug": slug.current, tagName},
-          },
-        },
-        _type != 'reference' => @,
-      },
       slug,
       publishedAt,
       tags[]->{"slug": slug.current, tagName},

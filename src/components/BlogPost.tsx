@@ -20,9 +20,7 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
     { !!blogPost.tags.length && (
       <>
         Tags: {' '}
-        { blogPost.tags.map(tag => (
-          <><Tag tag={ tag } key={ tag.slug } />{' '}</>
-          ))}
+        { blogPost.tags.map(tag => <Tag tag={ tag } key={ tag.slug } /> )}
       </>
     )}
   </div>

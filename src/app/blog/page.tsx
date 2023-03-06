@@ -38,7 +38,7 @@ export default async function BlogPostList () {
     tags[]->{"slug": slug.current, tagName},
     excerpt,
     location->{ locationName, mapLocation },
-    mainImage->{_createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
+    mainImage->{ _createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
     publishedAt,
     slug{ current },
   }`);

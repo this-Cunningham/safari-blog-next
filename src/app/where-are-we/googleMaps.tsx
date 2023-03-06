@@ -4,10 +4,12 @@ import { Loader } from '@googlemaps/js-api-loader';
 
 import { PublishedLocation } from '../interfaces_blog';
 import styles from './googleMaps.module.css';
+import React from 'react';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
   const { apiKey, locationList } = options;
 
+  const [selectedLocation, setSelectedLocation] = React.useState<string | null>(locationList[locationList.length - 1].locationName);
   const mapsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,7 +36,6 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         const {
           locationName,
           mapLocation: { lat, lng },
-          slug: { current: locationSlug }
         } = location;
 
         const marker = new google.maps.Marker({
@@ -57,20 +58,25 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
             strokeColor: '#1c2331',
           }
         });
-
         const infoWindowHtml = `
-          <div><strong>${locationName}:</strong></div>
-          <a href='/location/${encodeURIComponent(locationSlug)}'>
-            <div>Go to related Blogs + Images</div>
-          </a>
+          <strong>${locationName}:</strong>
+          <div>Click marker to show content from <strong>${locationName}</strong></div>
         `;
 
-        google.maps.event.addListener(marker, 'click', function() {
-          const infoWindow = new google.maps.InfoWindow({
-            // content: `Date: ${location.date.toDateString()}`
+        const infoWindow = new google.maps.InfoWindow({
             content: infoWindowHtml,
-          });
+        });
+
+        google.maps.event.addListener(marker, 'mouseover', function() {
           infoWindow.open(map, marker);
+        });
+
+        marker.addListener('mouseout', () => {
+          infoWindow.close();
+        });
+
+        marker.addListener( 'click', () => {
+          setSelectedLocation(locationName);
         });
 
         return { lat, lng };
@@ -104,16 +110,31 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
 
   }, [apiKey, locationList]);
 
-  return { mapsRef };
+  return { mapsRef, selectedLocation };
 };
 
-export default function GoogleMaps ({ locations }: { locations: PublishedLocation[] }) {
-  const { mapsRef } = useGoogleMaps({
+export default function GoogleMaps ({ locations, children }: { locations: PublishedLocation[]; children: React.ReactNode }) {
+  const { mapsRef, selectedLocation } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
     locationList: locations,
   });
 
   return (
-    <div id={ styles.googleMapsContainer } ref={ mapsRef } />
+    <>
+      <div id={ styles.googleMapsContainer } ref={ mapsRef } />
+      { !selectedLocation && (
+        <h3>Click on a map marker to show content</h3>
+      )}
+      {/* my hope is this allows us to utilize pre-rendered components
+      and filter them based on the location state in this client component */}
+      { React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          if (child.props['data-location'] == selectedLocation) {
+            return child;
+          } else return null;
+        }
+        return null;
+      }) }
+    </>
   );
 }

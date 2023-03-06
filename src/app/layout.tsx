@@ -1,11 +1,15 @@
 import './globals.css';
-import { Navbar } from './Navbar';
 import { Montserrat } from '@next/font/google';
 import SideBar from 'src/components/SideBar';
+import { Navbar } from './Navbar';
+import { NavAndSideBarProviders } from './Providers';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
 });
+
+// revalidating at the root layout causes revalidation of entire app
+export const revalidate = 120; // in seconds
 
 export default function RootLayout({
   children,
@@ -20,12 +24,16 @@ export default function RootLayout({
       */}
       <head />
       <body className={montserrat.className}>
-          <main className='contentWrapper'>
-            {children}
+        <NavAndSideBarProviders>
+          <main className='appWrapper'>
+            <div className="main-content-container">
+              {children}
+            </div>
             <SideBar />
           </main>
           {/* @ts-expect-error Server Component */}
           <Navbar />
+        </NavAndSideBarProviders>
       </body>
     </html>
   );

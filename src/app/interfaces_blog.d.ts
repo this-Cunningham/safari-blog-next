@@ -12,14 +12,6 @@ export interface Author {
   };
 }
 
-export interface Category {
-  description: string;
-  slug: {
-    current: string;
-  };
-  title: string;
-}
-
 export interface BlogImage {
   _type: 'blogImage';
   _createdAt: string;
@@ -32,15 +24,23 @@ export interface BlogImage {
       url: string;
     };
   };
-  imageTags: string;
+  tags: TagInterface[];
   location: PublishedLocation;
+}
+
+export interface TagInterface { slug: string, tagName: string };
+
+export interface AllTags {
+  blogTags: TagInterface[];
+  mainImageTags: TagInterface[];
+  imageCollectionTags: (TagInterface | null)[];
 }
 
 export interface BlogPostData {
   _id: string;
   author: Author;
   body: any[];
-  categories: Category[];
+  tags: TagInterface[];
   excerpt: string;
   location: PublishedLocation;
   mainImage: BlogImage;
@@ -49,6 +49,7 @@ export interface BlogPostData {
     current: string;
   };
   title: string;
+  allTags: AllTags;
 }
 
 export interface PublishedLocation {

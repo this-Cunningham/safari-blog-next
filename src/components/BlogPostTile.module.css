@@ -1,0 +1,48 @@
+.blogPostTileList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--theme-spacing-xl);
+}
+
+/* this helps with spacing blog tiles if spare drops to new row */
+.blogPostTileList::after {
+  content: '';
+  width: 320px;
+  flex-grow: 1;
+}
+
+.blogPostTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  width: 320px;
+  text-align: center;
+}
+
+.blogPostTile img {
+  width: 100%;
+}
+
+.contentContainer {
+  padding: var(--theme-spacing-m);
+}
+
+.contentContainer a {
+  text-decoration: underline;
+}
+
+.contentContainer p {
+  font-size: 12px;
+  margin: 8px;
+  line-height: 1.5em;
+}
+
+.blog-tile-date {
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+
+

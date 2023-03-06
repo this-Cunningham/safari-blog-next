@@ -2,16 +2,21 @@
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+
+  /* --theme-color-primary: */
+  /* --theme-color-secondary: */
+  /* --theme-color-tertiary: */
+  --theme-spacing-xs: 4px;
+  --theme-spacing-s: 8px;
+  --theme-spacing-m: 16px;
+  --theme-spacing-l: 24px;
+  --theme-spacing-xl: 32px;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-img {
-  width: 100%;
 }
 
 body {
@@ -27,17 +32,21 @@ a {
 }
 
 p {
-  margin: 8px 0;
+  margin: 16px 0;
 }
 
 /* handle layout here */
-.contentWrapper {
+.appWrapper {
   max-width: 1440px;
   margin: 104px auto 0;
-  padding: 0 16px;
+  padding: 0 48px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main-content-container {
+  width: 100%;
 }
 
 .sidebar-container {
@@ -45,11 +54,11 @@ p {
 }
 
 @media (min-width: 1020px) {
-  .contentWrapper {
+  .appWrapper {
     display: grid;
     align-items: start;
-    gap: 16px;
-    grid-template-columns: 1fr 320px;
+    gap: var(--theme-spacing-xl);
+    grid-template-columns: 1fr 240px;
   }
 
   .sidebar-container {

@@ -9,11 +9,12 @@ import React from 'react';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
   const { apiKey, locationList } = options;
-  const router = useRouter();
+
   const pathName = usePathname();
+  const router = useRouter();
 
   const mapsRef = useRef<HTMLDivElement>(null);
-  const mapControllerRef = useRef<google.maps.Map | null>(null);
+  const mapControllerRef = useRef<google.maps.Map>();
 
   const indexOfLocationSlugFromRoutePath = locationList.findIndex(location => {
     return pathName?.includes(location.slug.current);
@@ -25,13 +26,14 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: apiKey
+      apiKey: window.location.href.includes('localhost') ? '' : apiKey
     });
 
     const initGoogleMaps = async () => {
       if (!mapsRef.current) {
         return;
       }
+
       const google = await loader.load();
 
       mapControllerRef.current = new google.maps.Map(mapsRef.current, {
@@ -117,40 +119,42 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
       line.setMap(mapControllerRef.current);
     };
 
+    if (mapControllerRef.current) {
+      // mapControllerRef.current points at our google map instance
+      // do not want to re-initialize a google map instance w/ "initGoogleMaps()" if we already have one
+      // this was causing re-rendering when using router.push()
+      return;
+    }
+
     initGoogleMaps();
-    console.log('google map useeffect ran', window.location.pathname);
-    // not including pathname here because dont want map to re-render everytime path changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+  }, [apiKey, locationList, mapCenterIndex, router]);
 
   useEffect(() => {
-    // this useEffect reacts to the mapCenterIndex...which reacts to our route...this will pan the map when the route changes
+    // this useEffect reacts to the mapCenterIndex
+    // mapCenterIndex reacts to our route...
+    // this will pan the map when the route changes
     if (!mapControllerRef.current) {
       return;
     }
-    console.log('panning useEffect ran');
+
     mapControllerRef.current.panTo({
       lat: locationList[mapCenterIndex].mapLocation.lat,
       lng: locationList[mapCenterIndex].mapLocation.lng
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapCenterIndex]);
+
+  }, [locationList, mapCenterIndex]);
 
   return { mapsRef };
 };
 
-const GoogleMaps = function ({ locations, children }: { locations: PublishedLocation[]; children: React.ReactNode }) {
+export default function GoogleMaps ({ locations }: { locations: PublishedLocation[] }) {
   const { mapsRef } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
     locationList: locations,
   });
 
   return (
-    <>
-      <div id={ styles.googleMapsContainer } ref={ mapsRef } />
-      { children }
-    </>
+    <div id={ styles.googleMapsContainer } ref={ mapsRef } />
   );
 };
-
-export default React.memo(GoogleMaps);

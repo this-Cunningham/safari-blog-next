@@ -8,7 +8,8 @@ export default async function Photos () {
     _id,
     image{
       asset->
-    }
+    },
+    caption,
   }`);
 
   return (

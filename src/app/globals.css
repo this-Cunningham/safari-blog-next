@@ -39,10 +39,16 @@ p {
 .appWrapper {
   max-width: 1440px;
   margin: 104px auto 0;
-  padding: 0 48px 48px;
+  padding: 0 16px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (min-width: 400px) {
+  .appWrapper {
+    padding: 0 48px 48px;
+  }
 }
 
 .main-content-container {

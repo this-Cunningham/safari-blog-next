@@ -8,6 +8,7 @@ export default async function TagPage ({ params }: { params: { tagSlug: string }
     *[_type == 'blogImage' && "${params.tagSlug}" in tags[]->.slug.current]{
       _id,
       image{ asset->{ url }},
+      caption,
       tags[]->
     }
   `);

@@ -22,7 +22,8 @@ export default async function WhereAreWe ({ params }: { params: { locationSlug: 
         _id,
         image{
           asset->
-        }
+        },
+        caption,
       }
     }`);
 

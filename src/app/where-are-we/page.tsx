@@ -22,7 +22,8 @@ export default async function WhereAreWe () {
         _id,
         image{
           asset->
-        }
+        },
+        caption
       }
     }`);
 

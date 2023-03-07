@@ -11,11 +11,21 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
   const { apiKey, locationList } = options;
   const router = useRouter();
   const pathName = usePathname();
+
   const mapsRef = useRef<HTMLDivElement>(null);
+  const mapControllerRef = useRef<google.maps.Map | null>(null);
+
+  const indexOfLocationSlugFromRoutePath = locationList.findIndex(location => {
+    return pathName?.includes(location.slug.current);
+  });
+
+  const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
+    ? indexOfLocationSlugFromRoutePath
+    : locationList.length - 1;
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: window.location.href.includes('localhost') ? '' : apiKey
+      apiKey: apiKey
     });
 
     const initGoogleMaps = async () => {
@@ -24,16 +34,8 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
       }
       const google = await loader.load();
 
-      const indexOfLocationSlugFromRoutePath = locationList.findIndex(location => {
-        return pathName?.includes(location.slug.current);
-      });
-
-      const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
-        ? indexOfLocationSlugFromRoutePath
-        : locationList.length - 1;
-
-      const map = new google.maps.Map(mapsRef.current, {
-        zoom: 7,
+      mapControllerRef.current = new google.maps.Map(mapsRef.current, {
+        zoom: 6,
         center: {
           lat: locationList[mapCenterIndex].mapLocation.lat,
           lng: locationList[mapCenterIndex].mapLocation.lng
@@ -49,7 +51,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
 
         const marker = new google.maps.Marker({
           position: { lat, lng },
-          map,
+          map: mapControllerRef.current,
           label: {
             className: '',
             fontFamily: '',
@@ -77,7 +79,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         });
 
         google.maps.event.addListener(marker, 'mouseover', function() {
-          infoWindow.open(map, marker);
+          infoWindow.open(mapControllerRef.current, marker);
         });
 
         marker.addListener('mouseout', () => {
@@ -112,20 +114,32 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         }]
       });
 
-      line.setMap(map);
+      line.setMap(mapControllerRef.current);
     };
 
     initGoogleMaps();
-
-
+    console.log('google map useeffect ran', window.location.pathname);
     // not including pathname here because dont want map to re-render everytime path changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiKey, locationList, router]);
+  }, []);
+
+  useEffect(() => {
+    // this useEffect reacts to the mapCenterIndex...which reacts to our route...this will pan the map when the route changes
+    if (!mapControllerRef.current) {
+      return;
+    }
+    console.log('panning useEffect ran');
+    mapControllerRef.current.panTo({
+      lat: locationList[mapCenterIndex].mapLocation.lat,
+      lng: locationList[mapCenterIndex].mapLocation.lng
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapCenterIndex]);
 
   return { mapsRef };
 };
 
-export default function GoogleMaps ({ locations, children }: { locations: PublishedLocation[]; children: React.ReactNode }) {
+const GoogleMaps = function ({ locations, children }: { locations: PublishedLocation[]; children: React.ReactNode }) {
   const { mapsRef } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
     locationList: locations,
@@ -137,4 +151,6 @@ export default function GoogleMaps ({ locations, children }: { locations: Publis
       { children }
     </>
   );
-}
+};
+
+export default React.memo(GoogleMaps);

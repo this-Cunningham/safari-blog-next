@@ -1,14 +1,20 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
-import { BlogPostData } from 'src/app/interfaces_blog';
-import { ImageWrapper } from './ImgWrapper';
 import styles from './BlogPostTile.module.css';
 import { DateFormatter } from './DateFormatted';
+import { BlogPostData } from 'src/app/interfaces_blog';
+import { urlFor } from 'src/lib/imageUrlBuilder';
 
 const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
-
   <div className={styles.blogPostTile}>
-    <ImageWrapper src={ blogPost.mainImage.image.asset.url } alt={ blogPost.mainImage.caption } />
+    <Image
+      src={ urlFor(blogPost.mainImage.image).height(1200).width(1200*1.77).quality(100).url() }
+      alt={ blogPost.mainImage.caption }
+      height={640}
+      width={640*1.77}
+      key={ blogPost._id }
+    />
 
     <div className={ styles.contentContainer }>
       <DateFormatter dateString={ blogPost.publishedAt } className={ styles['blog-tile-date'] } />

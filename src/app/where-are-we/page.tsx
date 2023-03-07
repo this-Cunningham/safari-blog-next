@@ -25,7 +25,6 @@ export default async function WhereAreWe () {
         }
       }
     }`);
-    // consider changing this groq query to just fetch the most recent blog post...and only need to get
 
   const locationsWithBlogPostsSorted = publishedLocations.filter(location => {
     return location.locationBlogPosts.length !== 0;

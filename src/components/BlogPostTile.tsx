@@ -6,7 +6,7 @@ import { DateFormatter } from './DateFormatted';
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
-const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
+const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
   <div className={styles.blogPostTile}>
     <Image
       src={ urlFor(blogPost.mainImage.image).height(600).width(600*1.77).quality(100).url() }
@@ -14,6 +14,7 @@ const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
       height={640}
       width={640*1.77}
       key={ blogPost._id }
+      priority={ index < 6 }
     />
 
     <div className={ styles.contentContainer }>
@@ -32,8 +33,8 @@ const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
 
 export const BlogPostTileList = ({ blogPosts }: { blogPosts: BlogPostData[] }) => (
   <div className={ styles.blogPostTileList }>
-    { blogPosts.map(blogPost => (
-      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
+    { blogPosts.map((blogPost, index) => (
+      <BlogPostTile blogPost={ blogPost } key={ blogPost._id } index={ index } />
     )) }
   </div>
 );

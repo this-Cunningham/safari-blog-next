@@ -9,7 +9,7 @@ import { urlFor } from 'src/lib/imageUrlBuilder';
 const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
   <div className={styles.blogPostTile}>
     <Image
-      src={ urlFor(blogPost.mainImage.image).height(1200).width(1200*1.77).quality(100).url() }
+      src={ urlFor(blogPost.mainImage.image).height(600).width(600*1.77).quality(100).url() }
       alt={ blogPost.mainImage.caption }
       height={640}
       width={640*1.77}

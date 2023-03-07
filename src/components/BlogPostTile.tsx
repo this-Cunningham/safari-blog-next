@@ -9,11 +9,11 @@ import { urlFor } from 'src/lib/imageUrlBuilder';
 const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
   <div className={styles.blogPostTile}>
     <Image
-      src={ urlFor(blogPost.mainImage.image).height(600).width(600*1.77).quality(100).url() }
-      alt={ blogPost.mainImage.caption }
-      height={640}
-      width={640*1.77}
+      src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
+      height={500}
+      width={500*1.77}
       key={ blogPost._id }
+      alt={ blogPost.mainImage.caption }
       priority={ index < 6 }
     />
 

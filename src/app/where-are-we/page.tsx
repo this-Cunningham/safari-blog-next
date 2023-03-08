@@ -1,6 +1,6 @@
 import { PublishedLocation } from 'src/app/interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
-import { ImageTile } from 'src/components/ImageTile';
+import { ImageTileList } from 'src/components/ImageTile';
 import { client } from 'src/lib/sanity.client';
 
 export default async function WhereAreWe () {
@@ -59,11 +59,7 @@ export default async function WhereAreWe () {
         { locationImages.length == 0 ? <h3>No images from { locationName }</h3> : (
           <>
             <h3>Images from { locationName }</h3>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', paddingTop: '16px' }}>
-              { locationImages.map(image => (
-                <ImageTile photo={ image } key={ image._id }/>
-              ))}
-            </div>
+            <ImageTileList photos={ locationImages } />
           </>
         )}
       </div>

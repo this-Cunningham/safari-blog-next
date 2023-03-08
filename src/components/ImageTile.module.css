@@ -1,12 +1,31 @@
+.imageTileList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--theme-spacing-s);
+}
+
+/* this helps with spacing blog tiles if spare drops to new row */
+.imageTileList::after {
+  content: '';
+  width: 240px;
+  flex-grow: 1;
+}
+
 .imageTile {
-  max-width: 240px;
+  display: flex;
+  flex-grow: 1;
+  width: 240px;
   height: auto;
   border-radius: 8px;
   transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
 }
-/* look into how we did blogtile list images because they grow/shrink with screensize but also use next image */
 
 .imageTile:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);;
+}
+
+.imageTile img {
+  width: 100%;
+  height: auto;
 }

@@ -1,6 +1,6 @@
 import { BlogImage, BlogPostData } from 'src/app/interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
-import { ImageTile } from 'src/components/ImageTile';
+import { ImageTileList } from 'src/components/ImageTile';
 import { client } from 'src/lib/sanity.client';
 
 export default async function TagPage ({ params }: { params: { tagSlug: string }}) {
@@ -35,11 +35,7 @@ export default async function TagPage ({ params }: { params: { tagSlug: string }
         <BlogPostTileList blogPosts={ taggedBlogs } />
       </div>
       <h1 style={{ textAlign: 'center' }}>#{params.tagSlug} photos</h1>
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', paddingTop: '16px' }}>
-        { taggedImages.map(photo => (
-          <ImageTile photo={ photo } key={ photo._id } />
-        ))}
-      </div>
+      <ImageTileList photos={ taggedImages } />
     </>
   );
 }

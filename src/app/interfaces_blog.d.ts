@@ -5,7 +5,7 @@ export interface Author {
       url: string;
     };
   };
-  bio: string;
+  bio: any[];
   name: string;
   slug: {
     current: string;

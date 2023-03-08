@@ -3,7 +3,7 @@ import { BlockContentImg } from 'src/app/interfaces_blog';
 import { ImageWrapper } from './ImgWrapper';
 
 const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => (
-  <ImageWrapper src={ value.image.asset.url} alt="" />
+  <ImageWrapper src={ value.image?.asset.url ?? '' } alt="" />
 );
 
 const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: BlockContentImg[]} }) => (

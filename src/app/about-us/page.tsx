@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BlogPostBlockContent } from 'src/components/BlogPostBlockContent';
 import { ImageWrapper } from 'src/components/ImgWrapper';
 import { client } from 'src/lib/sanity.client';
 import { Author } from '../interfaces_blog';
@@ -14,7 +15,7 @@ const AuthorPanel = ({ author }: { author: Author }) => (
     </div>
 
     <div className={ styles['author-info'] }>
-      <p>{ author.bio }</p>
+      <BlogPostBlockContent value={ author.bio } />
 
       <Link href={ `/about-us/${author.slug.current}/photos` }>
         Photos by { author.name.split(' ')[0] }
@@ -34,10 +35,32 @@ export default async function AboutUs () {
   const authors: Author[] = await client.fetch(`*[_type == "author"]{
       name,
       slug{ current },
-      bio,
+      bio[]{
+        _type == 'blogImageRef' => @->{
+          caption,
+          image{
+            ...,
+            asset->
+          },
+          tags[]->{"slug": slug.current, tagName},
+        },
+        _type == 'imageCollectionRef' => @->{
+          _id,
+          collectionName,
+          collectionImages[]->{
+            caption,
+            image{
+              ...,
+              asset->
+            },
+            tags[]->{"slug": slug.current, tagName},
+          },
+        },
+        _type != 'reference' => @,
+      },
       authorImage{ ..., asset->{path, url} }
     }`);
-
+    console.log(authors[0].bio[0].children);
   return (
     <div className={ styles['about-us-container'] }>
       <div>ABOUT US</div>

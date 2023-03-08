@@ -60,7 +60,7 @@ export default async function AboutUs () {
       },
       authorImage{ ..., asset->{path, url} }
     }`);
-    console.log(authors[0].bio[0].children);
+
   return (
     <div className={ styles['about-us-container'] }>
       <div>ABOUT US</div>

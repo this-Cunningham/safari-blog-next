@@ -33,7 +33,7 @@ export default async function Safari () {
     return <div>Page not found</div>;
   }
   return (
-    <div style={{ maxWidth: '720px', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ maxWidth: '720px', display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
       <BlogPostBlockContent value={ safariInfo }/>
     </div>
   );

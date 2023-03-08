@@ -4,13 +4,25 @@ import { Loader } from '@googlemaps/js-api-loader';
 
 import { PublishedLocation } from '../interfaces_blog';
 import styles from './googleMaps.module.css';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
   const { apiKey, locationList } = options;
 
-  const [selectedLocation, setSelectedLocation] = React.useState<string | null>(locationList[locationList.length - 1].locationName);
+  const pathName = usePathname();
+  const router = useRouter();
+
   const mapsRef = useRef<HTMLDivElement>(null);
+  const mapControllerRef = useRef<google.maps.Map>();
+
+  const indexOfLocationSlugFromRoutePath = locationList.findIndex(location => {
+    return pathName?.includes(location.slug.current);
+  });
+
+  const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
+    ? indexOfLocationSlugFromRoutePath
+    : locationList.length - 1;
 
   useEffect(() => {
     const loader = new Loader({
@@ -21,13 +33,14 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
       if (!mapsRef.current) {
         return;
       }
+
       const google = await loader.load();
 
-      const map = new google.maps.Map(mapsRef.current, {
-        zoom: 8,
+      mapControllerRef.current = new google.maps.Map(mapsRef.current, {
+        zoom: 6,
         center: {
-          lat: locationList[locationList.length - 1].mapLocation.lat,
-          lng: locationList[locationList.length - 1].mapLocation.lng
+          lat: locationList[mapCenterIndex].mapLocation.lat,
+          lng: locationList[mapCenterIndex].mapLocation.lng
         },
         streetViewControl: false,
       });
@@ -40,7 +53,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
 
         const marker = new google.maps.Marker({
           position: { lat, lng },
-          map,
+          map: mapControllerRef.current,
           label: {
             className: '',
             fontFamily: '',
@@ -68,7 +81,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         });
 
         google.maps.event.addListener(marker, 'mouseover', function() {
-          infoWindow.open(map, marker);
+          infoWindow.open(mapControllerRef.current, marker);
         });
 
         marker.addListener('mouseout', () => {
@@ -76,7 +89,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         });
 
         marker.addListener( 'click', () => {
-          setSelectedLocation(locationName);
+          router.push(`/where-are-we/${location.slug.current}`);
         });
 
         return { lat, lng };
@@ -103,38 +116,45 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         }]
       });
 
-      line.setMap(map);
+      line.setMap(mapControllerRef.current);
     };
+
+    if (mapControllerRef.current) {
+      // mapControllerRef.current points at our google map instance
+      // do not want to re-initialize a google map instance w/ "initGoogleMaps()" if we already have one
+      // this was causing re-rendering when using router.push()
+      return;
+    }
 
     initGoogleMaps();
 
-  }, [apiKey, locationList]);
+  }, [apiKey, locationList, mapCenterIndex, router]);
 
-  return { mapsRef, selectedLocation };
+  useEffect(() => {
+    // this useEffect reacts to the mapCenterIndex
+    // mapCenterIndex reacts to our route...
+    // this will pan the map when the route changes
+    if (!mapControllerRef.current) {
+      return;
+    }
+
+    mapControllerRef.current.panTo({
+      lat: locationList[mapCenterIndex].mapLocation.lat,
+      lng: locationList[mapCenterIndex].mapLocation.lng
+    });
+
+  }, [locationList, mapCenterIndex]);
+
+  return { mapsRef };
 };
 
-export default function GoogleMaps ({ locations, children }: { locations: PublishedLocation[]; children: React.ReactNode }) {
-  const { mapsRef, selectedLocation } = useGoogleMaps({
+export default function GoogleMaps ({ locations }: { locations: PublishedLocation[] }) {
+  const { mapsRef } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
     locationList: locations,
   });
 
   return (
-    <>
-      <div id={ styles.googleMapsContainer } ref={ mapsRef } />
-      { !selectedLocation && (
-        <h3>Click on a map marker to show content</h3>
-      )}
-      {/* my hope is this allows us to utilize pre-rendered components
-      and filter them based on the location state in this client component */}
-      { React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          if (child.props['data-location'] == selectedLocation) {
-            return child;
-          } else return null;
-        }
-        return null;
-      }) }
-    </>
+    <div id={ styles.googleMapsContainer } ref={ mapsRef } />
   );
-}
+};

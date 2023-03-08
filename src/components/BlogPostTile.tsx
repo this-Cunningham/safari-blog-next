@@ -1,14 +1,21 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
-import { BlogPostData } from 'src/app/interfaces_blog';
-import { ImageWrapper } from './ImgWrapper';
 import styles from './BlogPostTile.module.css';
 import { DateFormatter } from './DateFormatted';
+import { BlogPostData } from 'src/app/interfaces_blog';
+import { urlFor } from 'src/lib/imageUrlBuilder';
 
-const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
-
+const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
   <div className={styles.blogPostTile}>
-    <ImageWrapper src={ blogPost.mainImage.image.asset.url } alt={ blogPost.mainImage.caption } />
+    <Image
+      src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
+      height={500}
+      width={500*1.77}
+      key={ blogPost._id }
+      alt={ blogPost.mainImage.caption }
+      priority={ index < 6 }
+    />
 
     <div className={ styles.contentContainer }>
       <DateFormatter dateString={ blogPost.publishedAt } className={ styles['blog-tile-date'] } />
@@ -26,8 +33,8 @@ const BlogPostTile = ({ blogPost }: { blogPost: BlogPostData }) => (
 
 export const BlogPostTileList = ({ blogPosts }: { blogPosts: BlogPostData[] }) => (
   <div className={ styles.blogPostTileList }>
-    { blogPosts.map(blogPost => (
-      <BlogPostTile blogPost={ blogPost } key={ blogPost._id }/>
+    { blogPosts.map((blogPost, index) => (
+      <BlogPostTile blogPost={ blogPost } key={ blogPost._id } index={ index } />
     )) }
   </div>
 );

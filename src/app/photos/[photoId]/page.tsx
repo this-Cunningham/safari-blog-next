@@ -7,7 +7,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
   const blogImages: BlogImage[] = await client.fetch(`//groq
     *[_type == "blogImage" && _id == "${params.photoId}"]{
       author->{name, slug},
-      image{ asset->{ url } },
+      image{ ..., asset-> },
       tags[]->{"slug": slug.current, tagName},
       caption,
       location->{ locationName }

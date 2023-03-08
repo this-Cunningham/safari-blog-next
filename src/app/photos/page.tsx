@@ -7,6 +7,7 @@ export default async function Photos () {
   const allPhotos: BlogImage[] = await client.fetch(`*[_type == "blogImage"]{
     _id,
     image{
+      ...,
       asset->
     },
     caption,

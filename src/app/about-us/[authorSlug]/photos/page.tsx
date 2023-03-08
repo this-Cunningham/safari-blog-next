@@ -10,7 +10,7 @@ export default async function PhotosByAuthor ({ params }: { params: { authorSlug
     && author._ref in *[_type == "author"
     && slug.current == "${params.authorSlug}"]._id]{
       _id,
-      image{asset->},
+      image{..., asset->},
       caption,
       author->{name}
     }

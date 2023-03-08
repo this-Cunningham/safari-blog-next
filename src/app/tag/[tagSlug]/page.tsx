@@ -7,7 +7,7 @@ export default async function TagPage ({ params }: { params: { tagSlug: string }
   const taggedImages: BlogImage[] = await client.fetch(`
     *[_type == 'blogImage' && "${params.tagSlug}" in tags[]->.slug.current]{
       _id,
-      image{ asset->{ url }},
+      image{ ..., asset->},
       caption,
       tags[]->
     }
@@ -22,7 +22,7 @@ export default async function TagPage ({ params }: { params: { tagSlug: string }
       _id,
       title,
       excerpt,
-      mainImage->{ _createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
+      mainImage->{ _createdAt, caption, image{ ..., asset-> }, author->{ name, slug } },
       publishedAt,
       slug{ current },
     }

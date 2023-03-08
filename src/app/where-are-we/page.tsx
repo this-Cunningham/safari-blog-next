@@ -13,7 +13,7 @@ export default async function WhereAreWe () {
         _id,
         title,
         excerpt,
-        mainImage->{_createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug } },
+        mainImage->{_createdAt, caption, image{ ..., asset-> }, author->{ name, slug } },
         slug,
         publishedAt,
         tags[]->{"slug": slug.current, tagName},
@@ -21,6 +21,7 @@ export default async function WhereAreWe () {
       "locationImages": *[_type=='blogImage' && references(^._id)]{
         _id,
         image{
+          ...,
           asset->
         },
         caption

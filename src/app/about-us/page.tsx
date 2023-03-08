@@ -35,7 +35,7 @@ export default async function AboutUs () {
       name,
       slug{ current },
       bio,
-      authorImage{ asset->{path, url} }
+      authorImage{ ..., asset->{path, url} }
     }`);
 
   return (

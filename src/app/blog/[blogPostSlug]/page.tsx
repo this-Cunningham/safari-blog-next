@@ -21,6 +21,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
         _type == 'blogImageRef' => @->{
           caption,
           image{
+            ...,
             asset->
           },
           tags[]->{"slug": slug.current, tagName},
@@ -31,6 +32,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
           collectionImages[]->{
             caption,
             image{
+              ...,
               asset->
             },
             tags[]->{"slug": slug.current, tagName},
@@ -41,7 +43,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
       tags[]->{"slug": slug.current, tagName},
       excerpt,
       location->{ locationName, mapLocation },
-      mainImage->{_createdAt, caption, image{ asset->{ path, url } }, author->{ name, slug }, tags[]->{"slug": slug.current, tagName} },
+      mainImage->{_createdAt, caption, image{ ..., asset-> }, author->{ name, slug }, tags[]->{"slug": slug.current, tagName} },
       publishedAt,
       slug{ current },
       "allTags": array::compact([

@@ -20,7 +20,7 @@ const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: Blo
   <div className={ styles.imageCollectionBlockContent }>
     { value.collectionImages?.map((image, index) => (
       <Image
-        src={ urlFor(image.image).quality(100).url() }
+        src={ urlFor(image.image).width(800).quality(100).url() }
         height={ 320 }
         width={ 400 }
         alt={ image.caption }

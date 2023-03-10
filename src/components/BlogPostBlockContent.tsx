@@ -7,7 +7,7 @@ import { urlFor } from 'src/lib/imageUrlBuilder';
 
 const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => (
   <Image
-    src={ urlFor(value.image).width(1200).quality(100).url() }
+    src={ urlFor(value.image).quality(100).url() }
     height={ 720 }
     width={ 720 }
     priority
@@ -20,7 +20,7 @@ const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: Blo
   <div className={ styles.imageCollectionBlockContent }>
     { value.collectionImages?.map((image, index) => (
       <Image
-        src={ urlFor(image.image).width(800).quality(100).url() }
+        src={ urlFor(image.image).quality(100).url() }
         height={ 320 }
         width={ 400 }
         alt={ image.caption }

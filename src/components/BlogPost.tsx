@@ -14,7 +14,7 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
     <p>by: { blogPost.author.name }</p>
 
     <Image
-      src={ urlFor(blogPost.mainImage.image).width(1000).quality(100).url() }
+      src={ urlFor(blogPost.mainImage.image).width(1200).quality(100).url() }
       height={ 720 }
       width={ 720 }
       priority

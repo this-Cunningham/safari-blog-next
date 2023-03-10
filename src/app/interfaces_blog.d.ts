@@ -12,6 +12,20 @@ export interface Author {
   };
 }
 
+export interface SanityImageMetadata {
+  _type: 'sanity.imageMetadata';
+  blurHash: string;
+  dimensions: {
+    _type: 'sanity.imageDimensions';
+    aspectRatio: number;
+    height: number;
+    width: number;
+  };
+  hasAlpha: boolean;
+  isOpaque: boolean;
+  lqip: string;
+}
+
 export interface BlogImage {
   _type: 'blogImage';
   _createdAt: string;
@@ -22,6 +36,7 @@ export interface BlogImage {
     asset: {
       path: string;
       url: string;
+      metadata: SanityImageMetadata;
     };
   };
   tags: TagInterface[];

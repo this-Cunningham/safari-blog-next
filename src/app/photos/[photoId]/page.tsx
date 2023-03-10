@@ -33,18 +33,19 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
 
   return (
     <>
-      { blogImages.map(({ image, author, location, caption, tags }) => (
+      { blogImages.map(({ _id, image, author, location, caption, tags }) => (
         <>
-          <div>
-            <Image
-              src={ urlFor(image).quality(100).url() }
-              priority
-              width={ 720 }
-              height={ 720 }
-              alt={ caption }
-              className={ styles.nextDisplayImage }
-            />
-          </div>
+          <Image
+            src={ urlFor(image).quality(100).url() }
+            priority
+            width={ image.asset.metadata.dimensions.width }
+            height={ image.asset.metadata.dimensions.height }
+            alt={ caption }
+            blurDataURL={ image.asset.metadata.lqip }
+            placeholder='blur'
+            className={ styles.nextDisplayImage }
+            key={ _id }
+          />
           <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
           <p>{ caption }</p>
           { tags && tags.length && (

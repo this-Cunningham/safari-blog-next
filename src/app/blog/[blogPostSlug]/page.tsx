@@ -89,7 +89,7 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
       <BlogPost key={ blogPost._id }
         blogPost={{
           ...blogPost,
-          tags: getUniqueTags(blogPost.allTags)
+          tags: getUniqueTags(blogPost.allTags),
         }}
       />
     </div>

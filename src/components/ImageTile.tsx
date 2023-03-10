@@ -10,6 +10,8 @@ const ImageTile = ({ photo, priority }: { photo: BlogImage; priority: boolean })
       src={ urlFor(photo.image).height(300).width(300*1.77).quality(100).url() }
       height={ 300 }
       width={ 300*1.77 }
+      placeholder='blur'
+      blurDataURL={ photo.image.asset.metadata.lqip }
       priority={ priority }
       alt={ photo.caption }
     />

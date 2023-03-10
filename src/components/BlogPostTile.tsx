@@ -12,7 +12,8 @@ const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: numb
       src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
       height={500}
       width={500*1.77}
-      key={ blogPost._id }
+      placeholder='blur'
+      blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
       alt={ blogPost.mainImage.caption }
       priority={ index < 6 }
     />

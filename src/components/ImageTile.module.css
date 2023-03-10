@@ -16,8 +16,11 @@
   flex-grow: 1;
   width: 240px;
   height: auto;
-  border-radius: 8px;
   transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+
+.imageTile img {
+  border-radius: 4px;
 }
 
 .imageTile:hover {

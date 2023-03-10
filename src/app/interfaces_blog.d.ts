@@ -75,9 +75,11 @@ export interface MapLocation {
 
 export interface BlockContentImg {
   _type: 'blogImageRef';
+  _id: string;
   image: {
     asset: {
       url: string;
     }
-  }
+  };
+  caption: string;
 }

@@ -7,6 +7,19 @@ import { client } from 'src/lib/sanity.client';
 
 import styles from '../Photos.module.css';
 
+// Return a list of `params` to populate the [photoId] dynamic segment
+// "generateStaticParams" is static rendering each of these dynamic routes at build time!
+export async function generateStaticParams() {
+  const blogImages: BlogImage[] = await client.fetch(`//groq
+  *[_type == "blogImage"] {
+    _id
+  }`);
+
+  return blogImages.map((post) => ({
+    photoId: post._id,
+  }));
+}
+
 export default async function DisplayImage ({ params }: { params: { photoId: string }}) {
   const blogImages: BlogImage[] = await client.fetch(`//groq
     *[_type == "blogImage" && _id == "${params.photoId}"]{

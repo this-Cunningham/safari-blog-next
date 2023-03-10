@@ -4,6 +4,19 @@ import { BlogPost } from 'src/components/BlogPost';
 import styles from '../BlogPostList.module.css';
 import { AllTags, BlogPostData, TagInterface } from 'src/app/interfaces_blog';
 
+// Return a list of `params` to populate the [blogPostSlug] dynamic segment
+// "generateStaticParams" is static rendering each of these dynamic routes at build time!
+export async function generateStaticParams() {
+  const blogPosts: BlogPostData[] = await client.fetch(`//groq
+  *[_type == "blogPost"] {
+    slug{ current },
+  }`);
+
+  return blogPosts.map((post) => ({
+    blogPostSlug: post.slug.current,
+  }));
+}
+
 export default async function BlogPosts({ params }: { params: { blogPostSlug: string }}) {
   const { blogPostSlug } = params;
 

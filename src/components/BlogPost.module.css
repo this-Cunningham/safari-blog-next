@@ -5,11 +5,11 @@
   margin: 0 auto;
 }
 
-.blogPost img {
-  width: 100%;
-  height: auto;
-}
-
 .blogPost p {
   line-height: 1.5rem;
+}
+
+.nextBlogPostMainImage {
+  width: 100%;
+  height: auto;
 }

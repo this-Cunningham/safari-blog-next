@@ -5,7 +5,7 @@ export interface Author {
       url: string;
     };
   };
-  bio: string;
+  bio: any[];
   name: string;
   slug: {
     current: string;
@@ -75,9 +75,11 @@ export interface MapLocation {
 
 export interface BlockContentImg {
   _type: 'blogImageRef';
+  _id: string;
   image: {
     asset: {
       url: string;
     }
-  }
+  };
+  caption: string;
 }

@@ -1,0 +1,18 @@
+.nextBlogPostBodyImage {
+  width: 100%;
+  height: auto;
+}
+
+.imageCollectionBlockContent {
+  display: flex;
+  gap: 8px;
+  height: 320px;
+  overflow: scroll hidden;
+  padding: 12px 0;
+}
+
+.imageCollectionImage {
+  height: 100%;
+  width: auto;
+  max-width: fit-content;
+}

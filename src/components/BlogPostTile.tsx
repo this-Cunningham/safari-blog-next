@@ -14,7 +14,6 @@ const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: numb
       width={500*1.77}
       placeholder='blur'
       blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
-      key={ blogPost._id }
       alt={ blogPost.mainImage.caption }
       priority={ index < 6 }
     />

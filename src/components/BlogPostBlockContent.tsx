@@ -10,6 +10,8 @@ const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => (
     src={ urlFor(value.image).quality(100).url() }
     height={ 720 }
     width={ 720 }
+    placeholder='blur'
+    blurDataURL={ value.image.asset.metadata.lqip }
     alt={ value.caption }
     className={ styles.nextBlogPostBodyImage }
   />
@@ -20,8 +22,10 @@ const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: Blo
     { value.collectionImages?.map((image, index) => (
       <Image
         src={ urlFor(image.image).width(800).quality(100).url() }
-        height={ 320 }
-        width={ 400 }
+        height={ image.image.asset.metadata.dimensions.height }
+        width={ image.image.asset.metadata.dimensions.width }
+        placeholder='blur'
+        blurDataURL={ image.image.asset.metadata.lqip }
         alt={ image.caption }
         className={ styles.imageCollectionImage }
         key={ image._id + String(index) }

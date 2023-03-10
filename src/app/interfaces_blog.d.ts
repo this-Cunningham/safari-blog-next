@@ -94,6 +94,7 @@ export interface BlockContentImg {
   image: {
     asset: {
       url: string;
+      metadata: SanityImageMetadata;
     }
   };
   caption: string;

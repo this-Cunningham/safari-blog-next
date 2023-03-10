@@ -40,10 +40,10 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
             priority
             width={ image.asset.metadata.dimensions.width }
             height={ image.asset.metadata.dimensions.height }
-            alt={ caption }
             blurDataURL={ image.asset.metadata.lqip }
             placeholder='blur'
             className={ styles.nextDisplayImage }
+            alt={ caption }
             key={ _id }
           />
           <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>

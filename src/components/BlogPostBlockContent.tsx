@@ -10,7 +10,6 @@ const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => (
     src={ urlFor(value.image).quality(100).url() }
     height={ 720 }
     width={ 720 }
-    priority
     alt={ value.caption }
     className={ styles.nextBlogPostBodyImage }
   />

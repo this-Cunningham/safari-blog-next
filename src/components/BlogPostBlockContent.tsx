@@ -5,36 +5,36 @@ import styles from './BlogPostBlockContent.module.css';
 import { BlockContentImg } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
-const BlogImageBlockContent = ({ value }: { value: BlockContentImg }) => (
+const BlogImageBlockContent = ({ value: { image, caption }}: { value: BlockContentImg }) => (
   <Image
-    src={ urlFor(value.image).quality(100).url() }
-    height={ 720 }
+    src={ urlFor(image).quality(100).url() }
+    height={ 720 / image.asset.metadata.dimensions.aspectRatio }
     width={ 720 }
     placeholder='blur'
-    blurDataURL={ value.image.asset.metadata.lqip }
-    alt={ value.caption }
+    blurDataURL={ image.asset.metadata.lqip }
+    alt={ caption }
     className={ styles.nextBlogPostBodyImage }
   />
 );
 
-const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: BlockContentImg[]} }) => (
+const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: BlockContentImg[] } }) => (
   <div className={ styles.imageCollectionBlockContent }>
-    { value.collectionImages?.map((image, index) => (
+    { value.collectionImages?.map(({ image, caption, _id }, index) => (
       <Image
-        src={ urlFor(image.image).width(800).quality(100).url() }
-        height={ image.image.asset.metadata.dimensions.height }
-        width={ image.image.asset.metadata.dimensions.width }
+        src={ urlFor(image).width(720).quality(100).url() }
+        height={ 320 }
+        width={ 320 * image.asset.metadata.dimensions.aspectRatio }
         placeholder='blur'
-        blurDataURL={ image.image.asset.metadata.lqip }
-        alt={ image.caption }
+        blurDataURL={ image.asset.metadata.lqip }
+        alt={ caption }
         className={ styles.imageCollectionImage }
-        key={ image._id + String(index) }
+        key={ _id + String(index) }
       />
     ))}
   </div>
 );
 
-export const BlogPostBlockContent = ({ value }: { value: any[]}) => (
+export const BlogPostBlockContent = ({ value }: { value: any[] }) => (
   <PortableText
     value={ value }
     components={{

@@ -10,8 +10,8 @@ const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: numb
   <div className={styles.blogPostTile}>
     <Image
       src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
-      height={500}
-      width={500*1.77}
+      height={ 500 }
+      width={ 500*1.77 }
       placeholder='blur'
       blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
       alt={ blogPost.mainImage.caption }

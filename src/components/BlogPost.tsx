@@ -16,8 +16,8 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
     <Image
       src={ urlFor(blogPost.mainImage.image).quality(100).url() }
       priority
-      height={ blogPost.mainImage.image.asset.metadata.dimensions.height }
-      width={ blogPost.mainImage.image.asset.metadata.dimensions.width }
+      height={ 720 / blogPost.mainImage.image.asset.metadata.dimensions.aspectRatio }
+      width={ 720 }
       placeholder='blur'
       blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
       alt={ blogPost.mainImage.caption }

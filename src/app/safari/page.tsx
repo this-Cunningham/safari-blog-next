@@ -34,7 +34,7 @@ export default async function Safari () {
   }
   return (
     <div style={{ maxWidth: '720px', display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
-      <BlogPostBlockContent value={ safariInfo }/>
+      <BlogPostBlockContent value={ safariInfo } />
     </div>
   );
 }

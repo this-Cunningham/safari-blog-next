@@ -1,39 +1,36 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import styles from './BlogPostTile.module.css';
 import { DateFormatter } from './DateFormatted';
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
 const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
-  <div className={styles.blogPostTile}>
-    <Image
-      src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
-      height={ 500 }
-      width={ 500*1.77 }
-      placeholder='blur'
-      blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
-      alt={ blogPost.mainImage.caption }
-      priority={ index < 6 }
-    />
+  <div className='flex flex-col items-center grow w-80 text-center'>
+    <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-auto'>
+      <Image
+        src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
+        height={ 500 }
+        width={ 500*1.77 }
+        placeholder='blur'
+        blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
+        alt={ blogPost.mainImage.caption }
+        priority={ index < 6 }
+      />
 
-    <div className={ styles.contentContainer }>
-      <DateFormatter dateString={ blogPost.publishedAt } className={ styles['blog-tile-date'] } />
-      <h3>{ blogPost.title }</h3>
-
-      <p>{blogPost.excerpt}</p>
-
-      <Link href={ `/blog/${blogPost.slug.current}`}>
-        Read more
-      </Link>
-    </div>
-
+      <div className='p-4'>
+        <h3 className='font-semibold'>{ blogPost.title }</h3>
+        <DateFormatter dateString={ blogPost.publishedAt }
+          className='text-xs tracking-wider my-2'
+        />
+          <p className='text-xs m-2'>{ blogPost.excerpt }...</p>
+      </div>
+    </Link>
   </div>
 );
 
 export const BlogPostTileList = ({ blogPosts }: { blogPosts: BlogPostData[] }) => (
-  <div className={ styles.blogPostTileList }>
+  <div className='flex flex-wrap gap-8 after:w-80 after:flex-grow'>
     { blogPosts.map((blogPost, index) => (
       <BlogPostTile blogPost={ blogPost } key={ blogPost._id } index={ index } />
     )) }

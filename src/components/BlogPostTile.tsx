@@ -6,9 +6,10 @@ import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
 const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
-  <div className='flex flex-col items-center grow w-80 text-center'>
+  <div className='flex flex-col items-center grow w-80 text-center p-7 bg-skyPrimary-100 rounded drop-shadow-md'>
     <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-auto'>
       <Image
+        className='rounded'
         src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
         height={ 500 }
         width={ 500*1.77 }

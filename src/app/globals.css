@@ -6,15 +6,6 @@
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-  /* --theme-color-primary: */
-  /* --theme-color-secondary: */
-  /* --theme-color-tertiary: */
-  --theme-spacing-xs: 4px;
-  --theme-spacing-s: 8px;
-  --theme-spacing-m: 16px;
-  --theme-spacing-l: 24px;
-  --theme-spacing-xl: 32px;
 }
 
 * {
@@ -60,13 +51,6 @@ a {
 }
 
 @media (min-width: 1020px) {
-  .appWrapper {
-    display: grid;
-    align-items: start;
-    gap: var(--theme-spacing-xl);
-    grid-template-columns: 1fr 240px;
-  }
-
   .sidebar-container {
     height: 60vh;
     position: sticky;

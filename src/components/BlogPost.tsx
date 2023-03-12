@@ -6,7 +6,7 @@ import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
-  <div className='p-0 w-full max-w-[720px] my-0 mx-auto'>
+  <div className='p-0 w-full max-w-[720px] my-0 mx-auto space-y-4'>
 
     <h1 className='text-2xl leading-6'>{ blogPost.title }</h1>
 

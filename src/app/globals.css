@@ -35,10 +35,6 @@ a {
   text-decoration: none;
 }
 
-p {
-  margin: 12px 0;
-}
-
 /* handle layout here */
 .appWrapper {
   max-width: 1440px;

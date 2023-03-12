@@ -1,7 +1,6 @@
 import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
 
-import styles from './BlogPostBlockContent.module.css';
 import { BlockContentImg } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
@@ -13,12 +12,12 @@ const BlogImageBlockContent = ({ value: { image, caption }}: { value: BlockConte
     placeholder='blur'
     blurDataURL={ image.asset.metadata.lqip }
     alt={ caption }
-    className={ styles.nextBlogPostBodyImage }
+    className='w-full h-auto'
   />
 );
 
 const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: BlockContentImg[] } }) => (
-  <div className={ styles.imageCollectionBlockContent }>
+  <div className='flex gap-2 h-80 py-3 px-0 overflow-x-scroll overflow-y-hidden'>
     { value.collectionImages?.map(({ image, caption, _id }, index) => (
       <Image
         src={ urlFor(image).width(720).quality(100).url() }
@@ -27,7 +26,7 @@ const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: Blo
         placeholder='blur'
         blurDataURL={ image.asset.metadata.lqip }
         alt={ caption }
-        className={ styles.imageCollectionImage }
+        className='h-full w-auto max-w-fit'
         key={ _id + String(index) }
       />
     ))}

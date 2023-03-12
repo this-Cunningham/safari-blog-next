@@ -8,11 +8,12 @@ import { urlFor } from 'src/lib/imageUrlBuilder';
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
   <div className='p-0 w-full max-w-[720px] my-0 mx-auto'>
 
-    <h1 className='text-xl leading-6'>{ blogPost.title }</h1>
+    <h1 className='text-2xl leading-6'>{ blogPost.title }</h1>
 
-    <p className='text-xs'>by: { blogPost.author.name }</p>
+    <p className='text-xs font-light'>by: { blogPost.author.name }</p>
 
     <Image
+      className='w-full h-auto rounded'
       src={ urlFor(blogPost.mainImage.image).quality(100).url() }
       priority
       height={ 720 / blogPost.mainImage.image.asset.metadata.dimensions.aspectRatio }
@@ -20,10 +21,9 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
       placeholder='blur'
       blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
       alt={ blogPost.mainImage.caption }
-      className='w-full h-auto'
     />
 
-    <p className='text-xs my-1'>{ blogPost.mainImage.caption }</p>
+    <p className='text-xs my-1 font-light'>{ blogPost.mainImage.caption }</p>
 
     <BlogPostBlockContent value={ blogPost.body } />
 

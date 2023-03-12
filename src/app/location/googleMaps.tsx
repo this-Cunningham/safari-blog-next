@@ -89,7 +89,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         });
 
         marker.addListener( 'click', () => {
-          router.push(`/where-are-we/${location.slug.current}`);
+          router.push(`/location/${location.slug.current}`);
         });
 
         return { lat, lng };

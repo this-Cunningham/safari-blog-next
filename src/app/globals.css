@@ -61,18 +61,3 @@ a {
     grid-column: 2;
   }
 }
-
-.navItem {
-  opacity: 0;
-  animation: fadeIn 1.5s ease-in-out forwards;
-  transition: color .5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}

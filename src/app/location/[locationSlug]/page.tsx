@@ -3,6 +3,19 @@ import { BlogPostTileList } from 'src/components/BlogPostTile';
 import { ImageTileList } from 'src/components/ImageTile';
 import { client } from 'src/lib/sanity.client';
 
+// Return a list of `params` to populate the [locationSlug] dynamic segment
+// "generateStaticParams" is static rendering each of these dynamic routes at build time!
+export async function generateStaticParams() {
+  const locationSlugs: ({ slug: { current: string }})[] = await client.fetch(`//groq
+  *[_type == "location"] {
+    slug{ current },
+  }`);
+
+  return locationSlugs.map((location) => ({
+    locationSlug: location.slug.current,
+  }));
+}
+
 export default async function WhereAreWe ({ params }: { params: { locationSlug: string }}) {
   const publishedLocations: PublishedLocation[] = await client.fetch(`//groq
     *[_type == "location" && slug.current == "${params.locationSlug}"]{

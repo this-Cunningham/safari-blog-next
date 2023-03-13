@@ -32,7 +32,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
   return (
     <>
       { blogImages.map(({ _id, image, author, location, caption, tags }) => (
-        <>
+        <div className='w-full max-w-3xl mx-auto' key={ _id }>
           <Image
             className='h-auto w-full max-w-3xl'
             src={ urlFor(image).quality(100).url() }
@@ -42,7 +42,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
             blurDataURL={ image.asset.metadata.lqip }
             placeholder='blur'
             alt={ caption }
-            key={ _id }
+
           />
 
           <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
@@ -55,7 +55,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
               { tags.map(tag => <Tag tag={ tag } key={ tag.slug } /> )}
             </>
           )}
-        </>
+        </div>
       ))}
     </>
   );

@@ -8,44 +8,6 @@
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  color: #1c2331;
-  background: #f8f8f8;
-  background-color: #E8ddcb;
-  font-style: unset;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* handle layout here */
-.appWrapper {
-  max-width: 1440px;
-  margin: 104px auto 0;
-  padding: 0 16px 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-@media (min-width: 400px) {
-  .appWrapper {
-    padding: 0 48px 48px;
-  }
-}
-
-.main-content-container {
-  width: 100%;
-}
-
 .sidebar-container {
   display: none;
 }

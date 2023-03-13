@@ -6,10 +6,10 @@ import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
 const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
-  <div className='flex flex-col items-center grow w-80 text-center p-7 bg-skyPrimary-100 rounded drop-shadow-md'>
-    <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-auto'>
+  <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded drop-shadow-md'>
+    <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-full'>
       <Image
-        className='rounded'
+        className='rounded-t rounded-b-none'
         src={ urlFor(blogPost.mainImage.image).height(500).width(500*1.77).quality(100).url() }
         height={ 500 }
         width={ 500*1.77 }
@@ -19,8 +19,8 @@ const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: numb
         priority={ index < 6 }
       />
 
-      <div className='p-4 pt-6'>
-        <h3 className='font-bold text-xl'>{ blogPost.title }</h3>
+      <div className='p-6'>
+        <h3 className='group-hover:underline font-bold text-xl'>{ blogPost.title }</h3>
 
         <DateFormatter dateString={ blogPost.publishedAt }
           className='text-xs tracking-wider font-light my-2'

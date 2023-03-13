@@ -22,7 +22,9 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className={`tracking-[.02em] text-base bg-yellowAccent-50 text-black ${nunito.className}`}>
+      <body
+        className={ `tracking-[.02em] text-base bg-yellowAccent-50 text-black ${nunito.className}`}
+      >
         <main className='appWrapper'>
           <div className="main-content-container">
             {children}

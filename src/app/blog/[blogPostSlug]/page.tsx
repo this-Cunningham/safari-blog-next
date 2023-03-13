@@ -1,7 +1,6 @@
 import { client } from 'src/lib/sanity.client';
 import { BlogPost } from 'src/components/BlogPost';
 
-import styles from '../BlogPostList.module.css';
 import { AllTags, BlogPostData, TagInterface } from 'src/app/interfaces_blog';
 
 // Return a list of `params` to populate the [blogPostSlug] dynamic segment
@@ -85,13 +84,11 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
   };
 
   return (
-    <div className={ styles.blogPostList }>
-      <BlogPost key={ blogPost._id }
-        blogPost={{
-          ...blogPost,
-          tags: getUniqueTags(blogPost.allTags),
-        }}
-      />
-    </div>
+    <BlogPost key={ blogPost._id }
+      blogPost={{
+        ...blogPost,
+        tags: getUniqueTags(blogPost.allTags),
+      }}
+    />
   );
 }

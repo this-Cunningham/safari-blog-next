@@ -14,9 +14,6 @@ export default async function Photos () {
   }`);
 
   return (
-    <>
-      <h1 style={{ textAlign: 'center' }}>Photos</h1>
-      <ImageTileList photos={ allPhotos } />
-    </>
+    <ImageTileList photos={ allPhotos } />
   );
 }

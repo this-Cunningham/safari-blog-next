@@ -39,8 +39,7 @@ export default async function MapLayout ({ children }: { children: React.ReactNo
     });
 
   return (
-    <div style={{ width: '100%' }}>
-      <h1>Location</h1>
+    <div className='w-full'>
       <GoogleMaps locations={ locationsWithBlogPostsSorted } />
       { children }
     </div>

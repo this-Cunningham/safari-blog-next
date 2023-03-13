@@ -30,11 +30,9 @@ export default async function TagPage ({ params }: { params: { tagSlug: string }
 
   return (
     <>
-      <div>
-        <h1 style={{ textAlign: 'center' }}>#{params.tagSlug} blog posts</h1>
-        <BlogPostTileList blogPosts={ taggedBlogs } />
-      </div>
-      <h1 style={{ textAlign: 'center' }}>#{params.tagSlug} photos</h1>
+      <h1 className='text-center'>#{params.tagSlug} blog posts</h1>
+      <BlogPostTileList blogPosts={ taggedBlogs } />
+      <h1 className='text-center'>#{params.tagSlug} photos</h1>
       <ImageTileList photos={ taggedImages } />
     </>
   );

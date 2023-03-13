@@ -24,17 +24,7 @@ module.exports = {
         dark: colors.yellow[300],
       }
     },
-    extend: {
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        }
-      },
-      animation: {
-        fadeIn: 'fadeIn 1.5s ease-in-out forwards',
-      }
-    },
+    extend: {},
   },
   plugins: [],
 };

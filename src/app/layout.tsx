@@ -1,9 +1,9 @@
 import './globals.css';
-import { Montserrat } from '@next/font/google';
-import SideBar from 'src/components/SideBar';
+import { Nunito } from 'next/font/google';
 import { Navbar } from './Navbar';
 
-const montserrat = Montserrat({
+const nunito = Nunito({
+  weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
 });
 
@@ -22,12 +22,13 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className={montserrat.className}>
-        <main className='appWrapper'>
-          <div className="main-content-container">
+      <body
+        className={ `tracking-[.02em] text-base bg-yellowAccent-50 text-black ${nunito.className}` }
+      >
+        <main className='appWrapper flex flex-col items-center max-w-[1440px] mt-16 mx-auto mb-0 px-4 pt-0 pb-12 min-[400px]:pt-0 min-[400px]:px-12 min-[400px]:pb-12 sm:mt-24'>
+          <div className='w-full'>
             {children}
           </div>
-          <SideBar />
         </main>
         {/* @ts-expect-error Server Component */}
         <Navbar />

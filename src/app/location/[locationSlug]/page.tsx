@@ -36,16 +36,15 @@ export default async function WhereAreWe ({ params }: { params: { locationSlug: 
             { locationBlogPosts?.length == 0 ?
               <h3 key={ locationName }>No blog posts from { locationName }</h3>
               : (
-                <>
-                  <h3 style={ { textAlign: 'center' } }>BlogPosts from { locationName }</h3>
-                  <br />
+                <div className='mb-9'>
+                  <h3 className='text-lg font-bold text-center mb-4'>BlogPosts from { locationName }</h3>
                   <BlogPostTileList blogPosts={ locationBlogPosts } />
-                </>
+                </div>
               ) }
 
             { locationImages.length == 0 ? <h3>No images from { locationName }</h3> : (
               <>
-                <h3>Images from { locationName }</h3>
+                <h3 className='text-lg font-bold text-center mb-4'>Images from { locationName }</h3>
                 <ImageTileList photos={ locationImages } />
               </>
             ) }

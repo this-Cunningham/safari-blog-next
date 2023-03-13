@@ -5,8 +5,6 @@ import { Tag } from 'src/components/Tag';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
 
-import styles from '../Photos.module.css';
-
 // Return a list of `params` to populate the [photoId] dynamic segment
 // "generateStaticParams" is static rendering each of these dynamic routes at build time!
 export async function generateStaticParams() {
@@ -36,18 +34,21 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
       { blogImages.map(({ _id, image, author, location, caption, tags }) => (
         <>
           <Image
+            className='h-auto w-full max-w-3xl'
             src={ urlFor(image).quality(100).url() }
             priority
             width={ image.asset.metadata.dimensions.width }
             height={ image.asset.metadata.dimensions.height }
             blurDataURL={ image.asset.metadata.lqip }
             placeholder='blur'
-            className={ styles.nextDisplayImage }
             alt={ caption }
             key={ _id }
           />
+
           <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
+
           <p>{ caption }</p>
+
           { tags && tags.length && (
             <>
               Tags: {' '}

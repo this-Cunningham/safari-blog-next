@@ -3,6 +3,7 @@ export interface Author {
     asset: {
       path: string;
       url: string;
+      metadata: SanityImageMetadata;
     };
   };
   bio: any[];

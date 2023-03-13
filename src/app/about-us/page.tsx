@@ -1,33 +1,37 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
 import { BlogPostBlockContent } from 'src/components/BlogPostBlockContent';
-import { ImageWrapper } from 'src/components/ImgWrapper';
+import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
 import { Author } from '../interfaces_blog';
 
-import styles from './Authors.module.css';
-
 const AuthorPanel = ({ author }: { author: Author }) => (
-  <div className={ styles['author-wrapper'] } key={ author.slug.current }>
+  <div className='space-y-4' key={ author.slug.current }>
 
-    <div className={ styles['author-avatar'] }>
-      <h4>{ author.name }</h4>
-      <ImageWrapper src={ author.authorImage.asset.url } alt={ author.name } />
+    <div className='sm:shrink-0 sm:w-52 sm:float-left sm:mr-4 sm:mb-1'>
+      <Image
+        className='w-full h-auto'
+        src={ urlFor(author.authorImage).quality(100).url() }
+        width={ 320 }
+        height={ 320 / author.authorImage.asset.metadata.dimensions.aspectRatio }
+        placeholder='blur'
+        blurDataURL={ author.authorImage.asset.metadata.lqip }
+        alt='author image'
+      />
     </div>
 
-    <div className={ styles['author-info'] }>
-      <BlogPostBlockContent value={ author.bio } />
+    <BlogPostBlockContent value={ author.bio } />
 
-      <Link href={ `/about-us/${author.slug.current}/photos` }>
-        Photos by { author.name.split(' ')[0] }
-      </Link>
+    <Link href={ `/about-us/${author.slug.current}/photos` }>
+      Photos by { author.name.split(' ')[0] }
+    </Link>
 
-      <br />
+    <br />
 
-      <Link href={ `/about-us/${author.slug.current}/blogs`}>
-        Blogs by { author.name.split(' ')[0] }
-      </Link>
-    </div>
-
+    <Link href={ `/about-us/${author.slug.current}/blogs`}>
+      Blogs by { author.name.split(' ')[0] }
+    </Link>
   </div>
 );
 
@@ -58,13 +62,12 @@ export default async function AboutUs () {
         },
         _type != 'reference' => @,
       },
-      authorImage{ ..., asset->{path, url} }
+      authorImage{ ..., asset-> }
     }`);
 
   return (
-    <div className={ styles['about-us-container'] }>
-      <div>ABOUT US</div>
-      <div className={ styles['authors-container'] }>
+    <div className='w-full max-w-[720px] my-0 mx-auto'>
+      <div className='grid grid-rows-[min-content] gap-8'>
         { authors.map(author => (
           <AuthorPanel author={ author } key={ author.slug.current } />
         )) }

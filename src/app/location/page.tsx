@@ -3,7 +3,7 @@ import { BlogPostTileList } from 'src/components/BlogPostTile';
 import { ImageTileList } from 'src/components/ImageTile';
 import { client } from 'src/lib/sanity.client';
 
-export default async function WhereAreWe () {
+export default async function Locations () {
   const publishedLocations: PublishedLocation[] = await client.fetch(`//groq
     *[_type == "location"]{
       locationName,
@@ -51,7 +51,7 @@ export default async function WhereAreWe () {
           <h3 key={ locationName }>No blog posts from { locationName }</h3>
           : (
           <>
-            <h3 style={{ textAlign: 'center' }}>BlogPosts from { locationName }</h3>
+            <h3 className='text-center'>BlogPosts from { locationName }</h3>
             <br />
             <BlogPostTileList blogPosts={ locationBlogPosts } />
           </>

@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useRef } from 'react';
+
+import React, { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 
 import { PublishedLocation } from '../interfaces_blog';
-import styles from './googleMaps.module.css';
 import { usePathname, useRouter } from 'next/navigation';
-import React from 'react';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
   const { apiKey, locationList } = options;
@@ -89,7 +88,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
         });
 
         marker.addListener( 'click', () => {
-          router.push(`/where-are-we/${location.slug.current}`);
+          router.push(`/location/${location.slug.current}`);
         });
 
         return { lat, lng };
@@ -155,6 +154,6 @@ export default function GoogleMaps ({ locations }: { locations: PublishedLocatio
   });
 
   return (
-    <div id={ styles.googleMapsContainer } ref={ mapsRef } />
-  );
+    <div className='h-[60vh] rounded-lg mb-8' ref={ mapsRef } />
+    );
 };

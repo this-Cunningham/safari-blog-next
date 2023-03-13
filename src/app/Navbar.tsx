@@ -27,7 +27,7 @@ export const Navbar = async () => {
       { navBar.map((siteSection, index) => (
         <div className='opacity-0 animate-fadeIn hover:underline'
           key={ siteSection._id }
-          style={{ animationDelay: `${(index / 4)}s`}}
+          style={{ animationDelay: `${(index / 4)}s` }}
         >
           <Link href={`/${siteSection.slug.current}`}>
             <h3 className='font-[100] tracking-[2px]'>{ siteSection.siteSectionName }</h3>

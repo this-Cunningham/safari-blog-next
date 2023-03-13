@@ -8,7 +8,7 @@ import { urlFor } from 'src/lib/imageUrlBuilder';
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
   <div className='p-0 w-full max-w-[720px] my-0 mx-auto space-y-4'>
 
-    <h1 className='text-2xl leading-6'>{ blogPost.title }</h1>
+    <h1 className='text-2xl leading-6 font-bold'>{ blogPost.title }</h1>
 
     <p className='text-xs font-light'>by: { blogPost.author.name }</p>
 

@@ -20,13 +20,13 @@ const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: numb
       />
 
       <div className='p-4 pt-6'>
-        <h3 className='font-bold'>{ blogPost.title }</h3>
+        <h3 className='font-bold text-xl'>{ blogPost.title }</h3>
 
         <DateFormatter dateString={ blogPost.publishedAt }
           className='text-xs tracking-wider font-light my-2'
         />
 
-        <p className='text-xs m-2'>{ blogPost.excerpt }...</p>
+        <p className='text-s m-2'>{ blogPost.excerpt }...</p>
       </div>
     </Link>
   </div>

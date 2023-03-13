@@ -47,7 +47,7 @@ export const BlogPostBlockContent = ({ value }: { value: any[] }) => (
         imageCollectionRef: ImageCollectionBlockContent,
       },
       block: {
-        normal: ({ children }) => <p className='text-sm leading-[1.4rem]'>{ children }</p>,
+        normal: ({ children }) => <p className='text-base leading-[1.4rem]'>{ children }</p>,
       },
     }}
   />

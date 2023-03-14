@@ -45,7 +45,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
 
           />
 
-          <p>Photo by: { author.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
+          <p>Photo by: { author?.name } { !!location ? ` - Taken in: ${ location?.locationName }`: null}</p>
 
           <p>{ caption }</p>
 

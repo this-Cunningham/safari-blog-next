@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 
-import { PublishedLocation } from '../interfaces_blog';
+import { Adventure, PublishedLocation } from '../interfaces_blog';
 import { usePathname, useRouter } from 'next/navigation';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
@@ -149,25 +149,23 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
     });
 
   }, [locationList, mapCenterIndex]);
-  console.log('usegooglemaps custom hook ran');
+
   return { mapContainerRef };
 };
 
-export default function MapAndAdventures ({ locations }: { locations: PublishedLocation[] }) {
+export default function MapAndAdventures ({ adventures }: { adventures: Adventure[] }) {
   const { mapContainerRef } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-    locationList: locations,
+    locationList: adventures[0].adventureBlogPosts.map(blogpost => blogpost.location),
   });
 
   return (
     <div className='flex mb-8 gap-6'>
       <div className='h-72 sm:h-[40vh] rounded-lg flex-1' ref={ mapContainerRef } />
       <ul className='w-40 flex flex-col gap-2 items-center bg-gray-400 rounded p-2'>
-        <li>adventure 1</li>
-        <li>adventure 2</li>
-        <li>adventure ...</li>
-        <li>adventure ...</li>
-        <li>adventure ...</li>
+        { adventures.map(adventure => (
+          <li key={ adventure._id }>{ adventure.adventureName }</li>
+        ))}
       </ul>
     </div>
   );

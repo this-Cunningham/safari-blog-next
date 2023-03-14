@@ -39,6 +39,20 @@ export interface BlogImage {
       url: string;
       metadata: SanityImageMetadata;
     };
+    crop: {
+      _type: 'sanity.imageCrop'
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
+    };
+    hotspot:{
+      _type: 'sanity.imageHotspot';
+      height: number;
+      width: number;
+      x: number;
+      y: number;
+    };
   };
   tags: TagInterface[];
   location: PublishedLocation;

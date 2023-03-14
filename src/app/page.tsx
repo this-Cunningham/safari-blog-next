@@ -18,7 +18,7 @@ export default async function Home() {
       style={{ backgroundImage: `url("${urlFor(heroImage.image).quality(100).url()}")` }}
       className='
         bg-cover bg-no-repeat bg-center fixed
-        top-0 bottom-0 left-0 -right-[164px] sm:right-0
+        top-12 sm:top-0 bottom-0 left-0 -right-[88px] sm:right-0
       '
     />
   );

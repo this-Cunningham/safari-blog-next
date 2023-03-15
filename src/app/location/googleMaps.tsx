@@ -142,14 +142,14 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
     if (!googleMapInstanceRef.current) {
       return;
     }
-    console.log('pan useeffect ran', mapCenterIndex);
+
     googleMapInstanceRef.current.panTo({
       lat: locationList[mapCenterIndex].mapLocation.lat,
       lng: locationList[mapCenterIndex].mapLocation.lng
     });
 
   }, [locationList, mapCenterIndex]);
-  console.log('usegooglemaps custom hook ran');
+
   return { mapContainerRef };
 };
 

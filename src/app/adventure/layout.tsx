@@ -21,7 +21,7 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
       adventureSlug,
     }
   `);
-  console.log('adventure layout ran');
+
   return (
     <div className='w-full'>
       <MapAndAdventures adventures={ adventures } />

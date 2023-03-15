@@ -21,15 +21,7 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
       adventureSlug,
     }
   `);
-  // const locationsWithBlogPostsSorted = publishedLocations.filter(location => {
-  //   return location.locationBlogPosts.length !== 0;
-  // }).sort((a, b) => {
-  //   const aTime = new Date(a.locationBlogPosts[0].publishedAt).getTime();
-  //   const bTime = new Date(b.locationBlogPosts[0].publishedAt).getTime();
-
-  //   return aTime - bTime;
-  // });
-
+  console.log('adventure layout ran');
   return (
     <div className='w-full'>
       <MapAndAdventures adventures={ adventures } />

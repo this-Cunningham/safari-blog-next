@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const colors = require('tailwindcss/colors');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
@@ -25,6 +27,10 @@ module.exports = {
       }
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-nunito)', ...fontFamily.sans],
+        serif: ['var(--font-cinzel-decorative)', ...fontFamily.serif],
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },

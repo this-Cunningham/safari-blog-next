@@ -1,9 +1,18 @@
 import './globals.css';
-import { Nunito } from 'next/font/google';
+import { Nunito, Cinzel_Decorative } from 'next/font/google';
 import { Navbar } from './Navbar';
 
 const nunito = Nunito({
-  weight: ['300', '400', '500', '600'],
+  variable: '--font-nunito',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+});
+
+const cinzelDecorative = Cinzel_Decorative({
+  variable: '--font-cinzel-decorative',
+  display: 'swap',
+  weight: ['400', '700', '900'],
   subsets: ['latin'],
 });
 
@@ -16,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={ `${nunito.variable} ${cinzelDecorative.variable}` }>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head

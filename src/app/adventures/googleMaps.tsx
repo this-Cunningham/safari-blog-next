@@ -33,7 +33,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
       // can access "google" here as a namespace (without defining variable) as long as we load it in with loader.load()
       // otherwise will need to define "google" as const google = await loader.load();
       setGoogleMapInstance(new google.maps.Map(mapContainerRef.current, {
-        zoom: 7,
+        zoom: 6,
         center: {
           lat: locationList[locationList.length - 1].mapLocation.lat,
           lng: locationList[locationList.length - 1].mapLocation.lng
@@ -62,7 +62,8 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
     locationList: adventures[0].adventureBlogPosts.map(blogpost => blogpost.location),
   });
 
-  const adventureMapMemo: Record<string, { lat: number , lng: number, locationSlug: string, locationName: string }[]>
+  const adventureMapMemo:
+    Record<string, { lat: number , lng: number, locationSlug: string, locationName: string }[]>
   = React.useMemo(() => {
     return adventures.reduce((accum, curr) => {
       return ({
@@ -169,7 +170,7 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
         });
 
         marker.addListener( 'click', () => {
-          router.push(`/adventure/${currentAdventureSlug}/${locationSlug}`);
+          router.push(`/adventures/${currentAdventureSlug}/${locationSlug}`);
         });
 
         return { lat, lng };
@@ -203,16 +204,18 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   }, [currentAdventureData, currentAdventureSlug, googleMapInstance, line, markerList, router]);
 
   return (
-    <div className='flex mb-8 gap-6'>
-      <div className='h-72 sm:h-[60vh] rounded-lg flex-1' ref={ mapContainerRef } />
-      <ul className='w-40 flex flex-col gap-2 items-center bg-gray-400 rounded p-2'>
+    <div className='flex mb-8 gap-6 flex-col sm:flex-row'>
+      <div className='h-72 w-full rounded-lg sm:h-[60vh] sm:flex-1' ref={ mapContainerRef } />
+      <ul className='w-52 flex flex-col gap-2 items-center bg-gray-400 rounded pt-4'>
         { adventures.map(adventure => (
-          <Link
-            href={ `/adventure/${adventure.adventureSlug.current}` }
-            key={ adventure._id }
-          >
-            { adventure.adventureName }
-          </Link>
+          <li key={ adventure._id }>
+            <Link
+              className='font-serif text-s hover:underline'
+              href={ `/adventures/${adventure.adventureSlug.current}` }
+            >
+              { adventure.adventureName }
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

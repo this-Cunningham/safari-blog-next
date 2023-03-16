@@ -9,7 +9,7 @@ export default async function Locations () {
       locationName,
       mapLocation,
       slug{ current },
-      "locationBlogPosts": *[_type=='blogPost' && references(^._id)] | order(publishedAt desc){
+      "locationBlogPosts": *[_type=='blogPost' && references(^._id)]{
         _id,
         title,
         excerpt,
@@ -17,7 +17,7 @@ export default async function Locations () {
         slug,
         publishedAt,
         tags[]->{"slug": slug.current, tagName},
-    },
+    } | order(publishedAt desc),
       "locationImages": *[_type=='blogImage' && references(^._id)]{
         _id,
         image{

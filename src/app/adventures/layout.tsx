@@ -24,6 +24,8 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
 
   return (
     <div className='w-full'>
+      <h1 className='font-serif font-normal text-5xl'>Adventures</h1>
+      <h2>Current Location: {adventures[0].adventureBlogPosts[0].location.locationName}</h2>
       <MapAndAdventures adventures={ adventures } />
       { children }
     </div>

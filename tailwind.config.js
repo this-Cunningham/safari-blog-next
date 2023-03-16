@@ -22,7 +22,7 @@ module.exports = {
       yellowAccent: {
         ...colors.yellow,
         light: colors.yellow[100],
-        default: colors.yellow[200],
+        DEFAULT: colors.yellow[200],
         dark: colors.yellow[300],
       }
     },

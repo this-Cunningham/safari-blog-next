@@ -65,16 +65,14 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   const adventureMapMemo:
     Record<string, { lat: number , lng: number, locationSlug: string, locationName: string }[]>
   = React.useMemo(() => {
-    return adventures.reduce((accum, curr) => {
-      return ({
-        ...accum,
-        [curr.adventureSlug.current]: curr.adventureBlogPosts.map(blogPost => ({
-          ...blogPost.location.mapLocation,
-          locationName: blogPost.location.locationName,
-          locationSlug: blogPost.location.slug.current
-        })),
-      });
-    }, {});
+    return adventures.reduce((accum, curr) => ({
+      ...accum,
+      [curr.adventureSlug.current]: curr.adventureBlogPosts.map(blogPost => ({
+        ...blogPost.location.mapLocation,
+        locationName: blogPost.location.locationName,
+        locationSlug: blogPost.location.slug.current,
+      })),
+    }), {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -206,11 +204,11 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   return (
     <div className='flex mb-8 gap-6 flex-col sm:flex-row'>
       <div className='h-72 w-full rounded-lg sm:h-[60vh] sm:flex-1' ref={ mapContainerRef } />
-      <ul className='w-52 flex flex-col gap-2 items-center bg-gray-400 rounded pt-4'>
+      <ul className='w-52 flex flex-col gap-2 items-center bg-skyPrimary-100 rounded pt-4 drop-shadow-md'>
         { adventures.map(adventure => (
           <li key={ adventure._id }>
             <Link
-              className='font-serif text-s hover:underline'
+              className='font-serif text-s text-black hover:underline'
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
               { adventure.adventureName }

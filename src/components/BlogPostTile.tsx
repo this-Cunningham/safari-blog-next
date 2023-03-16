@@ -20,7 +20,7 @@ const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: numb
       />
 
       <div className='p-6'>
-        <h3 className='group-hover:underline font-bold text-xl'>{ blogPost.title }</h3>
+        <h3 className='group-hover:underline font-serif font-semibold text-xl'>{ blogPost.title }</h3>
 
         <DateFormatter dateString={ blogPost.publishedAt }
           className='text-xs tracking-wider font-light my-2'

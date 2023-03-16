@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const colors = require('tailwindcss/colors');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
@@ -20,11 +22,15 @@ module.exports = {
       yellowAccent: {
         ...colors.yellow,
         light: colors.yellow[100],
-        default: colors.yellow[200],
+        DEFAULT: colors.yellow[200],
         dark: colors.yellow[300],
       }
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-nunito)', ...fontFamily.sans],
+        serif: ['var(--font-cinzel-decorative)', ...fontFamily.serif],
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },

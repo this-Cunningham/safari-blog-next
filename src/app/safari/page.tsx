@@ -3,7 +3,7 @@ import { client } from 'src/lib/sanity.client';
 
 export default async function Safari () {
   const safariInfo: any[] = await client.fetch(`//groq
-    *[_type == 'siteSection' && slug.current =='safari'][0].aboutSafari[]{
+    *[_type == 'siteSection' && slug.current == 'safari'][0].aboutSafari[]{
         _type == 'blogImageRef' => @->{
           caption,
           image{

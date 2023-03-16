@@ -114,3 +114,14 @@ export interface BlockContentImg {
   };
   caption: string;
 }
+
+export interface Adventure {
+  _id: string;
+  _type: 'adventure';
+  adventureName: string;
+  publishedAt: string;
+  adventureBlogPosts: BlogPostData[];
+  adventureSlug: {
+    current: string;
+  };
+}

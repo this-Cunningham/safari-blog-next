@@ -31,7 +31,7 @@ export const Navbar = async () => {
           style={{ animationDelay: `${(index / 4)}s` }}
         >
           <Link href={`/${siteSection.slug.current}`}>
-            <h3 className='font-normal tracking-[2px]'>{ siteSection.siteSectionName }</h3>
+            <h3 className='font-serif font-normal tracking-[2px]'>{ siteSection.siteSectionName }</h3>
           </Link>
         </div>
       ))}

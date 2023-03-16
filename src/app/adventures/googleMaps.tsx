@@ -80,18 +80,11 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   const router = useRouter();
 
   let [currentAdventureSlug, currentLocationSlug] = pathName?.split('/').slice(2) ?? [];
-  currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
-  currentLocationSlug = currentLocationSlug ?? adventures[0].adventureBlogPosts[0].location.slug.current;
   // if cannot find a "currentAdventureName" from the route then defaults to adventures[0] (most recent adventure)
-  const currentAdventureData = adventureMapMemo[currentAdventureSlug ?? adventures[0].adventureSlug.current];
+  currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
+  currentLocationSlug = currentLocationSlug ?? adventureMapMemo[currentAdventureSlug][0].locationSlug;
 
-  const indexOfLocationSlugFromRoutePath = currentAdventureData.findIndex(({ locationSlug }) => {
-    return currentLocationSlug == locationSlug;
-  });
-
-  const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
-    ? indexOfLocationSlugFromRoutePath
-    : currentAdventureData.length - 1;
+  const currentAdventureData = adventureMapMemo[currentAdventureSlug];
 
   useEffect(() => {
     // this useEffect reacts to the mapCenterIndex
@@ -101,12 +94,20 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
       return;
     }
 
+    const indexOfLocationSlugFromRoutePath = currentAdventureData.findIndex(({ locationSlug }) => {
+      return currentLocationSlug == locationSlug;
+    });
+
+    const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
+      ? indexOfLocationSlugFromRoutePath
+      : currentAdventureData.length - 1;
+
     googleMapInstance.panTo({
       lat: currentAdventureData[mapCenterIndex].lat,
       lng: currentAdventureData[mapCenterIndex].lng
     });
 
-  }, [currentAdventureData, googleMapInstance, mapCenterIndex]);
+  }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
 
   useEffect(() => {
     const replaceMarkersAndPolyline = () => {
@@ -121,6 +122,7 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
       markerList.current.length && markerList.current.forEach(marker => {
         marker.setMap(null);
       });
+
       // reset marker list and get it ready for new markers
       markerList.current = [];
 

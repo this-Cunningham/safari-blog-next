@@ -42,6 +42,14 @@ export default function RootLayout({
         {/* @ts-expect-error Server Component */}
         <Navbar />
       </body>
+      <footer className='h-72 bg-skyPrimary-50 flex justify-around items-center'>
+        <div className='h-52 w-40 bg-gray-700 text-yellowAccent-400'>Safari boat svg</div>
+        <div className='font-serif text-8xl text-gray-600'>SAFARI</div>
+        <div>
+          <div>Design by Willie Cunningham</div>
+          <div>Developed by Chris Cunningham</div>
+        </div>
+      </footer>
     </html>
   );
 }

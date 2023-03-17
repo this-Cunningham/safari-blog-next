@@ -12,7 +12,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
 
   const getNavItemStyling = (slugString: string) => {
     return pathname?.startsWith(`/${slugString}`)
-    ? `underline decoration-8 underline-offset-8 ${!!scrollY ? 'text-white' : 'text-skyPrimary-600'} transition-all duration-300`
+    ? `underline decoration-2 underline-offset-8 ${!!scrollY ? 'text-white decoration-8' : 'text-skyPrimary-600'} transition-all duration-300`
     : 'text-black';
   };
 
@@ -21,26 +21,26 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
     w-full fixed left-0 top-0
     ${
       !!scrollY
-        ? 'bg-skyPrimary-700 shadow-[0_4px_8px_rgba(28,35,49,.7)]'
+        ? 'bg-[#93c5fd] shadow-[0_4px_8px_rgba(28,35,49,.7)]'
         : 'bg-transparent'
     }
     transition-all duration-300
     `}
     >
-      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28  text-black flex justify-between items-center sm:text-xl'>
+      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28  text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] hover:underline hover:underline-offset-8 shrink-0'>
 
-        <div className={ `hover:underline hover:underline-offset-8 ${getNavItemStyling(safariHome.slug.current)}` }>
+        <div className={ `${getNavItemStyling(safariHome.slug.current)}` }>
           <Link href={`/${safariHome.slug.current}`}>
-            <h3 className='font-serif tracking-[2px]'>{ safariHome.siteSectionName }</h3>
+            <h3 className=''>{ safariHome.siteSectionName }</h3>
           </Link>
         </div>
 
-        <div className='flex justify-end gap-10 w-3/5'>
+        <div className='flex justify-end gap-6 lg:gap-20'>
           { navItems.map((siteSection) => (
             <Link
               href={`/${siteSection.slug.current}`}
               key={ siteSection._id }
-              className={ `font-serif tracking-[2px] hover:underline hover:underline-offset-8 shrink-0 ${getNavItemStyling(siteSection.slug.current)}`}
+              className={ `${getNavItemStyling(siteSection.slug.current)}`}
             >
               { siteSection.siteSectionName }
             </Link>

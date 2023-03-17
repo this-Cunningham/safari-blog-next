@@ -206,11 +206,13 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   return (
     <div className='flex mb-8 gap-6 flex-col sm:flex-row'>
       <div className='h-72 w-full rounded-lg sm:h-[60vh] sm:flex-1' ref={ mapContainerRef } />
-      <ul className='w-52 flex flex-col gap-2 items-center bg-skyPrimary-100 rounded pt-4 drop-shadow-md'>
+
+      <ul className='w-96 flex flex-col gap-4 items-center bg-skyPrimary-50 rounded drop-shadow-md'>
+        <h3 className='font-serif text-2xl pt-6 pb-2'>Adventures</h3>
         { adventures.map(adventure => (
           <li key={ adventure._id }>
             <Link
-              className='font-serif text-s text-black hover:underline'
+              className='font-sans text-base text-black hover:underline'
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
               { adventure.adventureName }

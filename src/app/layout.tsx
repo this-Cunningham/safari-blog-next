@@ -1,6 +1,7 @@
 import './globals.css';
 import { Nunito, Cinzel_Decorative } from 'next/font/google';
 import { Navbar } from './Navbar';
+import Link from 'next/link';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -50,10 +51,17 @@ export default function RootLayout({
 
             <div className='font-serif text-3xl md:text-6xl text-gray-500'>SAFARI</div>
 
-            <div className='text-gray-500 text-xs text-center md:text-right space-y-1'>
-              <div>Designed by Willie Cunningham</div>
+            <div className='text-gray-500 text-xs md:text-base text-center md:text-right space-y-1'>
+              <Link
+                href='https://www.wscunningham.com/design'
+                target='_blank'
+                className='hover:underline'
+              >
+                Designed by Willie Cunningham
+              </Link>
               <div>Developed by Chris Cunningham</div>
             </div>
+
           </div>
         </footer>
       </body>

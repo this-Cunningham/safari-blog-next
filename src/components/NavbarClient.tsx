@@ -12,8 +12,8 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
 
   const getNavItemStyling = (slugString: string) => {
     return pathname?.startsWith(`/${slugString}`)
-    ? `underline decoration-2 underline-offset-8 ${!!scrollY ? 'text-white decoration-8' : 'text-skyPrimary-600'} transition-all duration-300`
-    : 'text-black';
+    ? `underline decoration-2 underline-offset-8 ${!!scrollY ? 'text-yellowAccent-100 decoration-8' : 'text-skyPrimary-600'} transition-all duration-300`
+    : 'text-black hover:underline hover:underline-offset-8';
   };
 
   return (
@@ -27,7 +27,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
     transition-all duration-300
     `}
     >
-      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28  text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] hover:underline hover:underline-offset-8 shrink-0'>
+      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 y text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
 
         <div className={ `${getNavItemStyling(safariHome.slug.current)}` }>
           <Link href={`/${safariHome.slug.current}`}>

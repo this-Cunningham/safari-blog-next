@@ -1,6 +1,6 @@
 import './globals.css';
 import { Cinzel_Decorative, Montserrat } from 'next/font/google';
-import { Navbar } from './Navbar';
+import { Navbar } from '../components/Navbar';
 import Link from 'next/link';
 
 const montserrat = Montserrat({

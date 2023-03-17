@@ -13,6 +13,7 @@ module.exports = {
       black: '#1d1d1d',
       white: '#fafafa',
       gray: colors.slate,
+      transparent: colors.transparent,
       skyPrimary: {
         ...colors.sky,
         light: colors.sky[200],
@@ -30,15 +31,6 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-montserrat)', ...fontFamily.sans],
         serif: ['var(--font-cinzel-decorative)', ...fontFamily.serif],
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        }
-      },
-      animation: {
-        fadeIn: 'fadeIn 1.5s ease-in-out forwards',
       },
     },
   },

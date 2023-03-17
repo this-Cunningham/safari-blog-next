@@ -1,12 +1,12 @@
 import './globals.css';
-import { Nunito, Cinzel_Decorative } from 'next/font/google';
+import { Cinzel_Decorative, Montserrat } from 'next/font/google';
 import { Navbar } from './Navbar';
 import Link from 'next/link';
 
-const nunito = Nunito({
-  variable: '--font-nunito',
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
 });
 
@@ -26,14 +26,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={ `${nunito.variable} ${cinzelDecorative.variable}` }>
+    <html lang="en" className={ `${montserrat.variable} ${cinzelDecorative.variable}` }>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
       <body
-        className={ `tracking-[.02em] text-base bg-yellowAccent-50 text-black ${nunito.className}` }
+        className='tracking-[.02em] text-base bg-yellowAccent-50 text-black'
       >
         <main className='appWrapper flex flex-col items-center max-w-[1440px] mt-16 mx-auto mb-0 px-4 pt-0 pb-12 min-[400px]:pt-0 min-[400px]:px-12 min-[400px]:pb-12 sm:mt-24'>
           <div className='w-full'>
@@ -49,7 +49,8 @@ export default function RootLayout({
               Safari boat svg
             </div>
 
-            <div className='font-serif text-3xl md:text-6xl text-gray-500'>SAFARI</div>
+            <Link href='/'
+              className='font-serif text-3xl md:text-6xl text-gray-500 hover:underline'>SAFARI</Link>
 
             <div className='text-gray-500 text-xs md:text-base text-center md:text-right space-y-1'>
               <Link

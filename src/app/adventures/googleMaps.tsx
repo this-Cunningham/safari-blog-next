@@ -34,6 +34,9 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
       // otherwise will need to define "google" as const google = await loader.load();
       setGoogleMapInstance(new google.maps.Map(mapContainerRef.current, {
         zoom: 6,
+        mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP]
+        },
         center: {
           lat: locationList[locationList.length - 1].mapLocation.lat,
           lng: locationList[locationList.length - 1].mapLocation.lng
@@ -85,29 +88,6 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   currentLocationSlug = currentLocationSlug ?? adventureMapMemo[currentAdventureSlug][0].locationSlug;
 
   const currentAdventureData = adventureMapMemo[currentAdventureSlug];
-
-  useEffect(() => {
-    // this useEffect reacts to the mapCenterIndex
-    // mapCenterIndex reacts to our route...
-    // this will pan the map when the route changes
-    if (!googleMapInstance) {
-      return;
-    }
-
-    const indexOfLocationSlugFromRoutePath = currentAdventureData.findIndex(({ locationSlug }) => {
-      return currentLocationSlug == locationSlug;
-    });
-
-    const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
-      ? indexOfLocationSlugFromRoutePath
-      : currentAdventureData.length - 1;
-
-    googleMapInstance.panTo({
-      lat: currentAdventureData[mapCenterIndex].lat,
-      lng: currentAdventureData[mapCenterIndex].lng
-    });
-
-  }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
 
   useEffect(() => {
     const replaceMarkersAndPolyline = () => {
@@ -203,16 +183,39 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
 
   }, [currentAdventureData, currentAdventureSlug, googleMapInstance, line, markerList, router]);
 
-  return (
-    <div className='flex mb-8 gap-6 flex-col sm:flex-row'>
-      <div className='h-72 w-full rounded-lg sm:h-[60vh] sm:flex-1' ref={ mapContainerRef } />
+  useEffect(() => {
+    // this useEffect reacts to the mapCenterIndex
+    // mapCenterIndex reacts to our route...
+    // this will pan the map when the route changes
+    if (!googleMapInstance) {
+      return;
+    }
 
-      <ul className='w-96 flex flex-col gap-4 items-center bg-skyPrimary-50 rounded drop-shadow-md'>
-        <h3 className='font-serif text-2xl pt-6 pb-2'>Adventures</h3>
+    const indexOfLocationSlugFromRoutePath = currentAdventureData.findIndex(({ locationSlug }) => {
+      return currentLocationSlug == locationSlug;
+    });
+
+    const mapCenterIndex = indexOfLocationSlugFromRoutePath !== -1
+      ? indexOfLocationSlugFromRoutePath
+      : currentAdventureData.length - 1;
+
+    googleMapInstance.panTo({
+      lat: currentAdventureData[mapCenterIndex].lat,
+      lng: currentAdventureData[mapCenterIndex].lng
+    });
+
+  }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
+
+  return (
+    <div className='flex mb-8 gap-12 flex-col sm:flex-row'>
+      <div className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1' ref={ mapContainerRef } />
+
+      <ul className='w-96 flex flex-col gap-3 items-center bg-skyPrimary-50 rounded drop-shadow-md'>
+        <h3 className='font-serif font-bold text-2xl pt-6 pb-2'>Adventures</h3>
         { adventures.map(adventure => (
           <li key={ adventure._id }>
             <Link
-              className='font-sans text-base text-black hover:underline'
+              className='font-sans text-base font-normal text-black hover:underline'
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
               { adventure.adventureName }

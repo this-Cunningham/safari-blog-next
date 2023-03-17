@@ -28,7 +28,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-nunito)', ...fontFamily.sans],
+        sans: ['var(--font-montserrat)', ...fontFamily.sans],
         serif: ['var(--font-cinzel-decorative)', ...fontFamily.serif],
       },
       keyframes: {

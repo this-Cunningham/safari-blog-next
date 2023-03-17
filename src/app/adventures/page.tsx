@@ -30,8 +30,8 @@ export default async function CurrentAdventure () {
         : (
         <div className='mb-9'>
 
-          <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-10'>
-            Posts from: { adventure.adventureName }
+          <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
+            Posts from: <span className='font-bold font-sans'>{ adventure.adventureName }</span>
           </h3>
 
           <BlogPostTileList blogPosts={ adventure.adventureBlogPosts } />

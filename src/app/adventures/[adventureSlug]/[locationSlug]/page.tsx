@@ -59,8 +59,8 @@ export default async function LocationWithinAdventure (
       : (
       <div className='mb-9'>
 
-        <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-10'>
-          Posts from: <span className='font-bold'>{ params.adventureSlug }</span>, location: <span className='font-bold'>{ params.locationSlug }</span>
+        <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
+          Posts from: <span className='font-bold font-sans'>{ params.adventureSlug }</span>, location: <span className='font-bold font-sans'>{ params.locationSlug }</span>
         </h3>
 
         <BlogPostTileList blogPosts={ blogPostsForAdventureLocation } />

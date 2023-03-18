@@ -84,8 +84,15 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
 
   let [currentAdventureSlug, currentLocationSlug] = pathName?.split('/').slice(2) ?? [];
   // if cannot find a "currentAdventureName" from the route then defaults to adventures[0] (most recent adventure)
-  currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
-  currentLocationSlug = currentLocationSlug ?? adventureMapMemo[currentAdventureSlug][0].locationSlug;
+  if (!currentAdventureSlug && !currentLocationSlug) {
+    // if both are undefined, it means we are on /adventure... so show the current location of current adventure
+    currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
+    currentLocationSlug = adventureMapMemo[currentAdventureSlug][adventureMapMemo[currentAdventureSlug].length - 1].locationSlug;
+  } else {
+    // if one is defined it means someone has clicked on an adventure, show from beginning if location undefined
+    currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
+    currentLocationSlug = currentLocationSlug ?? adventureMapMemo[currentAdventureSlug][0].locationSlug;
+  }
 
   const currentAdventureData = adventureMapMemo[currentAdventureSlug];
 
@@ -207,18 +214,18 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
 
   return (
-    <div className='flex mb-8 gap-12 flex-col sm:flex-row'>
+    <div className='flex mb-8 gap-5 sm:gap-12 flex-col sm:flex-row'>
       <div className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1' ref={ mapContainerRef } />
 
-      <ul className='w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md'>
-        <h3 className='font-serif font-bold text-2xl pt-6 pb-2'>Adventures</h3>
-        { adventures.map(adventure => (
+      <ul className='w-full sm:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
+        <h3 className='font-serif font-bold text-2xl mb-2'>Adventures</h3>
+        { adventures.map((adventure, index) => (
           <li key={ adventure._id }>
             <Link
               className='font-sans text-base font-normal text-black hover:underline'
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
-              { adventure.adventureName }
+              { adventure.adventureName } { index == 0 && ' (current)'}
             </Link>
           </li>
         ))}

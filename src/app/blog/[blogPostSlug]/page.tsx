@@ -84,11 +84,11 @@ export default async function BlogPosts({ params }: { params: { blogPostSlug: st
   };
 
   return (
-    <BlogPost key={ blogPost._id }
-      blogPost={{
-        ...blogPost,
-        tags: getUniqueTags(blogPost.allTags),
-      }}
+    <BlogPost blogPost={{
+      ...blogPost,
+      tags: getUniqueTags(blogPost.allTags),
+    }}
+      key={ blogPost._id }
     />
   );
 }

@@ -34,7 +34,7 @@ export default async function SelectedAdventure ({ params }: { params: { adventu
           excerpt,
           publishedAt,
           slug
-        }
+        } | order(publishedAt asc)
     }`);
 
   return (

@@ -14,7 +14,7 @@ const throttle = (func: (...args: any[]) => void, limit: number) => {
   };
 };
 
-export const useScrollPosition = (limit = 150) => {
+export const useScrollPosition = (limit = 500) => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleScroll = () => {

@@ -6,7 +6,7 @@ import { Adventure } from '../interfaces_blog';
 
 export default async function CurrentAdventure () {
   const adventure: Adventure = await client.fetch(`//groq
-    *[_type == "adventure"] | order(publishedAt desc)[0] {
+    *[_type == "adventure"][0] {
       _id,
         adventureName,
         adventureSlug,
@@ -20,7 +20,7 @@ export default async function CurrentAdventure () {
           excerpt,
           publishedAt,
           slug
-        }
+        } | order(publishedAt desc)
     }`);
 
   return (

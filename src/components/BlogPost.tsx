@@ -26,7 +26,7 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
         width={ 720 }
         placeholder='blur'
         blurDataURL={ blogPost.mainImage.image.asset.metadata.lqip }
-        alt={ blogPost.mainImage.caption }
+        alt={ blogPost.mainImage.caption ?? 'Blog post main image'}
       />
 
       <p className='text-xs my-1 font-light'>{ blogPost.mainImage.caption }</p>

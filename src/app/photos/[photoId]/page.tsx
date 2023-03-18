@@ -41,7 +41,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
             height={ image.asset.metadata.dimensions.height }
             blurDataURL={ image.asset.metadata.lqip }
             placeholder='blur'
-            alt={ caption }
+            alt={ caption ?? 'large image' }
 
           />
 

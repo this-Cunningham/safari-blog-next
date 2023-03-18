@@ -32,7 +32,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className='tracking-[.02em] text-base bg-yellowAccent-50 text-black pt-16 sm:pt-28'>
+      <body className='tracking-[.02em] text-base bg-yellowAccent-50 text-black mt-16 sm:mt-28'>
         <main className='flex flex-col items-center max-w-[1440px] mx-auto px-4 py-10 sm:p-12'>
           <div className='w-full'>
             {children}

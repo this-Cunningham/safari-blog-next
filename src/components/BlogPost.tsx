@@ -33,10 +33,10 @@ export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
 
       <BlogPostBlockContent value={ blogPost.body } />
 
-      { !!blogPost.tags.length && (
+      { !!blogPost.tags?.length && (
         <div className='text-sm'>
           Tags: {' '}
-          { blogPost.tags.map(tag => <Tag tag={ tag } key={ tag.slug } /> )}
+          { blogPost.tags.map(tag => <Tag tag={ tag } key={ 'slug-' + blogPost._id } /> )}
         </div>
       )}
     </div>

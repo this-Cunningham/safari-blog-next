@@ -210,7 +210,7 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
     <div className='flex mb-8 gap-12 flex-col sm:flex-row'>
       <div className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1' ref={ mapContainerRef } />
 
-      <ul className='w-96 flex flex-col gap-3 items-center bg-skyPrimary-50 rounded drop-shadow-md'>
+      <ul className='w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md'>
         <h3 className='font-serif font-bold text-2xl pt-6 pb-2'>Adventures</h3>
         { adventures.map(adventure => (
           <li key={ adventure._id }>

@@ -12,22 +12,26 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
 
   const getNavItemStyling = (slugString: string) => {
     return pathname?.startsWith(`/${slugString}`)
-    ? `underline decoration-2 underline-offset-8 ${!!scrollY ? 'text-yellowAccent-100 decoration-8' : 'text-skyPrimary-600'} transition-all duration-300`
+    ? `underline decoration-2 underline-offset-8 transition-all duration-700 ${
+      !!scrollY
+        ? 'text-yellowAccent-100 decoration-8'
+        : 'text-skyPrimary-600'
+      } `
     : 'text-black hover:underline hover:underline-offset-8';
   };
 
   return (
     <nav className={`
-    w-full fixed left-0 top-0
-    ${
-      !!scrollY
-        ? 'bg-[#93c5fd] shadow-[0_4px_8px_rgba(28,35,49,.7)]'
-        : 'bg-transparent'
-    }
-    transition-all duration-300
+      w-full fixed left-0 top-0
+      ${
+        !!scrollY
+          ? 'bg-[#93c5fd] shadow-[0_4px_8px_rgba(28,35,49,.7)]'
+          : 'bg-transparent'
+      }
+      transition-all duration-300
     `}
     >
-      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 y text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
+      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
 
         <div className={ `${getNavItemStyling(safariHome.slug.current)}` }>
           <Link href={`/${safariHome.slug.current}`}>

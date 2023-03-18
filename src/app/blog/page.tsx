@@ -15,6 +15,9 @@ export default async function BlogPostList () {
   }`);
 
   return (
-    <BlogPostTileList blogPosts={ blogPosts } />
+    <>
+      <h1 className='text-4xl sm:text-7xl font-serif font-normal mb-4 sm:mb-10'> Blog Posts </h1>
+      <BlogPostTileList blogPosts={ blogPosts } />
+    </>
   );
 };

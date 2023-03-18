@@ -24,10 +24,8 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
 
   return (
     <div className='w-full'>
-      <div className='flex justify-between items-end font-serif font-normal sm:mb-10 sm:mt-14'>
-        <h1 className='text-4xl sm:text-7xl'>
-          Adventures
-        </h1>
+      <div className='flex justify-between items-end font-serif font-normal mb-4 sm:mb-10'>
+        <h1 className='text-4xl sm:text-7xl'> Adventures </h1>
         <h2 className='text-lg sm:text-3xl h-full sm:pb-1'>
           Current Location: <span className='text-skyPrimary-600 font-bold'>{adventures[0].adventureBlogPosts[0].location.locationName}</span>
         </h2>

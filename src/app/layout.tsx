@@ -33,7 +33,7 @@ export default function RootLayout({
       */}
       <head />
       <body className='tracking-[.02em] text-base bg-yellowAccent-50 text-black mt-16 sm:mt-28'>
-        <main className='flex flex-col items-center max-w-[1440px] mx-auto px-4 py-10 sm:p-12'>
+        <main className='max-w-[1440px] mx-auto p-4 sm:p-12'>
           <div className='w-full'>
             {children}
           </div>

@@ -214,10 +214,10 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
 
   return (
-    <div className='flex mb-8 gap-5 sm:gap-12 flex-col sm:flex-row'>
+    <div className='flex mb-8 gap-5 lg:gap-12 flex-col sm:flex-row'>
       <div className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1' ref={ mapContainerRef } />
 
-      <ul className='w-full sm:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
+      <ul className='w-full sm:w-64 lg:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
         <h3 className='font-serif font-bold text-2xl mb-2'>Adventures</h3>
         { adventures.map((adventure, index) => (
           <li key={ adventure._id }>

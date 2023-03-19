@@ -29,7 +29,6 @@ export default async function CurrentAdventure () {
         <h3>No blog posts from the { adventure.adventureName } adventure</h3>
         : (
         <div className='mb-9'>
-
           <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
             Posts from: <span className='font-bold font-sans'>{ adventure.adventureName }</span>
           </h3>

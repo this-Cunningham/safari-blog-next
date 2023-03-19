@@ -36,7 +36,6 @@ export default async function Home() {
           relative
           rounded
           h-[calc(100vh-64px)] sm:h-[calc(100vh-112px)]
-          -m-4 sm:-m-12
           bg-cover bg-no-repeat bg-center
           top-0 bottom-0 left-0 -right-[88px] sm:right-0'
       >
@@ -54,7 +53,7 @@ export default async function Home() {
 
       </div>
 
-      <div className="h-96 md:h-[560px] bg-white -mx-4 sm:-mx-12 py-4 sm:p-12 sm:py-24 ">
+      <div className='bg-white py-4 sm:p-12 sm:py-24'>
         <h2 className='font-serif text-5xl mb-8'>Life aboard a Ted Hood Classic</h2>
         <div className="flex gap-6 w-full h-full">
           <div className='max-w-[40%] text-2xl font-sans'>

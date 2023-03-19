@@ -25,7 +25,7 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
   const mostRecentBlogPost = adventures[0].adventureBlogPosts.slice(-1)[0];
 
   return (
-    <>
+    <div className='p-4 sm:p-12'>
       <div className='flex justify-between items-end font-serif font-normal mb-4 md:mb-10'>
         <h1 className='text-3xl md:text-7xl'> Adventures </h1>
         <h2 className='text-lg md:text-3xl text-right h-full sm:pb-1'>
@@ -34,6 +34,6 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
       </div>
       <MapAndAdventures adventures={ adventures } />
       { children }
-    </>
+    </div>
   );
 };

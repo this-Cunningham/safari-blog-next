@@ -32,8 +32,8 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
     >
       <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
 
-        <div className={ `${getNavItemStyling(safariHome.slug.current)}` }>
-          <Link href={`/${safariHome.slug.current}`}>
+        <div className={ `${getNavItemStyling(pathname == '/' ? '': 'NOT-HOME')}` }>
+          <Link href='/'>
             <h3 className=''>{ safariHome.siteSectionName }</h3>
           </Link>
         </div>

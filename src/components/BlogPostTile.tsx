@@ -5,7 +5,7 @@ import { DateFormatter } from './DateFormatted';
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 
-const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
+export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
   <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded drop-shadow-md'>
     <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-full'>
       <Image

@@ -2,7 +2,7 @@
 
 import { BlogPostTileList } from 'src/components/BlogPostTile';
 import { client } from 'src/lib/sanity.client';
-import { Adventure } from '../interfaces_blog';
+import { Adventure } from 'src/app/interfaces_blog';
 
 export default async function CurrentAdventure () {
   const adventure: Adventure = await client.fetch(`//groq

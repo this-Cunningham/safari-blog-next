@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Adventure } from '../interfaces_blog';
+import { Adventure } from 'src/app/interfaces_blog';
 import MapAndAdventures from './googleMaps';
 import { client } from 'src/lib/sanity.client';
 

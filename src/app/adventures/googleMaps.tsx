@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Loader } from '@googlemaps/js-api-loader';
 
-import { Adventure, PublishedLocation } from '../interfaces_blog';
+import { Adventure, PublishedLocation } from 'src/app/interfaces_blog';
 import { usePathname, useRouter } from 'next/navigation';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {

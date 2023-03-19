@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useScrollPosition } from 'src/hooks/useScrollPosition';
-import { SiteSection } from '../app/interfaces_blog';
+import { SiteSection } from 'src/app/interfaces_blog';
 
 const NavItem = (
   { siteSection, isScrolled }:
@@ -14,7 +14,7 @@ const NavItem = (
 
   // useCallback and useMemo here to only run this code when "isScrolled" or "pathname" changes
   const getNavItemStyling = useCallback((slugString: string) => {
-    const predicate = slugString == 'safari' // this means home "/", see "safariHomeMemo"
+    const predicate = slugString == 'safari' // this means home "/"
       ? pathname == '/'
       : pathname?.startsWith(`/${slugString}`);
 

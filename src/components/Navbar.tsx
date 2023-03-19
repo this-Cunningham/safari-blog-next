@@ -1,5 +1,5 @@
 import { client } from 'src/lib/sanity.client';
-import { SiteSection } from '../app/interfaces_blog';
+import { SiteSection } from 'src/app/interfaces_blog';
 import NavbarClient from './NavbarClient';
 
 export const Navbar = async () => {

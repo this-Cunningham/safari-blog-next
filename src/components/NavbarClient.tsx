@@ -14,8 +14,8 @@ const NavItem = (
 
   // useCallback and useMemo here to only run this code when "isScrolled" or "pathname" changes
   const getNavItemStyling = useCallback((slugString: string) => {
-    const predicate = slugString == '' // this means home "/", see "safariHomeMemo"
-      ? pathname == `/${slugString}`
+    const predicate = slugString == 'safari' // this means home "/", see "safariHomeMemo"
+      ? pathname == '/'
       : pathname?.startsWith(`/${slugString}`);
 
     return predicate
@@ -32,7 +32,8 @@ const NavItem = (
   }, [getNavItemStyling, siteSection.slug]);
 
   return (
-     <Link href={`/${siteSection.slug.current}`} className={ navItemStyle }>
+     <Link href={ siteSection.slug.current == 'safari' ? '/' : `/${siteSection.slug.current}` }
+      className={ navItemStyle }>
       { siteSection.siteSectionName }
     </Link>
   );
@@ -41,11 +42,6 @@ const NavItem = (
 export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
   const [safariHome, ...navItems] = navBar;
   const scrollY = useScrollPosition();
-
-  const safariHomeMemo = useMemo(() => {
-    // modifying slug.current to empty string to take us home ('/' + '') = "/"
-    return {...safariHome, slug: { current: '' } };
-  }, [safariHome]);
 
   return (
     <nav className={`
@@ -58,7 +54,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
     >
       <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
         <div>
-          <NavItem siteSection={ safariHomeMemo }
+          <NavItem siteSection={ safariHome }
             isScrolled={ scrollY > 0 }
             key={ safariHome._id }
           />

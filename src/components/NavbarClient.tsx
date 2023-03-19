@@ -14,7 +14,11 @@ const NavItem = (
 
   // useCallback and useMemo here to only run this code when "isScrolled" or "pathname" changes
   const getNavItemStyling = useCallback((slugString: string) => {
-    return pathname == `/${slugString}`
+    const predicate = slugString == '' // this means home "/", see "safariHomeMemo"
+      ? pathname == `/${slugString}`
+      : pathname?.startsWith(`/${slugString}`);
+
+    return predicate
       ? `underline decoration-2 underline-offset-8 ${
         isScrolled
           ? 'text-yellowAccent-100 decoration-8'
@@ -53,7 +57,6 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
     `}
     >
       <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
-
         <div>
           <NavItem siteSection={ safariHomeMemo }
             isScrolled={ scrollY > 0 }

@@ -49,7 +49,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
 
           <p>{ caption }</p>
 
-          { !!tags?.length && (
+          { !!tags && !!tags?.length && (
             <>
               Tags: {' '}
               { tags.map(tag => <Tag tag={ tag } key={ 'slug-' + _id } /> )}

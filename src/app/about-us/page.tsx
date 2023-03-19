@@ -66,12 +66,15 @@ export default async function AboutUs () {
     }`);
 
   return (
-    <div className='w-full max-w-[720px] my-0 mx-auto'>
-      <div className='grid grid-rows-[min-content] gap-8'>
-        { authors.map(author => (
-          <AuthorPanel author={ author } key={ author.slug.current } />
-        )) }
+    <>
+      <h1 className='text-4xl sm:text-7xl font-serif font-normal mb-4 sm:mb-10'> About </h1>
+      <div className='w-full max-w-[720px] mx-auto'>
+        <div className='grid grid-rows-[min-content] gap-8'>
+          { authors.map(author => (
+            <AuthorPanel author={ author } key={ author.slug.current } />
+          )) }
+        </div>
       </div>
-    </div>
+    </>
   );
 }

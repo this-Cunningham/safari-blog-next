@@ -33,6 +33,7 @@ export async function generateStaticParams() {
 export default async function LocationWithinAdventure (
   { params }:
   { params : { adventureSlug: string; locationSlug: string }}) {
+
   const blogPostsForAdventureLocation: BlogPostData[] = await client.fetch(`//groq
     *[_type == 'blogPost'
       && _id in *[_type == 'adventure' && adventureSlug.current == '${params.adventureSlug}']
@@ -59,8 +60,8 @@ export default async function LocationWithinAdventure (
       : (
       <div className='mb-9'>
 
-        <h3 className='text-lg font-bold text-center mb-4'>
-        Blog posts from { params.locationSlug } in the { params.adventureSlug } adventure
+        <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
+          Posts from: <span className='font-bold font-sans'>{ params.adventureSlug }</span>, location: <span className='font-bold font-sans'>{ params.locationSlug }</span>
         </h3>
 
         <BlogPostTileList blogPosts={ blogPostsForAdventureLocation } />

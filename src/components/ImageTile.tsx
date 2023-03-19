@@ -16,7 +16,7 @@ const ImageTile = ({ photo, priority }: { photo: BlogImage; priority: boolean })
       placeholder='blur'
       blurDataURL={ photo.image.asset.metadata.lqip }
       priority={ priority }
-      alt={ photo.caption }
+      alt={ photo.caption ?? 'small image on a tile' }
     />
   </Link>
 );

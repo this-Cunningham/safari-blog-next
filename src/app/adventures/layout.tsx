@@ -17,17 +17,23 @@ export default async function MapLayout ({ children }: { children: ReactNode }) 
           mapLocation,
           slug
         }
-      } | order(publishedAt desc),
+      } | order(publishedAt asc),
       adventureSlug,
     }
   `);
 
+  const mostRecentBlogPost = adventures[0].adventureBlogPosts.slice(-1)[0];
+
   return (
-    <div className='w-full'>
-      <h1 className='font-serif font-normal text-5xl'>Adventures</h1>
-      <h2>Current Location: {adventures[0].adventureBlogPosts[0].location.locationName}</h2>
+    <>
+      <div className='flex justify-between items-end font-serif font-normal mb-4 md:mb-10'>
+        <h1 className='text-3xl md:text-7xl'> Adventures </h1>
+        <h2 className='text-lg md:text-3xl text-right h-full sm:pb-1'>
+          Current Location: <span className='text-skyPrimary-600 font-bold'>{mostRecentBlogPost.location.locationName}</span>
+        </h2>
+      </div>
       <MapAndAdventures adventures={ adventures } />
       { children }
-    </div>
+    </>
   );
 };

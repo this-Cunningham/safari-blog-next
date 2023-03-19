@@ -125,3 +125,12 @@ export interface Adventure {
     current: string;
   };
 }
+
+export interface SiteSection {
+  _type: 'siteSection';
+  _id: string;
+  siteSectionName: string;
+  slug: {
+    current: string;
+  }
+}

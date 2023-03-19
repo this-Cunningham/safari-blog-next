@@ -14,6 +14,9 @@ export default async function Photos () {
   }`);
 
   return (
-    <ImageTileList photos={ allPhotos } />
+    <>
+      <h1 className='text-4xl sm:text-7xl font-serif font-normal mb-4 sm:mb-10'> Gallery </h1>
+      <ImageTileList photos={ allPhotos } />
+    </>
   );
 }

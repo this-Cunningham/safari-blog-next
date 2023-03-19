@@ -1,6 +1,6 @@
 import './globals.css';
 import { Cinzel_Decorative, Montserrat } from 'next/font/google';
-import { Navbar } from '../components/Navbar';
+import { Navbar } from 'src/components/Navbar';
 import Link from 'next/link';
 
 const montserrat = Montserrat({
@@ -33,10 +33,8 @@ export default function RootLayout({
       */}
       <head />
       <body className='tracking-[.02em] text-base bg-yellowAccent-50 text-black mt-16 sm:mt-28'>
-        <main className='max-w-[1440px] mx-auto p-4 sm:p-12'>
-          <div className='w-full'>
-            {children}
-          </div>
+        <main className='max-w-[1440px] mx-auto'>
+          {children}
         </main>
         {/* @ts-expect-error Server Component */}
         <Navbar />

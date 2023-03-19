@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useSelectedLayoutSegment } from 'next/navigation';
 import { Loader } from '@googlemaps/js-api-loader';
-
-import { Adventure, PublishedLocation } from '../interfaces_blog';
+import { Adventure, PublishedLocation } from 'src/app/interfaces_blog';
 import { usePathname, useRouter } from 'next/navigation';
 
 const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
@@ -81,6 +81,7 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
 
   const pathName = usePathname();
   const router = useRouter();
+  const adventureSegment = useSelectedLayoutSegment();
 
   let [currentAdventureSlug, currentLocationSlug] = pathName?.split('/').slice(2) ?? [];
   // if cannot find a "currentAdventureName" from the route then defaults to adventures[0] (most recent adventure)
@@ -222,7 +223,7 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
         { adventures.map((adventure, index) => (
           <li key={ adventure._id }>
             <Link
-              className='font-sans text-base font-normal text-black hover:underline'
+              className={ `font-sans text-base font-normal text-black hover:underline ${adventureSegment === adventure.adventureSlug.current ? 'underline' : ''}` }
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
               { adventure.adventureName } { index == 0 && ' (current)'}

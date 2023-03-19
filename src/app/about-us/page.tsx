@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { BlogPostBlockContent } from 'src/components/BlogPostBlockContent';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
-import { Author } from '../interfaces_blog';
+import { Author } from 'src/app/interfaces_blog';
 
 const AuthorPanel = ({ author }: { author: Author }) => (
   <div className='space-y-4' key={ author.slug.current }>

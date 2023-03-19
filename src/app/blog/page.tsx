@@ -1,4 +1,4 @@
-import { BlogPostData } from '../interfaces_blog';
+import { BlogPostData } from 'src/app/interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
 import { client } from 'src/lib/sanity.client';
 

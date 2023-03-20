@@ -1,22 +1,19 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
 import { Loader } from '@googlemaps/js-api-loader';
 import { Adventure, PublishedLocation } from 'src/app/interfaces_blog';
 import { usePathname, useRouter } from 'next/navigation';
 
-const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocation[] }) => {
-  const { apiKey, locationList } = options;
+const useGoogleMaps = (options: {
+  apiKey: string;
+  locationList: PublishedLocation[];
+  mapContainerRef: React.RefObject<HTMLDivElement>;
+}) => {
+  const { apiKey, locationList, mapContainerRef } = options;
   const [googleMapInstance, setGoogleMapInstance] = React.useState<google.maps.Map>();
-  // this attaches to div which contains the google map
-  const mapContainerRef = useRef<HTMLDivElement>(null);
-
-  // this is the specific instance of our google map, it is NOT the entire library of functions for google maps
-
-  const line = useRef<google.maps.Polyline | null>(null);
-  const markerList = useRef<google.maps.Marker[]>([]);
 
   useEffect(() => {
     const initGoogleMaps = async () => {
@@ -25,7 +22,9 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
       }
 
       const loader = new Loader({
-        apiKey: window.location.href.includes('localhost') ? '' : apiKey
+        apiKey: window.location.href.includes('localhost') ? '' : apiKey,
+        version: 'beta', // this unlocks marker library
+        libraries: ['marker'],
       });
 
       await loader.load();
@@ -42,6 +41,7 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
           lng: locationList[locationList.length - 1].mapLocation.lng
         },
         streetViewControl: false,
+        mapId: 'ADVENTURES_MAP_ID' // need any id to use advanced map markers
       }));
     };
 
@@ -54,19 +54,51 @@ const useGoogleMaps = (options: { apiKey: string; locationList: PublishedLocatio
 
     initGoogleMaps();
 
-  }, [apiKey, googleMapInstance, locationList]);
+  }, [apiKey, googleMapInstance, locationList, mapContainerRef]);
 
-  return { mapContainerRef, googleMapInstance, line, markerList };
+  return { googleMapInstance };
+};
+
+const useAdventureAndLocationSlugs = (adventureMap: Record<string, CurrentAdventureLocation[]>, initialAdventureSlug: string) => {
+  const pathName = usePathname();
+
+  let [currentAdventureSlug, currentLocationSlug] = pathName?.split('/').slice(2) ?? [];
+  // if cannot find a "currentAdventureName" from the route then defaults to adventures[0] (most recent adventure)
+  if (!currentAdventureSlug && !currentLocationSlug) {
+    // if both are undefined, it means we are on /adventure... so show the current location of current adventure
+    currentAdventureSlug = currentAdventureSlug ?? initialAdventureSlug;
+    currentLocationSlug = adventureMap[currentAdventureSlug][adventureMap[currentAdventureSlug].length - 1].locationSlug;
+  } else {
+    // if one is defined it means someone has clicked on an adventure, show from beginning if location undefined
+    currentAdventureSlug = currentAdventureSlug ?? initialAdventureSlug;
+    currentLocationSlug = currentLocationSlug ?? adventureMap[currentAdventureSlug][0].locationSlug;
+  }
+  return [currentAdventureSlug, currentLocationSlug];
+};
+
+const LocationMarker = (
+  { locationName, selected }:
+  { locationName: string; selected: boolean }
+) => {
+  return (
+    <div className={ `${selected ? 'bg-skyPrimary-700 text-yellowAccent-100' : 'bg-yellowAccent-100 text-skyPrimary-700'} text-base font-semibold drop-shadow-md py-2 px-2 rounded-lg hover:bg-skyPrimary-700 hover:text-yellowAccent-100`}>
+      { locationName }
+    </div>
+  );
+};
+const LocationMarkerMemo = React.memo(LocationMarker);
+
+type CurrentAdventureLocation = {
+  lat: number;
+  lng: number;
+  locationSlug: string;
+  locationName: string;
+  markerDiv: HTMLDivElement | null;
 };
 
 export default function MapAndAdventures ({ adventures }: { adventures: Adventure[] }) {
-  const { mapContainerRef, googleMapInstance, line, markerList } = useGoogleMaps({
-    apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-    locationList: adventures[0].adventureBlogPosts.map(blogpost => blogpost.location),
-  });
-
   const adventureMapMemo:
-    Record<string, { lat: number , lng: number, locationSlug: string, locationName: string }[]>
+    Record<string, CurrentAdventureLocation[]>
   = React.useMemo(() => {
     return adventures.reduce((accum, curr) => ({
       ...accum,
@@ -74,122 +106,26 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
         ...blogPost.location.mapLocation,
         locationName: blogPost.location.locationName,
         locationSlug: blogPost.location.slug.current,
+        markerDiv: (() => typeof window !== 'undefined' ? document.createElement('div') : null)()
       })),
     }), {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const pathName = usePathname();
-  const router = useRouter();
-  const adventureSegment = useSelectedLayoutSegment();
+  const mapContainerRef = useRef<HTMLDivElement>(null);
 
-  let [currentAdventureSlug, currentLocationSlug] = pathName?.split('/').slice(2) ?? [];
-  // if cannot find a "currentAdventureName" from the route then defaults to adventures[0] (most recent adventure)
-  if (!currentAdventureSlug && !currentLocationSlug) {
-    // if both are undefined, it means we are on /adventure... so show the current location of current adventure
-    currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
-    currentLocationSlug = adventureMapMemo[currentAdventureSlug][adventureMapMemo[currentAdventureSlug].length - 1].locationSlug;
-  } else {
-    // if one is defined it means someone has clicked on an adventure, show from beginning if location undefined
-    currentAdventureSlug = currentAdventureSlug ?? adventures[0].adventureSlug.current;
-    currentLocationSlug = currentLocationSlug ?? adventureMapMemo[currentAdventureSlug][0].locationSlug;
-  }
+  const { googleMapInstance } = useGoogleMaps({
+    apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+    locationList: adventures[0].adventureBlogPosts.map(blogpost => blogpost.location),
+    mapContainerRef
+  });
+
+  const [currentAdventureSlug, currentLocationSlug] = useAdventureAndLocationSlugs(
+    adventureMapMemo,
+    adventures[0].adventureSlug.current
+  );
 
   const currentAdventureData = adventureMapMemo[currentAdventureSlug];
-
-  useEffect(() => {
-    const replaceMarkersAndPolyline = () => {
-      if (!googleMapInstance) {
-        return;
-      }
-
-      // remove current polyline from map instance
-      line.current?.setMap(null);
-
-      // remove current map markers from map instance
-      markerList.current.length && markerList.current.forEach(marker => {
-        marker.setMap(null);
-      });
-
-      // reset marker list and get it ready for new markers
-      markerList.current = [];
-
-      const path = currentAdventureData.map((blogPost, index) => {
-        const { locationName, locationSlug, lat, lng } = blogPost;
-
-        const marker = new google.maps.Marker({
-          position: { lat, lng },
-          map: googleMapInstance,
-          label: {
-            className: '',
-            fontFamily: '',
-            fontSize: '16px',
-            fontWeight: '500',
-            color: '#1c2331',
-            text: index == currentAdventureData.length - 1 ? '⛵️' : `${index + 1}`,
-          },
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: index == currentAdventureData.length - 1 ? 16 : 12,
-            fillColor: '#e9d67a',
-            fillOpacity: 1,
-            strokeWeight: 2,
-            strokeColor: '#1c2331',
-          }
-        });
-
-        markerList.current.push(marker);
-
-        const infoWindowHtml = `
-          <strong>${locationName}:</strong>
-          <div>Click marker to show content from <strong>${locationName}</strong></div>
-        `;
-
-        const infoWindow = new google.maps.InfoWindow({
-          content: infoWindowHtml,
-        });
-
-        google.maps.event.addListener(marker, 'mouseover', function() {
-          infoWindow.open(googleMapInstance, marker);
-        });
-
-        marker.addListener('mouseout', () => {
-          infoWindow.close();
-        });
-
-        marker.addListener( 'click', () => {
-          router.push(`/adventures/${currentAdventureSlug}/${locationSlug}`);
-        });
-
-        return { lat, lng };
-      });
-
-      const arrow = {
-        path: 'M 0,-5 L 10,0 L 0,5',
-        strokeColor: '#1c2331',
-        fillColor: '#1c2331',
-        fillOpacity: 1,
-        rotation: 270,
-        scale: 1
-      };
-
-      line.current = new google.maps.Polyline({
-        path,
-        geodesic: true,
-        strokeColor: '#1c2331',
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-        icons: [{
-          icon: arrow,
-          repeat: '240px',
-        }]
-      });
-      line.current.setMap(googleMapInstance);
-    };
-
-    replaceMarkersAndPolyline();
-
-  }, [currentAdventureData, currentAdventureSlug, googleMapInstance, line, markerList, router]);
 
   useEffect(() => {
     // this useEffect reacts to the mapCenterIndex
@@ -223,7 +159,7 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
         { adventures.map((adventure, index) => (
           <li key={ adventure._id }>
             <Link
-              className={ `font-sans text-base font-normal text-black hover:underline ${adventureSegment === adventure.adventureSlug.current ? 'underline' : ''}` }
+              className={ `font-sans text-base font-normal text-black hover:underline ${currentAdventureSlug === adventure.adventureSlug.current ? 'underline' : ''}` }
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
               { adventure.adventureName } { index == 0 && ' (current)'}
@@ -231,6 +167,117 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
           </li>
         ))}
       </ul>
+      {
+        googleMapInstance && (
+          <AdventureMarkersAndLines
+            mapInstance={ googleMapInstance }
+            currentAdventureLocationData={currentAdventureData}
+            currentAdventureSlug={ currentAdventureSlug}
+            currentLocationSlug={ currentLocationSlug }
+          />
+        )
+      }
     </div>
+  );
+};
+
+const AdventureMarkersAndLines = (
+  { mapInstance, currentAdventureLocationData, currentAdventureSlug, currentLocationSlug }:
+  { mapInstance: google.maps.Map;
+    currentAdventureLocationData: CurrentAdventureLocation[];
+    currentAdventureSlug: string;
+    currentLocationSlug: string;
+  }
+) => {
+  const router = useRouter();
+  const line = useRef<google.maps.Polyline | null>(null);
+  const markerList = useRef<google.maps.marker.AdvancedMarkerView[]>([]);
+
+  useEffect(() => {
+    const markerListPointer = markerList.current;
+
+    const replaceMarkersAndPolyline = () => {
+      if (!mapInstance) {
+        return;
+      }
+
+      const path = currentAdventureLocationData.map((blogPost, index) => {
+        const { locationSlug, lat, lng, markerDiv } = blogPost;
+
+        const marker = new google.maps.marker.AdvancedMarkerView({
+          position: { lat, lng },
+          map: mapInstance,
+          content: markerDiv,
+          zIndex: 100 - index,
+          collisionBehavior: google.maps.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY,
+        });
+
+        markerList.current.push(marker);
+
+        marker.addListener('click', () => {
+          router.push(`/adventures/${currentAdventureSlug}/${locationSlug}`);
+        });
+
+        return { lat, lng };
+      });
+
+      const arrow = {
+        path: 'M 0,-5 L 10,0 L 0,5',
+        strokeColor: '#1c2331',
+        fillColor: '#1c2331',
+        fillOpacity: 1,
+        rotation: 270,
+        scale: 1
+      };
+
+      line.current = new google.maps.Polyline({
+        path,
+        geodesic: true,
+        strokeColor: '#1c2331',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [{
+          icon: arrow,
+          repeat: '240px',
+        }]
+      });
+      line.current.setMap(mapInstance);
+    };
+
+    replaceMarkersAndPolyline();
+
+    return () => {
+        // remove current polyline from map instance
+        line.current?.setMap(null);
+
+        //   remove current map markers from map instance
+        markerListPointer.length && markerListPointer.forEach(marker => {
+          marker.map = null;
+        });
+
+        // reset marker list and get it ready for new markers
+        markerList.current = [];
+    };
+
+  }, [currentAdventureLocationData, currentAdventureSlug, line, mapInstance, markerList, router]);
+
+  return (
+    <>
+      { currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }) => {
+        if (!markerDiv) {
+          return null;
+        }
+
+        return (
+          createPortal(
+            <LocationMarkerMemo
+              locationName={ locationName }
+              selected={ currentLocationSlug == locationSlug }
+            />,
+            markerDiv
+          )
+        );
+      })}
+    </>
   );
 };

@@ -1,18 +1,19 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { Loader } from '@googlemaps/js-api-loader';
 import { Adventure, PublishedLocation } from 'src/app/interfaces_blog';
 import { usePathname, useRouter } from 'next/navigation';
+import { LocationMarkerMemo } from './LocationMarker';
 
 const useGoogleMaps = (options: {
   apiKey: string;
-  locationList: PublishedLocation[];
+  initialCenter: PublishedLocation;
   mapContainerRef: React.RefObject<HTMLDivElement>;
 }) => {
-  const { apiKey, locationList, mapContainerRef } = options;
+  const { apiKey, initialCenter, mapContainerRef } = options;
   const [googleMapInstance, setGoogleMapInstance] = React.useState<google.maps.Map>();
 
   useEffect(() => {
@@ -31,18 +32,20 @@ const useGoogleMaps = (options: {
 
       // can access "google" here as a namespace (without defining variable) as long as we load it in with loader.load()
       // otherwise will need to define "google" as const google = await loader.load();
-      setGoogleMapInstance(new google.maps.Map(mapContainerRef.current, {
+      const MAP_INSTANCE = new google.maps.Map(mapContainerRef.current, {
         zoom: 6,
         mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP]
         },
         center: {
-          lat: locationList[locationList.length - 1].mapLocation.lat,
-          lng: locationList[locationList.length - 1].mapLocation.lng
+          lat: initialCenter.mapLocation.lat,
+          lng: initialCenter.mapLocation.lng
         },
         streetViewControl: false,
         mapId: 'ADVENTURES_MAP_ID' // need any id to use advanced map markers
-      }));
+      });
+
+      setGoogleMapInstance(MAP_INSTANCE);
     };
 
     if (googleMapInstance) {
@@ -54,7 +57,7 @@ const useGoogleMaps = (options: {
 
     initGoogleMaps();
 
-  }, [apiKey, googleMapInstance, locationList, mapContainerRef]);
+  }, [apiKey, googleMapInstance, initialCenter.mapLocation.lat, initialCenter.mapLocation.lng, mapContainerRef]);
 
   return { googleMapInstance };
 };
@@ -102,9 +105,11 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
+  const defaultBlogpost = adventures[0].adventureBlogPosts[adventures[0].adventureBlogPosts.length - 1];
+
   const { googleMapInstance } = useGoogleMaps({
     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-    locationList: adventures[0].adventureBlogPosts.map(blogpost => blogpost.location),
+    initialCenter: defaultBlogpost.location,
     mapContainerRef
   });
 
@@ -140,7 +145,9 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
 
   return (
     <div className='flex mb-8 gap-5 lg:gap-12 flex-col sm:flex-row'>
-      <div className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1' ref={ mapContainerRef } />
+      <div id='map-container' ref={ mapContainerRef }
+        className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1'
+      />
 
       <ul className='w-full sm:w-64 lg:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
         <h3 className='font-serif font-bold text-2xl mb-2'>Adventures</h3>
@@ -168,44 +175,6 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
     </div>
   );
 };
-
-const LocationMarker = (
-  { locationName, selected, markerList, index }:
-  { locationName: string;
-    selected: boolean;
-    markerList: google.maps.marker.AdvancedMarkerView[];
-    index: number;
-  }
-) => {
-  const [hover, setHover] = useState(false);
-
-  useEffect(() => {
-    // note: can access any marker properties in here to customize markers with markerList[index]
-    // this useEffect is running after the initial markers have been drawn, this only runs when a marker has been selected/deselected
-    if (!markerList[index]) {
-      return;
-    }
-    if (selected || hover) {
-      markerList[index].zIndex = 200;
-    } else {
-      markerList[index].zIndex = 100 - index;
-    }
-  }, [index, markerList, selected, hover]);
-
-  return (
-    <div
-      onMouseOver={ () => setHover(true)}
-      onMouseLeave={ () => setHover(false)}
-      className={ `${selected ? 'bg-skyPrimary-700 text-yellowAccent-100' : 'bg-yellowAccent-100 text-skyPrimary-700'} text-base font-semibold drop-shadow-md p-2 rounded-lg hover:bg-skyPrimary-700 hover:text-yellowAccent-100`}
-    >
-      { selected || hover
-        ? `${(index + 1)}. ${locationName}`
-        : index + 1}
-    </div>
-  );
-};
-
-const LocationMarkerMemo = React.memo(LocationMarker);
 
 const AdventureMarkersAndLines = (
   { mapInstance, currentAdventureLocationData, currentAdventureSlug, currentLocationSlug }:

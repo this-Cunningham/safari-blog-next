@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { Adventure } from 'src/app/interfaces_blog';
-import MapAndAdventures from './googleMaps';
+import MapAndAdventures from './AdventuresMap';
 import { client } from 'src/lib/sanity.client';
 
 export default async function MapLayout ({ children }: { children: ReactNode }) {

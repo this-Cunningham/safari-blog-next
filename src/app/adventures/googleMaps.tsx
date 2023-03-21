@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -170,15 +170,42 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
 };
 
 const LocationMarker = (
-  { locationName, selected }:
-  { locationName: string; selected: boolean }
+  { locationName, selected, markerList, index }:
+  { locationName: string;
+    selected: boolean;
+    markerList: google.maps.marker.AdvancedMarkerView[];
+    index: number;
+  }
 ) => {
+  const [hover, setHover] = useState(false);
+
+  useEffect(() => {
+    // note: can access any marker properties in here to customize markers with markerList[index]
+    // this useEffect is running after the initial markers have been drawn, this only runs when a marker has been selected/deselected
+    if (!markerList[index]) {
+      return;
+    }
+    if (selected || hover) {
+      markerList[index].zIndex = 200;
+    } else {
+      markerList[index].zIndex = 100 - index;
+    }
+  }, [index, markerList, selected, hover]);
+
   return (
-    <div className={ `${selected ? 'bg-skyPrimary-700 text-yellowAccent-100' : 'bg-yellowAccent-100 text-skyPrimary-700'} text-base font-semibold drop-shadow-md py-2 px-2 rounded-lg hover:bg-skyPrimary-700 hover:text-yellowAccent-100`}>
-      { locationName }
+    <div
+      onMouseOver={ () => setHover(true)}
+      onMouseLeave={ () => setHover(false)}
+      className={ `${selected ? 'bg-skyPrimary-700 text-yellowAccent-100' : 'bg-yellowAccent-100 text-skyPrimary-700'} text-base font-semibold drop-shadow-md p-2 rounded-lg hover:bg-skyPrimary-700 hover:text-yellowAccent-100`}
+    >
+      { selected || hover
+        ? `${(index + 1)}. ${locationName}`
+        : index + 1}
     </div>
   );
 };
+
+const LocationMarkerMemo = React.memo(LocationMarker);
 
 const AdventureMarkersAndLines = (
   { mapInstance, currentAdventureLocationData, currentAdventureSlug, currentLocationSlug }:
@@ -196,18 +223,14 @@ const AdventureMarkersAndLines = (
     const markerListPointer = markerList.current;
 
     const replaceMarkersAndPolyline = () => {
-      if (!mapInstance) {
-        return;
-      }
-
       const path = currentAdventureLocationData.map((blogPost, index) => {
-        const { locationSlug, lat, lng, markerDiv } = blogPost;
+        const { lat, lng, markerDiv, locationSlug } = blogPost;
 
         const marker = new google.maps.marker.AdvancedMarkerView({
           position: { lat, lng },
           map: mapInstance,
           content: markerDiv,
-          zIndex: 100 - index,
+          zIndex: locationSlug == currentLocationSlug ? 200 : 100 - index,
           collisionBehavior: google.maps.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY,
         });
 
@@ -248,8 +271,8 @@ const AdventureMarkersAndLines = (
     return () => {
         // remove current polyline from map instance
         line.current?.setMap(null);
-        //   remove current map markers from map instance
-        markerListPointer.length && markerListPointer.forEach(marker => {
+        // remove current map markers from map instance
+        markerList.current.length && markerListPointer.forEach(marker => {
           marker.map = null;
         });
 
@@ -257,25 +280,29 @@ const AdventureMarkersAndLines = (
         markerList.current = [];
     };
 
+    // not including currentLocationSlug in dependency array because <LocationMarker /> is handling the z-index after the initial adventure lines/markers have been set up
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAdventureLocationData, currentAdventureSlug, mapInstance, router]);
 
   return (
     <>
-      { currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }) => {
+      { currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }, index) => {
         if (!markerDiv) {
           return null;
         }
-        // THE REASON I WANT TO GET MARKER INSTANTIATION INSIDE HERE (PREFERABLY INSIDE LOCATIONMARKER / MARKER PORTAL COMPNOENT IS SO I CAN USE CUSTOM EVENT LISTENERS with react hooks logic AND TWO SO I CAN CHANGE Z-INDEX BASED ON IT BEING SELECTED WITHOUT CAUSING RE-RENDERS OF ALL MARKERS
-        // THIS WILL ALSO ALLOW ME TO style react component based on index
 
         return (
-          createPortal(
-            <LocationMarker
-              locationName={ locationName }
-              selected={ currentLocationSlug == locationSlug }
-            />,
-            markerDiv
-          )
+          <React.Fragment key={ locationSlug + index }>
+            { createPortal(
+              <LocationMarkerMemo
+                locationName={ locationName }
+                selected={ currentLocationSlug == locationSlug }
+                markerList={ markerList.current }
+                index={ index }
+              />,
+              markerDiv
+            )}
+          </React.Fragment>
         );
       })}
     </>

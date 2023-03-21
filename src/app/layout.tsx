@@ -56,15 +56,16 @@ export default function RootLayout({
                 SAFARI
             </Link>
 
-            <div className='text-black font-serif text-base lg:text-xl text-center md:text-right space-y-1'>
+            <div className='text-black font-serif text-base lg:text-xl text-center md:text-right'>
+              <div>Built by Chris Cunningham</div>
+
               <Link
                 href='https://www.wscunningham.com/design'
                 target='_blank'
                 className='hover:underline'
               >
-                Designed by Willie Cunningham
+                Design by Willie Cunningham
               </Link>
-              <div>Developed by Chris Cunningham</div>
             </div>
 
           </div>

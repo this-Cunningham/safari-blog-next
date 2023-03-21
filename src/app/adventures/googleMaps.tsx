@@ -76,18 +76,6 @@ const useAdventureAndLocationSlugs = (adventureMap: Record<string, CurrentAdvent
   return [currentAdventureSlug, currentLocationSlug];
 };
 
-const LocationMarker = (
-  { locationName, selected }:
-  { locationName: string; selected: boolean }
-) => {
-  return (
-    <div className={ `${selected ? 'bg-skyPrimary-700 text-yellowAccent-100' : 'bg-yellowAccent-100 text-skyPrimary-700'} text-base font-semibold drop-shadow-md py-2 px-2 rounded-lg hover:bg-skyPrimary-700 hover:text-yellowAccent-100`}>
-      { locationName }
-    </div>
-  );
-};
-const LocationMarkerMemo = React.memo(LocationMarker);
-
 type CurrentAdventureLocation = {
   lat: number;
   lng: number;
@@ -181,6 +169,17 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   );
 };
 
+const LocationMarker = (
+  { locationName, selected }:
+  { locationName: string; selected: boolean }
+) => {
+  return (
+    <div className={ `${selected ? 'bg-skyPrimary-700 text-yellowAccent-100' : 'bg-yellowAccent-100 text-skyPrimary-700'} text-base font-semibold drop-shadow-md py-2 px-2 rounded-lg hover:bg-skyPrimary-700 hover:text-yellowAccent-100`}>
+      { locationName }
+    </div>
+  );
+};
+
 const AdventureMarkersAndLines = (
   { mapInstance, currentAdventureLocationData, currentAdventureSlug, currentLocationSlug }:
   { mapInstance: google.maps.Map;
@@ -249,7 +248,6 @@ const AdventureMarkersAndLines = (
     return () => {
         // remove current polyline from map instance
         line.current?.setMap(null);
-
         //   remove current map markers from map instance
         markerListPointer.length && markerListPointer.forEach(marker => {
           marker.map = null;
@@ -259,7 +257,7 @@ const AdventureMarkersAndLines = (
         markerList.current = [];
     };
 
-  }, [currentAdventureLocationData, currentAdventureSlug, line, mapInstance, markerList, router]);
+  }, [currentAdventureLocationData, currentAdventureSlug, mapInstance, router]);
 
   return (
     <>
@@ -267,10 +265,12 @@ const AdventureMarkersAndLines = (
         if (!markerDiv) {
           return null;
         }
+        // THE REASON I WANT TO GET MARKER INSTANTIATION INSIDE HERE (PREFERABLY INSIDE LOCATIONMARKER / MARKER PORTAL COMPNOENT IS SO I CAN USE CUSTOM EVENT LISTENERS with react hooks logic AND TWO SO I CAN CHANGE Z-INDEX BASED ON IT BEING SELECTED WITHOUT CAUSING RE-RENDERS OF ALL MARKERS
+        // THIS WILL ALSO ALLOW ME TO style react component based on index
 
         return (
           createPortal(
-            <LocationMarkerMemo
+            <LocationMarker
               locationName={ locationName }
               selected={ currentLocationSlug == locationSlug }
             />,

@@ -1,6 +1,6 @@
 export const SupplementalInfoPanel = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='font-serif w-full p-12 bg-white'>
+    <div className='font-serif w-full p-4 sm:p-12 bg-white drop-shadow-md'>
       { children }
     </div>
   );

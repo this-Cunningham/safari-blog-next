@@ -39,7 +39,7 @@ export default function RootLayout({
         {/* @ts-expect-error Server Component */}
         <Navbar />
 
-        <footer className='bg-skyPrimary-50 p-5 md:px-0'>
+        <footer className='bg-skyPrimary-50 p-5 md:px-0 mt-8 sm:mt-20'>
           <div className='h-60 md:h-64 mx-auto max-w-5xl flex flex-col md:flex-row justify-around items-center'>
             <div className='h-20 w-24 md:h-40 md:w-52 bg-gray-500 text-yellowAccent-400'>
               Safari boat svg

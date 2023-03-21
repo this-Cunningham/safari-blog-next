@@ -3,8 +3,10 @@
 import { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useScrollPosition } from 'src/hooks/useScrollPosition';
+
 import { SiteSection } from 'src/app/interfaces_blog';
+import { useScrollPosition } from 'src/hooks/useScrollPosition';
+import { SafariWireLogo } from './supplemental/SafariWireLogo';
 
 const NavItem = (
   { siteSection, isScrolled }:
@@ -33,8 +35,17 @@ const NavItem = (
 
   return (
      <Link href={ siteSection.slug.current == 'safari' ? '/' : `/${siteSection.slug.current}` }
-      className={ navItemStyle }>
-      { siteSection.siteSectionName }
+        className={ `${navItemStyle} relative` }
+      >
+      { siteSection.slug.current === 'safari' && (
+        <SafariWireLogo
+          width={ 130 } height={ 163 }
+          className='w-auto h-16 absolute -right-7 -top-6'
+        />
+      )}
+
+      { siteSection.siteSectionName.toUpperCase() }
+
     </Link>
   );
 };
@@ -60,7 +71,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
           />
         </div>
 
-        <div className='flex justify-end gap-6 lg:gap-20'>
+        <div className='flex justify-end gap-6 md:gap-10 lg:gap-20'>
           { navItems.map((siteSection) => (
             <NavItem siteSection={siteSection}
               isScrolled={ scrollY > 0 }

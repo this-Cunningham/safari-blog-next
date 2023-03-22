@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { Loader } from '@googlemaps/js-api-loader';
@@ -187,10 +187,9 @@ const AdventureMarkersAndLines = (
   const router = useRouter();
   const line = useRef<google.maps.Polyline | null>(null);
   const markerList = useRef<google.maps.marker.AdvancedMarkerView[]>([]);
+  const [markers, setMarkers] = useState<google.maps.marker.AdvancedMarkerView[]>([]);
 
   useEffect(() => {
-    const markerListPointer = markerList.current;
-
     const replaceMarkersAndPolyline = () => {
       const path = currentAdventureLocationData.map((blogPost, index) => {
         const { lat, lng, markerDiv, locationSlug } = blogPost;
@@ -201,6 +200,7 @@ const AdventureMarkersAndLines = (
           content: markerDiv,
           zIndex: locationSlug == currentLocationSlug ? 200 : 100 - index,
           collisionBehavior: google.maps.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY,
+          title: locationSlug
         });
 
         markerList.current.push(marker);
@@ -232,21 +232,27 @@ const AdventureMarkersAndLines = (
           repeat: '240px',
         }]
       });
+
       line.current.setMap(mapInstance);
+
+      // setting markers here to re-render + sync markerlist with markers
+      setMarkers(markerList.current);
     };
 
     replaceMarkersAndPolyline();
 
     return () => {
-        // remove current polyline from map instance
-        line.current?.setMap(null);
+      markers.forEach(marker => {
         // remove current map markers from map instance
-        markerList.current.length && markerListPointer.forEach(marker => {
-          marker.map = null;
-        });
+        marker.map = null;
+      });
 
-        // reset marker list and get it ready for new markers
-        markerList.current = [];
+      // remove current polyline from map instance
+      line.current?.setMap(null);
+
+      // reset marker list and get it ready for new markers
+      setMarkers([]);
+      markerList.current = [];
     };
 
     // not including currentLocationSlug in dependency array because <LocationMarker /> is handling the z-index after the initial adventure lines/markers have been set up
@@ -255,25 +261,27 @@ const AdventureMarkersAndLines = (
 
   return (
     <>
-      { currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }, index) => {
-        if (!markerDiv) {
-          return null;
-        }
+      { markers.length && (
+        currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }, index) => {
+          if (!markerDiv) {
+            return null;
+          }
 
-        return (
-          <React.Fragment key={ locationSlug + index }>
-            { createPortal(
-              <LocationMarkerMemo
-                locationName={ locationName }
-                selected={ currentLocationSlug == locationSlug }
-                markerList={ markerList.current }
-                index={ index }
-              />,
-              markerDiv
-            )}
-          </React.Fragment>
-        );
-      })}
+          return (
+            <React.Fragment key={ locationSlug + index }>
+              { createPortal(
+                <LocationMarkerMemo
+                  locationName={ locationName }
+                  selected={ currentLocationSlug == locationSlug }
+                  markerList={ markers }
+                  index={ index }
+                />,
+                markerDiv
+              )}
+            </React.Fragment>
+          );
+        })
+      )}
     </>
   );
 };

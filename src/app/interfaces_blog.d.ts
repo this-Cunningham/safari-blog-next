@@ -27,6 +27,12 @@ export interface SanityImageMetadata {
   lqip: string;
 }
 
+export interface ImageAsset {
+  path: string;
+  url: string;
+  metadata: SanityImageMetadata;
+}
+
 export interface BlogImage {
   _type: 'blogImage';
   _createdAt: string;
@@ -34,11 +40,7 @@ export interface BlogImage {
   author: Author;
   caption: string;
   image: {
-    asset: {
-      path: string;
-      url: string;
-      metadata: SanityImageMetadata;
-    };
+    asset: ImageAsset;
     crop: {
       _type: 'sanity.imageCrop'
       bottom: number;

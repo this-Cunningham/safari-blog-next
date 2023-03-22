@@ -26,7 +26,7 @@ export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; inde
           className='text-xs tracking-wider font-light my-2'
         />
 
-        <p className='text-s m-2'>{ blogPost.excerpt }...</p>
+        <p className='text-base leading-5 m-2'>{ blogPost.excerpt }...</p>
       </div>
     </Link>
   </div>

@@ -42,19 +42,20 @@ export default function RootLayout({
         {/* @ts-expect-error Server Component */}
         <Navbar />
 
-        <footer className='bg-skyPrimary-50 p-5 md:px-0 mt-8 sm:mt-20'>
+        <footer className='bg-skyPrimary-50 p-5 md:px-0'>
           <div className='min-h-[280px] p-8 mx-auto max-w-[1440px] flex flex-col gap-6 md:flex-row justify-between items-center'>
+
+            <Link href='/'
+              className='font-serif text-3xl md:text-6xl lg:text-8xl text-gray-500'>
+                SAFARI
+            </Link>
+
             <div>
               <SafariWireLogo
                 width={ 130 } height={ 163 }
                 className='rounded w-full h-auto'
               />
             </div>
-
-            <Link href='/'
-              className='font-serif text-3xl md:text-6xl lg:text-8xl text-gray-500 hover:underline'>
-                SAFARI
-            </Link>
 
             <div className='text-black font-serif text-base lg:text-xl text-center md:text-right'>
               <div>Built by Chris Cunningham</div>

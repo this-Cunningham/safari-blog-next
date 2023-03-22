@@ -49,7 +49,6 @@ const useGoogleMaps = (options: {
     };
 
     if (googleMapInstance) {
-      // googleMapInstance points at our google map instance
       // do not want to re-initialize a google map instance w/ "initGoogleMaps()" if we already have one
       // this was causing re-rendering when using router.push()
       return;

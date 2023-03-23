@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import { BlueButtonLink } from 'src/components/atoms/BlueButtonLink';
+
 import { BlogPostTile } from 'src/components/BlogPostTile';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
@@ -53,16 +56,35 @@ export default async function Home() {
 
       </div>
 
-      <div className='bg-white py-4 sm:p-12 sm:py-24'>
-        <h2 className='font-serif text-5xl mb-8'>Life aboard a Ted Hood Classic</h2>
-        <div className="flex gap-6 w-full h-full">
-          <div className='max-w-[40%] text-2xl font-sans'>
-            Purchased in 2007, weve modified our vessel over the last 16 years, and have been cruising Maine and the Bahamas since 2014.
-            <br />
-            <br />
-            Read more about our vessel, and how weve upgraded it
+      <div className='bg-white p-4 lg:p-12 lg:py-24'>
+        <div className="flex gap-6 justify-between w-full h-full">
+
+          <div className='w-1/2 text-sm lg:text-2xl font-sans h-full my-auto'>
+
+            <h2 className='font-serif text-base sm:text-2xl lg:text-5xl lg:leading-[65px] mb-4 lg:mb-8'>
+              Life aboard a Ted Hood Classic
+            </h2>
+
+            <p className='sm:mb-4 lg:mb-14'>
+              Purchased in 2007, weve modified our vessel over the last 16 years, and have been cruising Maine and the Bahamas since 2014.
+              <br />
+              <br />
+              Read more about our vessel, and how weve upgraded it
+            </p>
+
+            <BlueButtonLink href='/about-us'>
+              About&nbsp;Safari
+            </BlueButtonLink>
           </div>
-          <div className='grow-1 w-full bg-gray-500 text-yellowAccent-200'>Picture of boat architecture</div>
+
+          <div className='w-1/2 my-auto'>
+            <Image src='/safari-blueprint.png'
+              className='w-full h-auto bg-gray-500 text-yellowAccent-200'
+              height={ 400 }
+              width={ 600 }
+              alt='safari blueprint'
+            />
+          </div>
         </div>
       </div>
     </>

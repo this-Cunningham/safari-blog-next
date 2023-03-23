@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Icon } from '@iconify/react';
+import Icon from 'src/components/atoms/IconifyClientWrapper';
 
 import { Adventure } from '../interfaces_blog';
 

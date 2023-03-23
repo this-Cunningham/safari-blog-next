@@ -5,6 +5,7 @@ import { BlogPostBlockContent } from 'src/components/BlogPostBlockContent';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
 import { Author } from 'src/app/interfaces_blog';
+import { SiteSectionHeader } from 'src/components/SiteSectionHeader';
 
 const AuthorPanel = ({ author }: { author: Author }) => (
   <div className='space-y-4' key={ author.slug.current }>
@@ -67,7 +68,7 @@ export default async function AboutUs () {
 
   return (
     <>
-      <h1 className='text-4xl sm:text-7xl font-serif font-normal mb-4 sm:mb-10'> About </h1>
+      <SiteSectionHeader> About </SiteSectionHeader>
       <div className='w-full max-w-[720px] mx-auto'>
         <div className='grid grid-rows-[min-content] gap-8'>
           { authors.map(author => (

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { DateFormatter } from './DateFormatted';
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
+import { client } from 'src/lib/sanity.client';
 
 export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
   <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded drop-shadow-md'>
@@ -26,7 +27,7 @@ export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; inde
           className='text-xs tracking-wider font-light my-2'
         />
 
-        <p className='text-s m-2'>{ blogPost.excerpt }...</p>
+        <p className='text-base leading-5 m-2'>{ blogPost.excerpt }...</p>
       </div>
     </Link>
   </div>
@@ -39,3 +40,24 @@ export const BlogPostTileList = ({ blogPosts }: { blogPosts: BlogPostData[] }) =
     )) }
   </div>
 );
+
+export const LatestPosts = async () => {
+  const latestThreePosts: BlogPostData[] = await client.fetch(`//groq
+    *[_type == 'blogPost'] | order(publishedAt desc) [0..1] {
+      _id,
+      title,
+      excerpt,
+      location->{ locationName, mapLocation },
+      mainImage->{ _createdAt, caption, image{ ..., asset-> }, author->{ name, slug } },
+      publishedAt,
+      slug{ current },
+  }
+  `);
+
+  return (
+    <div className='max-w-7xl mx-auto'>
+      <h3 className='font-serif text-4xl sm:text-5xl my-8 sm:my-12'>Latest Posts</h3>
+      <BlogPostTileList blogPosts={ latestThreePosts } />
+    </div>
+  );
+};

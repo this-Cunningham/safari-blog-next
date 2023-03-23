@@ -2,6 +2,7 @@ import { client } from 'src/lib/sanity.client';
 import { ImageTileList } from 'src/components/ImageTile';
 
 import { BlogImage } from 'src/app/interfaces_blog';
+import { SiteSectionHeader } from 'src/components/SiteSectionHeader';
 
 export default async function Photos () {
   const allPhotos: BlogImage[] = await client.fetch(`*[_type == "blogImage"]{
@@ -15,7 +16,7 @@ export default async function Photos () {
 
   return (
     <>
-      <h1 className='text-4xl sm:text-7xl font-serif font-normal mb-4 sm:mb-10'> Gallery </h1>
+      <SiteSectionHeader>Gallery</SiteSectionHeader>
       <ImageTileList photos={ allPhotos } />
     </>
   );

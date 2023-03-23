@@ -1,7 +1,8 @@
 // location within an adventure
 
-import { BlogPostData } from 'src/app/interfaces_blog';
+import { BlogImage, BlogPostData } from 'src/app/interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
+import { ImageTileList } from 'src/components/ImageTile';
 import { client } from 'src/lib/sanity.client';
 
 // "generateStaticParams" is static rendering each of these dynamic routes at build time!
@@ -48,9 +49,33 @@ export default async function LocationWithinAdventure (
       },
       excerpt,
       publishedAt,
-      slug
+      slug,
+      location->{
+        locationName
+      }
     }
   `);
+
+  const adventureLocationPhotos: {images: BlogImage[]}[] = await client.fetch(`//groq
+    *[_type == 'blogPost'
+        && _id in *[_type == 'adventure' && adventureSlug.current == '${params.adventureSlug}']
+        .adventureBlogPosts[]->_id
+        && location->.slug.current == '${params.locationSlug}'
+      ]{
+      "images": array::compact([
+        mainImage->{_id, image{asset->}},
+        ...body[]{
+          _type == 'blogImageRef' => @->{
+            "images": [{_id, image{asset->}}]
+            },
+          _type == 'imageCollectionRef' => @->{
+            "images": collectionImages[]->{_id, image{asset->}},
+            },
+        }.images[],
+      ]),
+  }`);
+
+  const flatPhotoList = adventureLocationPhotos.flatMap(({ images }) => images);
 
   // for a given adventure and location, show all blogposts from this adventure at this location
   return (
@@ -61,10 +86,14 @@ export default async function LocationWithinAdventure (
       <div className='mb-9'>
 
         <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
-          Posts from: <span className='font-bold font-sans'>{ params.adventureSlug }</span>, location: <span className='font-bold font-sans'>{ params.locationSlug }</span>
+          Posts from: <span className='font-bold font-sans'>{ params.adventureSlug }</span>, location: <span className='font-bold font-sans'>{ blogPostsForAdventureLocation[0].location.locationName }</span>
         </h3>
 
         <BlogPostTileList blogPosts={ blogPostsForAdventureLocation } />
+        <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
+          Photos from: <span className='font-bold font-sans'>{ blogPostsForAdventureLocation[0].location.locationName }</span>
+        </h3>
+        <ImageTileList photos={ flatPhotoList } />
       </div>
     ) }
   </div>

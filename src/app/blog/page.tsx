@@ -1,5 +1,6 @@
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
+import { SiteSectionHeader } from 'src/components/SiteSectionHeader';
 import { client } from 'src/lib/sanity.client';
 
 export default async function BlogPostList () {
@@ -16,7 +17,7 @@ export default async function BlogPostList () {
 
   return (
     <>
-      <h1 className='text-4xl sm:text-7xl font-serif font-normal mb-4 sm:mb-10'> Blog Posts </h1>
+      <SiteSectionHeader> Blog Posts </SiteSectionHeader>
       <BlogPostTileList blogPosts={ blogPosts } />
     </>
   );

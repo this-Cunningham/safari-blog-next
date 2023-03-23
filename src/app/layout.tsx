@@ -1,7 +1,10 @@
 import './globals.css';
+
 import { Cinzel_Decorative, Montserrat } from 'next/font/google';
-import { Navbar } from 'src/components/Navbar';
 import Link from 'next/link';
+
+import { Navbar } from 'src/components/Navbar';
+import { SafariWireLogo } from 'src/components/supplemental/SafariWireLogo';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -40,23 +43,30 @@ export default function RootLayout({
         <Navbar />
 
         <footer className='bg-skyPrimary-50 p-5 md:px-0'>
-          <div className='h-60 md:h-64 mx-auto max-w-5xl flex flex-col md:flex-row justify-around items-center'>
-            <div className='h-20 w-24 md:h-40 md:w-52 bg-gray-500 text-yellowAccent-400'>
-              Safari boat svg
-            </div>
+          <div className='min-h-[280px] p-8 mx-auto max-w-[1440px] flex flex-col gap-6 md:flex-row justify-between items-center'>
 
             <Link href='/'
-              className='font-serif text-3xl md:text-6xl text-gray-500 hover:underline'>SAFARI</Link>
+              className='font-serif text-3xl md:text-6xl lg:text-8xl text-gray-500'>
+                SAFARI
+            </Link>
 
-            <div className='text-gray-500 text-xs md:text-base text-center md:text-right space-y-1'>
+            <div>
+              <SafariWireLogo
+                width={ 130 } height={ 163 }
+                className='rounded w-full h-auto'
+              />
+            </div>
+
+            <div className='text-black font-serif text-base lg:text-xl text-center md:text-right'>
+              <div>Built by Chris Cunningham</div>
+
               <Link
                 href='https://www.wscunningham.com/design'
                 target='_blank'
                 className='hover:underline'
               >
-                Designed by Willie Cunningham
+                Design by Willie Cunningham
               </Link>
-              <div>Developed by Chris Cunningham</div>
             </div>
 
           </div>

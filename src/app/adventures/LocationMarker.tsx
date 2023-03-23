@@ -34,7 +34,7 @@ const LocationMarker = (
         } text-base font-semibold drop-shadow-md p-2 rounded-lg
       `}
     >
-      { selected || hover
+      { (selected || hover)
         ? `${(index + 1)}. ${locationName}`
         : index + 1}
     </div>

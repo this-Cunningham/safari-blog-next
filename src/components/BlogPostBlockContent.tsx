@@ -12,7 +12,7 @@ const BlogImageBlockContent = ({ value: { image, caption }}: { value: BlockConte
     width={ 720 }
     placeholder='blur'
     blurDataURL={ image.asset.metadata.lqip }
-    alt={ caption }
+    alt={ caption ?? 'blog image' }
   />
 );
 
@@ -26,7 +26,7 @@ const ImageCollectionBlockContent = ({ value }: { value: { collectionImages: Blo
         width={ 320 * image.asset.metadata.dimensions.aspectRatio }
         placeholder='blur'
         blurDataURL={ image.asset.metadata.lqip }
-        alt={ caption }
+        alt={ caption ?? 'blog image' }
         key={ _id + String(index) }
       />
     ))}

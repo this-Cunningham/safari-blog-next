@@ -41,8 +41,9 @@ const useGoogleMaps = (options: {
           lat: initialCenter.mapLocation.lat,
           lng: initialCenter.mapLocation.lng
         },
+        mapTypeControl: false,
         streetViewControl: false,
-        mapId: 'ADVENTURES_MAP_ID' // need any id to use advanced map markers
+        mapId: 'ADVENTURES_MAP_ID', // need any id to use advanced map markers
       });
 
       setGoogleMapInstance(MAP_INSTANCE);
@@ -143,17 +144,17 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
 
   return (
-    <div className='flex mb-8 gap-5 lg:gap-12 flex-col sm:flex-row'>
+    <div className='flex mb-8 gap-5 xl:gap-12 flex-col sm:flex-row'>
       <div id='map-container' ref={ mapContainerRef }
         className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1'
       />
 
-      <ul className='w-full sm:w-64 lg:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
-        <h3 className='font-serif font-bold text-2xl mb-2'>Adventures</h3>
+      <ul className='w-full sm:w-64 xl:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
+        <h3 className='font-serif font-bold text-xl text-center mb-2'>Select a journey</h3>
         { adventures.map((adventure, index) => (
           <li key={ adventure._id }>
             <Link
-              className={ `font-sans text-base font-normal text-black hover:underline ${currentAdventureSlug === adventure.adventureSlug.current ? 'underline' : ''}` }
+              className={ `font-sans text-base leading-5 font-normal text-black hover:underline ${currentAdventureSlug === adventure.adventureSlug.current ? 'underline' : ''}` }
               href={ `/adventures/${adventure.adventureSlug.current}` }
             >
               { adventure.adventureName } { index == 0 && ' (current)'}

@@ -40,7 +40,7 @@ const NavItem = (
       { siteSection.slug.current === 'safari' && (
         <SafariWireLogo
           width={ 130 } height={ 163 }
-          className='w-auto h-16 absolute -right-7 -top-6'
+          className='w-auto h-16 absolute -right-7 -top-6 hidden sm:block'
         />
       )}
 
@@ -63,7 +63,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
       }
     `}
     >
-      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
+      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center text-xs sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
         <div>
           <NavItem siteSection={ safariHome }
             isScrolled={ scrollY > 0 }

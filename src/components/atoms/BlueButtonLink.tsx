@@ -1,8 +1,14 @@
 import Link from 'next/link';
 
-export const BlueButtonLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
+import { AtomBase } from './interfaces_atoms';
+
+interface BlueButtonLinkProps extends AtomBase {
+  href: string;
+}
+
+export const BlueButtonLink = ({ children, className, href }: BlueButtonLinkProps) => (
   <Link href={ href }
-    className='bg-skyPrimary-800 text-base font-sans text-yellowAccent-100 py-2 px-3 sm:py-4 sm:px-7 rounded font-medium'
+    className={ `block w-fit h-fit mx-auto sm:mx-0 bg-skyPrimary-800 text-base font-sans text-yellowAccent-100 py-4 px-7 rounded font-medium ${ className }` }
   >
     { children }
   </Link>

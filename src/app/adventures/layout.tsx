@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Adventure } from 'src/app/interfaces_blog';
 import MapAndAdventures from './AdventuresMap';
 import { client } from 'src/lib/sanity.client';
-import { SiteSectionHeader } from 'src/components/atoms/SiteSectionHeader';
+import { SiteSectionHeader } from 'src/components/atoms/TextAtoms';
 
 export default async function MapLayout ({ children }: { children: ReactNode }) {
   const adventures: Adventure[] = await client.fetch(`//groq

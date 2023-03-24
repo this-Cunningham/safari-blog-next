@@ -5,6 +5,8 @@ import { DateFormatter } from './DateFormatted';
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
+import { BlueButtonLink } from './atoms/BlueButtonLink';
+import { Subheadline } from './atoms/TextAtoms';
 
 export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
   <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded drop-shadow-md'>
@@ -51,13 +53,16 @@ export const LatestPosts = async () => {
       mainImage->{ _createdAt, caption, image{ ..., asset-> }, author->{ name, slug } },
       publishedAt,
       slug{ current },
-  }
+    }
   `);
 
   return (
-    <div className='max-w-7xl mx-auto'>
-      <h3 className='font-serif text-4xl sm:text-5xl my-8 sm:my-12'>Latest Posts</h3>
+    <div className='max-w-7xl mx-auto py-10 sm:py-14'>
+      <Subheadline>Latest Posts</Subheadline>
+
       <BlogPostTileList blogPosts={ latestThreePosts } />
+
+      <BlueButtonLink href='/blog' className='lg:mt-4'>All&nbsp;Blog&nbsp;Posts</BlueButtonLink>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { BlogPostBlockContent } from 'src/components/BlogPostBlockContent';
 import { urlFor } from 'src/lib/imageUrlBuilder';
 import { client } from 'src/lib/sanity.client';
 import { Author } from 'src/app/interfaces_blog';
-import { SiteSectionHeader } from 'src/components/atoms/SiteSectionHeader';
+import { SiteSectionHeader } from 'src/components/atoms/TextAtoms';
 
 const AuthorPanel = ({ author }: { author: Author }) => (
   <div className='space-y-4' key={ author.slug.current }>

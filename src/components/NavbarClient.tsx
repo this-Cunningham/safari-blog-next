@@ -78,8 +78,8 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
         : `${isMobile && !collapsed ? 'bg-yellowAccent-50 drop-shadow-md' : 'bg-yellowAccent-50'}`
       }
     `}>
-      <div className='flex flex-col mx-auto text-black text-2xl font-bold sm:font-normal sm:text-xl font-serif tracking-normal lg:tracking-[2px] px-8 sm:px-12'>
-        <div className='max-w-[1440px] min-h-[64px] sm:h-28 flex justify-between items-center  shrink-0'>
+      <div className='max-w-[1440px] flex flex-col mx-auto text-black text-2xl font-bold sm:font-normal sm:text-xl font-serif tracking-normal lg:tracking-[2px] px-8 sm:px-12'>
+        <div className='min-h-[64px] sm:h-28 flex justify-between items-center shrink-0'>
           <div>
             <NavItem siteSection={ safariHome }
               isScrolled={ scrollY > 0 }

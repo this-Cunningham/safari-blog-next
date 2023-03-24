@@ -254,7 +254,7 @@ const AdventureMarkersAndLines = (
 
   return (
     <>
-      { markers.length && (
+      { !!markers.length && (
         currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }, index) => {
           if (!markerDiv) {
             return null;

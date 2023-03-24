@@ -1,21 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Icon from 'src/components/atoms/IconifyClientWrapper';
 
 import { Adventure } from '../interfaces_blog';
+import { useScreenWidth } from 'src/hooks/useScreenWidth';
 
 export const AdventureList = ({ adventures, currentAdventureSlug, currentLocationSlug }: { adventures: Adventure[]; currentAdventureSlug: string; currentLocationSlug: string }) => {
   const [collapsed, setCollapsed] = useState(true);
-  const [screenWidth, setScreenWidth] = useState<number>(0);
-
-  useEffect(() => {
-      const updateScreen = () => setScreenWidth(window.innerWidth);
-      updateScreen();
-      window.addEventListener('resize', updateScreen);
-      return () => window.removeEventListener('resize', updateScreen);
-  }, []);
+  const screenWidth = useScreenWidth();
 
   const isMobile = screenWidth < 768;
 

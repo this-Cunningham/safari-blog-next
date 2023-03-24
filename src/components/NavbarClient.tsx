@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { SiteSection } from 'src/app/interfaces_blog';
 import { useScrollPosition } from 'src/hooks/useScrollPosition';
 import { SafariWireLogo } from './supplemental/SafariWireLogo';
+import { useScreenWidth } from 'src/hooks/useScreenWidth';
+import { SquashHamburger } from './Hamburger';
 
 const NavItem = (
   { siteSection, isScrolled }:
@@ -16,11 +18,11 @@ const NavItem = (
 
   // useCallback and useMemo here to only run this code when "isScrolled" or "pathname" changes
   const getNavItemStyling = useCallback((slugString: string) => {
-    const predicate = slugString == 'safari' // this means home "/"
+    const siteSectionIsSelectedPredicate = slugString == 'safari' // this means home "/"
       ? pathname == '/'
       : pathname?.startsWith(`/${slugString}`);
 
-    return predicate
+    return siteSectionIsSelectedPredicate
       ? `underline decoration-2 underline-offset-8 ${
         isScrolled
           ? 'text-yellowAccent-100 decoration-8'
@@ -34,9 +36,9 @@ const NavItem = (
   }, [getNavItemStyling, siteSection.slug]);
 
   return (
-     <Link href={ siteSection.slug.current == 'safari' ? '/' : `/${siteSection.slug.current}` }
-        className={ `${navItemStyle} relative` }
-      >
+    <Link href={ siteSection.slug.current == 'safari' ? '/' : `/${siteSection.slug.current}` }
+      className={ `${navItemStyle} relative` }
+    >
       { siteSection.slug.current === 'safari' && (
         <SafariWireLogo
           width={ 130 } height={ 163 }
@@ -53,6 +55,9 @@ const NavItem = (
 export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
   const [safariHome, ...navItems] = navBar;
   const scrollY = useScrollPosition();
+  const screenWidth = useScreenWidth();
+
+  const isMobile = screenWidth < 640;
 
   return (
     <nav className={`
@@ -63,22 +68,27 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
       }
     `}
     >
-      <div className='max-w-[1440px] mx-auto px-4 sm:px-12 h-16 sm:h-28 text-black flex justify-between items-center text-xs sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
+      <div className='max-w-[1440px] mx-auto px-8 sm:px-12 h-16 sm:h-28 flex justify-between items-center text-black text-2xl font-bold sm:font-normal sm:text-xl font-serif tracking-normal lg:tracking-[2px] shrink-0'>
         <div>
           <NavItem siteSection={ safariHome }
             isScrolled={ scrollY > 0 }
             key={ safariHome._id }
           />
         </div>
-
-        <div className='flex justify-end gap-6 md:gap-10 lg:gap-20'>
-          { navItems.map((siteSection) => (
-            <NavItem siteSection={siteSection}
-              isScrolled={ scrollY > 0 }
-              key={ siteSection._id }
-            />
-          ))}
-        </div>
+        {
+          isMobile ? (
+            <SquashHamburger color={ scrollY > 0 ? '#fef9c3' : '#1d1d1d' } />
+          ) : (
+            <div className='flex justify-end gap-6 md:gap-10 lg:gap-20'>
+              { navItems.map((siteSection) => (
+                <NavItem siteSection={siteSection}
+                  isScrolled={ scrollY > 0 }
+                  key={ siteSection._id }
+                />
+              ))}
+            </div>
+          )
+        }
       </div>
     </nav>
   );

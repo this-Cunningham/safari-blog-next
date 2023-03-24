@@ -88,7 +88,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
             />
           </div>
           {
-            isMobile ? (
+            screenWidth !== 0 && isMobile ? (
               <SquashHamburger
                 color={ getHamburgerColor() }
                 onToggle={ () => setCollapsed(prev => !prev)}

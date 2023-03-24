@@ -2,11 +2,11 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Link from 'next/link';
 import { Loader } from '@googlemaps/js-api-loader';
 import { Adventure, PublishedLocation } from 'src/app/interfaces_blog';
 import { usePathname, useRouter } from 'next/navigation';
 import { LocationMarkerMemo } from './LocationMarker';
+import { AdventureList } from './AdventureList';
 
 const useGoogleMaps = (options: {
   apiKey: string;
@@ -144,30 +144,23 @@ export default function MapAndAdventures ({ adventures }: { adventures: Adventur
   }, [currentAdventureData, currentLocationSlug, googleMapInstance]);
 
   return (
-    <div className='flex mb-8 gap-5 xl:gap-12 flex-col sm:flex-row'>
+    <div className='flex mb-8 gap-5 xl:gap-12 flex-col md:flex-row'>
       <div id='map-container' ref={ mapContainerRef }
-        className='h-72 w-full rounded-lg sm:h-[400px] sm:flex-1'
+        className='h-72 w-full rounded-lg md:h-[400px] md:flex-1'
       />
 
-      <ul className='w-full sm:w-64 xl:w-96 flex flex-col gap-3 items-center bg-skyPrimary-100 rounded drop-shadow-md p-5'>
-        <h3 className='font-serif font-bold text-xl text-center mb-2'>Select a journey</h3>
-        { adventures.map((adventure, index) => (
-          <li key={ adventure._id }>
-            <Link
-              className={ `font-sans text-base leading-5 font-normal text-black hover:underline ${currentAdventureSlug === adventure.adventureSlug.current ? 'underline' : ''}` }
-              href={ `/adventures/${adventure.adventureSlug.current}` }
-            >
-              { adventure.adventureName } { index == 0 && ' (current)'}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <AdventureList
+        adventures={ adventures }
+        currentAdventureSlug={ currentAdventureSlug }
+        currentLocationSlug={ currentLocationSlug }
+      />
+
       {
         googleMapInstance && (
           <AdventureMarkersAndLines
             mapInstance={ googleMapInstance }
-            currentAdventureLocationData={currentAdventureData}
-            currentAdventureSlug={ currentAdventureSlug}
+            currentAdventureLocationData={ currentAdventureData}
+            currentAdventureSlug={ currentAdventureSlug }
             currentLocationSlug={ currentLocationSlug }
           />
         )
@@ -261,7 +254,7 @@ const AdventureMarkersAndLines = (
 
   return (
     <>
-      { markers.length && (
+      { !!markers.length && (
         currentAdventureLocationData.map(({ locationName, locationSlug, markerDiv }, index) => {
           if (!markerDiv) {
             return null;

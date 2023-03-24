@@ -39,18 +39,19 @@ export default async function SelectedAdventure ({ params }: { params: { adventu
 
   return (
     <div>
-      { adventure.adventureBlogPosts.length == 0 ?
-        <h3>No blog posts from the { adventure.adventureName } adventure</h3>
+      { adventure.adventureBlogPosts.length == 0
+        ? <h3>No blog posts from the { adventure.adventureName } adventure</h3>
         : (
-        <div className='mb-9'>
+          <div className='mb-9'>
 
-          <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
-            Posts from: <span className='font-bold font-sans'>{ adventure.adventureName }</span>
-          </h3>
+            <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
+              Posts from: <span className='font-bold font-sans'>{ adventure.adventureName }</span>
+            </h3>
 
-          <BlogPostTileList blogPosts={ adventure.adventureBlogPosts } />
-        </div>
-      ) }
+            <BlogPostTileList blogPosts={ adventure.adventureBlogPosts } />
+          </div>
+        )
+      }
     </div>
   );
 }

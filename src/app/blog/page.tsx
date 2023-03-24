@@ -1,6 +1,6 @@
 import { BlogPostData } from 'src/app/interfaces_blog';
 import { BlogPostTileList } from 'src/components/BlogPostTile';
-import { SiteSectionHeader } from 'src/components/SiteSectionHeader';
+import { SiteSectionHeader } from 'src/components/atoms/TextAtoms';
 import { client } from 'src/lib/sanity.client';
 
 export default async function BlogPostList () {

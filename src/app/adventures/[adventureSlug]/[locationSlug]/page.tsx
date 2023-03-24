@@ -84,13 +84,15 @@ export default async function LocationWithinAdventure (
       <h3>No blog posts from { params.locationSlug } in the { params.adventureSlug } adventure</h3>
       : (
       <div className='mb-9'>
-
-        <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
-          Posts from: <span className='font-bold font-sans'>{ params.adventureSlug }</span>, location: <span className='font-bold font-sans'>{ blogPostsForAdventureLocation[0].location.locationName }</span>
-        </h3>
+        <div className='flex justify-between'>
+          <h3 className='font-serif font-normal text-lg sm:text-2xl md:text-3xl my-4 sm:my-8'>
+            Posts from:
+            <span className='font-bold font-sans'> { blogPostsForAdventureLocation[0].location.locationName }, { params.adventureSlug }</span>
+          </h3>
+        </div>
 
         <BlogPostTileList blogPosts={ blogPostsForAdventureLocation } />
-        <h3 className='font-serif font-normal text-lg sm:text-3xl sm:my-8'>
+        <h3 className='font-serif font-normal text-lg sm:text-2xl md:text-3xl my-4 sm:my-8'>
           Photos from: <span className='font-bold font-sans'>{ blogPostsForAdventureLocation[0].location.locationName }</span>
         </h3>
         <ImageTileList photos={ flatPhotoList } />

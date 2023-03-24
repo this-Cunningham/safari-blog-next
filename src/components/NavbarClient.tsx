@@ -75,7 +75,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
       w-full fixed left-0 top-0
       ${ scrollY > 0
         ? 'bg-[#93c5fd] drop-shadow-md'
-        : `${!collapsed ? 'bg-yellowAccent-50 drop-shadow-md' : 'bg-yellowAccent-50'}`
+        : `${isMobile && !collapsed ? 'bg-yellowAccent-50 drop-shadow-md' : 'bg-yellowAccent-50'}`
       }
     `}>
       <div className='flex flex-col mx-auto text-black text-2xl font-bold sm:font-normal sm:text-xl font-serif tracking-normal lg:tracking-[2px] px-8 sm:px-12'>

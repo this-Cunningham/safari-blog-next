@@ -87,24 +87,24 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
               collapseMobileNav={ () => setCollapsed(true) }
             />
           </div>
-          {
-            screenWidth !== 0 && isMobile ? (
-              <SquashHamburger
-                color={ getHamburgerColor() }
-                onToggle={ () => setCollapsed(prev => !prev)}
-                toggled={ !collapsed }
-              />
-            ) : (
-              <div className='flex justify-end gap-6 md:gap-10 lg:gap-20'>
-                { navItems.map((siteSection) => (
-                  <NavItem siteSection={siteSection}
-                    isScrolled={ scrollY > 0 }
-                    key={ siteSection._id }
-                  />
-                ))}
-              </div>
-            )
-          }
+
+          { screenWidth !== 0 && isMobile && (
+            <SquashHamburger
+              color={ getHamburgerColor() }
+              onToggle={ () => setCollapsed(prev => !prev)}
+              toggled={ !collapsed }
+            />
+          ) }
+          { !isMobile && (
+            <div className='flex justify-end gap-6 md:gap-10 lg:gap-20'>
+              { navItems.map((siteSection) => (
+                <NavItem siteSection={siteSection}
+                  isScrolled={ scrollY > 0 }
+                  key={ siteSection._id }
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         { isMobile && !collapsed && (

@@ -14,25 +14,24 @@ const throttle = (func: (...args: any[]) => void, limit: number) => {
   };
 };
 
-export const useScrollPosition = (limit = 200) => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+export const useIsScrolled = () => {
+  const [isScrolled, setisScrolled] = useState(false);
 
   const handleScroll = () => {
-    setScrollPosition(window.pageYOffset);
+    setisScrolled(window.scrollY > 0);
   };
 
-  const throttledHandleScroll = throttle(handleScroll, limit);
-
   useEffect(() => {
-    setScrollPosition(window.pageYOffset);
+    setisScrolled(window.scrollY > 0);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', throttledHandleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', throttledHandleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [throttledHandleScroll]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return scrollPosition;
+  return isScrolled;
 };

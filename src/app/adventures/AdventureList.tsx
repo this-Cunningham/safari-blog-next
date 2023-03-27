@@ -21,7 +21,7 @@ export const AdventureList = ({ adventures, currentAdventureSlug, currentLocatio
   }, [currentAdventureSlug]);
 
   return (
-    <div className='md:w-72 xl:w-96 bg-skyPrimary-100 rounded drop-shadow-md pt-0 max-h-[400px] overflow-scroll'>
+    <div className='md:w-72 xl:w-96 bg-skyPrimary-100 rounded pt-0 max-h-[400px] overflow-scroll'>
       <button className='font-bold text-xl sm:text-2xl text-center w-full cursor-pointer hover:underline sticky top-0 bg-skyPrimary-100 p-4'
         onClick={ () => setCollapsed(prev => !prev) }
       >
@@ -32,7 +32,7 @@ export const AdventureList = ({ adventures, currentAdventureSlug, currentLocatio
         )}
 
         { !collapsed && (
-            <Icon icon="mdi:chevron-up" width='40' height='40' className='inline-block'/>
+            <Icon icon="mdi:chevron-up" width='40' height='40' className='inline-block' />
         ) }
       </button>
 

@@ -19,11 +19,11 @@ const PreviousPhotoLink = ({ previousPhotoId }: { previousPhotoId: string }) => 
 
   return (
     <Link
-      className='p-4 rounded bg-skyPrimary border-yellowAccent-100'
+      className='p-4 rounded bg-skyPrimary border-yellowAccent-100 absolute -left-12 top-52'
       onClick={ decrementIndex }
       href={ `/photos/${previousPhotoId}` }
     >
-      Previous
+      {'<'}
     </Link>
   );
 };
@@ -41,11 +41,11 @@ const NextPhotoLink = ({ nextPhotoId }: { nextPhotoId: string }) => {
 
   return (
     <Link
-      className='p-4 rounded bg-skyPrimary border-yellowAccent-100'
+      className='p-4 rounded bg-skyPrimary border-yellowAccent-100 absolute -right-12 top-52'
       onClick={ incrementIndex }
       href={ `/photos/${nextPhotoId}` }
     >
-      Next
+      {'>'}
     </Link>
   );
 };

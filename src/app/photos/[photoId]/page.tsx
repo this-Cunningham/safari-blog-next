@@ -36,7 +36,7 @@ export default async function DisplayImage ({ params }: { params: { photoId: str
   return (
     <>
       { blogImages.map(({ _id, image, author, location, caption, tags }) => (
-        <div className='w-full max-w-3xl mx-auto' key={ _id }>
+        <div className='w-full max-w-3xl mx-auto relative' key={ _id }>
           <Image
             className='h-auto w-full max-w-3xl'
             src={ urlFor(image).quality(100).url() }

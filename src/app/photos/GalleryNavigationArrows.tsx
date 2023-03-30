@@ -59,6 +59,8 @@ export const ImageNav = ({ _id }: { _id: string }) => {
   }
 
   React.useEffect(() => {
+    if (currentImageIndex == undefined) {
+      // run this indexer since the default is undefined
       const currentIndex = currentImageIdList.indexOf(_id);
 
       if (currentIndex == -1) {
@@ -68,7 +70,9 @@ export const ImageNav = ({ _id }: { _id: string }) => {
       }
 
       setCurrentImageIndex(currentIndex);
-  }, [_id, currentImageIdList, setCurrentImageIndex]);
+    }
+
+  }, [_id, currentImageIdList, currentImageIndex, setCurrentImageIndex]);
 
   if (currentImageIndex == undefined) {
     return null;

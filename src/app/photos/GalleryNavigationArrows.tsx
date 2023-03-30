@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
+import { LeftChevron, RightChevron } from 'src/components/atoms/ChevronSvgs';
 import { ImageListContext, CurrentImageIndexContext } from 'src/providers/ImageContext';
 
 const PreviousPhotoLink = ({ previousPhotoId }: { previousPhotoId: string }) => {
@@ -19,11 +19,11 @@ const PreviousPhotoLink = ({ previousPhotoId }: { previousPhotoId: string }) => 
 
   return (
     <Link
-      className='p-4 rounded bg-skyPrimary border-yellowAccent-100 absolute -left-12 top-52'
+      className='absolute left-12 top-1/2 -translate-y-3/4 bg-white/40 backdrop-blur-sm rounded-full is-touch-device:opacity-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in'
       onClick={ decrementIndex }
       href={ `/photos/${previousPhotoId}` }
     >
-      {'<'}
+      <LeftChevron />
     </Link>
   );
 };
@@ -41,11 +41,11 @@ const NextPhotoLink = ({ nextPhotoId }: { nextPhotoId: string }) => {
 
   return (
     <Link
-      className='p-4 rounded bg-skyPrimary border-yellowAccent-100 absolute -right-12 top-52'
+      className='absolute right-12 top-1/2 -translate-y-3/4 bg-white/40 backdrop-blur-sm rounded-full is-touch-device:opacity-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in'
       onClick={ incrementIndex }
       href={ `/photos/${nextPhotoId}` }
     >
-      {'>'}
+      <RightChevron />
     </Link>
   );
 };
@@ -58,7 +58,7 @@ export const ImageNav = ({ _id }: { _id: string }) => {
     throw new Error('Image Nav must be used within a context provider');
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentImageIndex == undefined) {
       // run this indexer since the default is undefined
       const currentIndex = currentImageIdList.indexOf(_id);

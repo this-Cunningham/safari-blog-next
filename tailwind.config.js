@@ -32,6 +32,10 @@ module.exports = {
         sans: ['var(--font-montserrat)', ...fontFamily.sans],
         serif: ['var(--font-cinzel-decorative)', ...fontFamily.serif],
       },
+      screens: {
+        'is-touch-device': { 'raw': '(pointer: coarse)' },
+        // => @media (pointer:coarse) { ... }
+      }
     },
   },
   plugins: [],

@@ -31,7 +31,7 @@ const LocationMarker = (
         ${ selected
           ? 'bg-skyPrimary-700 text-yellowAccent-100'
           : 'bg-yellowAccent-100 text-skyPrimary-700'
-        } text-base font-semibold drop-shadow-md p-2 rounded-lg
+        } text-base font-semibold shadow-[0_4px_8px_rgba(0,0,0,0.3)] p-2 rounded-lg
       `}
     >
       { (selected || hover)

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { BlogPostBlockContent } from 'src/components/BlogPostBlockContent';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 import { client } from 'src/lib/sanity.client';
 import { Author } from 'src/app/interfaces_blog';
 import { SiteSectionHeader } from 'src/components/atoms/TextAtoms';

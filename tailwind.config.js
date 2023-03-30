@@ -32,6 +32,15 @@ module.exports = {
         sans: ['var(--font-montserrat)', ...fontFamily.sans],
         serif: ['var(--font-cinzel-decorative)', ...fontFamily.serif],
       },
+      screens: {
+        'is-touch-device': { 'raw': '(pointer: coarse)' },
+        // => @media (pointer:coarse) { ... }
+      },
+      boxShadow: {
+        'optimized-low-height': 'var(--shadow-elevation-medium)',
+        'optimized-medium-height': 'var(--shadow-elevation-medium)',
+        'optimized-high-height': 'var(--shadow-elevation-medium)',
+      }
     },
   },
   plugins: [],

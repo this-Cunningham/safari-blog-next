@@ -7,3 +7,23 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 } */
+
+@layer base {
+  :root {
+    --shadow-color: 0deg 0% 0%;
+    --shadow-elevation-low:
+      0px 0.1px 0.2px hsl(var(--shadow-color) / 0),
+      0px 0.5px 0.8px hsl(var(--shadow-color) / 0.09);
+    --shadow-elevation-medium:
+      0px 0.1px 0.2px hsl(var(--shadow-color) / 0),
+      0.1px 0.8px 1.2px hsl(var(--shadow-color) / 0.06),
+      0.2px 2.4px 3.6px hsl(var(--shadow-color) / 0.11);
+    --shadow-elevation-high:
+      0px 0.1px 0.2px hsl(var(--shadow-color) / 0),
+      0.1px 1.3px 2px hsl(var(--shadow-color) / 0.03),
+      0.2px 2.3px 3.5px hsl(var(--shadow-color) / 0.05),
+      0.4px 3.6px 5.4px hsl(var(--shadow-color) / 0.08),
+      0.6px 5.7px 8.6px hsl(var(--shadow-color) / 0.11),
+      0.9px 8.9px 13.4px hsl(var(--shadow-color) / 0.13);
+  }
+}

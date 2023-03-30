@@ -3,7 +3,7 @@ import { BlueButtonLink } from 'src/components/atoms/BlueButtonLink';
 import { Subheadline } from 'src/components/atoms/TextAtoms';
 
 import { LatestPosts } from 'src/components/BlogPostTile';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 import { client } from 'src/lib/sanity.client';
 import { BlogImage } from './interfaces_blog';
 
@@ -18,18 +18,6 @@ export default async function Home() {
     }
   `);
 
-  // const mostRecentBlog: BlogPostData = await client.fetch(`//groq
-  //   *[_type == 'blogPost'] | order(publishedAt desc) [0] {
-  //     _id,
-  //     title,
-  //     excerpt,
-  //     location->{ locationName, mapLocation },
-  //     mainImage->{ _createdAt, caption, image{ ..., asset-> }, author->{ name, slug } },
-  //     publishedAt,
-  //     slug{ current },
-  //   }
-  // `);
-
   return (
     <>
       <div
@@ -43,19 +31,6 @@ export default async function Home() {
           bg-cover bg-no-repeat bg-center
           top-0 bottom-0 left-0 -right-[88px] sm:right-0'
       >
-        {/* <div className='p-12 h-full'>
-          <h1 className='w-fit rounded-md font-serif font-semibold text-4xl mb-6 bg-white/20 backdrop-blur-md p-6'>Our adventures on the Atlantic Ocean</h1>
-
-          <div className=' w-full flex gap-6'>
-            <div className='grow-[2] bg-black/5 backdrop-blur-md text-yellowAccent-300 rounded p-4 opacity-0'>
-              Google Map
-            </div>
-            <div className='bg-white/10 flex backdrop-blur-lg rounded-lg p-10'>
-              <BlogPostTile blogPost={ mostRecentBlog } index={0} />
-            </div>
-          </div>
-        </div> */}
-
       </div>
 
       <div className='bg-white p-4 sm:p-12'>

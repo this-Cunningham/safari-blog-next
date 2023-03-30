@@ -2,7 +2,7 @@ import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
 
 import { BlockContentImg } from 'src/app/interfaces_blog';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 
 const BlogImageBlockContent = ({ value: { image, caption }}: { value: BlockContentImg }) => (
   <Image
@@ -42,7 +42,10 @@ export const BlogPostBlockContent = ({ value }: { value: any[] }) => (
         imageCollectionRef: ImageCollectionBlockContent,
       },
       block: {
-        normal: ({ children }) => <p className='text-base leading-[1.4rem]'>{ children }</p>,
+        normal: ({ children }) => <p className='text-base leading-[1.3rem]'>{ children }</p>,
+        h2: ({ children }) => <h2 className='font-serif text-[56px] leading-[75px]'>{ children }</h2>,
+        h3: ({ children }) => <h3 className='font-serif text-[40px] leading-[54px]'>{ children }</h3>,
+        h4: ({ children }) => <h4 className='font-serif text-[32px] leading-[43px]'>{ children }</h4>
       },
     }}
   />

@@ -4,7 +4,7 @@ import { BlogPostBlockContent } from './BlogPostBlockContent';
 import { DateFormatter } from './DateFormatted';
 import { Tag } from './Tag';
 import { BlogPostData } from 'src/app/interfaces_blog';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 
 export const BlogPost = ({ blogPost }: { blogPost: BlogPostData }) => (
   <div className='w-full max-w-[720px] my-0 mx-auto'>

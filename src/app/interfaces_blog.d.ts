@@ -58,6 +58,8 @@ export interface BlogImage {
   };
   tags: TagInterface[];
   location: PublishedLocation;
+  nextPhotoId?: string;
+  previousPhotoId?: string;
 }
 
 export interface TagInterface { slug: string, tagName: string };

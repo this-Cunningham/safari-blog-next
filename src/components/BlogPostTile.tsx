@@ -3,13 +3,13 @@ import Image from 'next/image';
 
 import { DateFormatter } from './DateFormatted';
 import { BlogPostData } from 'src/app/interfaces_blog';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 import { client } from 'src/lib/sanity.client';
 import { BlueButtonLink } from './atoms/BlueButtonLink';
 import { Subheadline } from './atoms/TextAtoms';
 
 export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
-  <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded drop-shadow-md'>
+  <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded shadow-optimized-medium-height'>
     <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-full'>
       <Image
         className='rounded-t rounded-b-none'

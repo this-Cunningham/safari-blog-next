@@ -49,7 +49,7 @@ export const LoadImageContext = ({ imageIdList }: {imageIdList: BlogImageId[] })
     };
 
     setCurrentImageIdList(imageIdList);
-    localStorage.setItem('currentImageIdList', JSON.stringify(imageIdList));
+    localStorage.setItem(LOCAL_STORAGE_ID_LIST_KEY, JSON.stringify(imageIdList));
 
   }, [imageIdList, setCurrentImageIdList]);
 

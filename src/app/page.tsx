@@ -3,7 +3,7 @@ import { BlueButtonLink } from 'src/components/atoms/BlueButtonLink';
 import { Subheadline } from 'src/components/atoms/TextAtoms';
 
 import { LatestPosts } from 'src/components/BlogPostTile';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 import { client } from 'src/lib/sanity.client';
 import { BlogImage } from './interfaces_blog';
 

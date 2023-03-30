@@ -2,7 +2,7 @@ import { PortableText } from '@portabletext/react';
 import Image from 'next/image';
 
 import { BlockContentImg } from 'src/app/interfaces_blog';
-import { urlFor } from 'src/lib/imageUrlBuilder';
+import { urlFor } from 'src/lib/imageHelpers';
 
 const BlogImageBlockContent = ({ value: { image, caption }}: { value: BlockContentImg }) => (
   <Image

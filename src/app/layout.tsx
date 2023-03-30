@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 import { Navbar } from 'src/components/Navbar';
 import { SafariWireLogo } from 'src/components/supplemental/SafariWireLogo';
+import { client } from 'src/lib/sanity.client';
+import { ImageContextProvider } from 'src/providers/ImageContext';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -23,11 +25,15 @@ const cinzelDecorative = Cinzel_Decorative({
 // revalidating at the root layout causes revalidation of entire app
 export const revalidate = 120; // in seconds
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const allImageIds: string[] = await client.fetch(`//groq
+    *[_type == 'blogImage']._id
+  `);
+
   return (
     <html lang="en" className={ `${montserrat.variable} ${cinzelDecorative.variable}` }>
       {/*
@@ -37,7 +43,9 @@ export default function RootLayout({
       <head />
       <body className='tracking-[.02em] text-base bg-yellowAccent-50 text-black mt-16 sm:mt-28'>
         <main className='max-w-[1440px] mx-auto'>
-          {children}
+          <ImageContextProvider imageIdList={ allImageIds }>
+            {children}
+          </ImageContextProvider>
         </main>
         {/* @ts-expect-error Server Component */}
         <Navbar />

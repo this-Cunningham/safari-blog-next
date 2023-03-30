@@ -74,7 +74,7 @@ export default function NavBar ({ navBar }: { navBar: SiteSection[] }) {
     <nav className={`
       w-full fixed left-0 top-0
       ${ isScrolled
-        ? 'bg-[#93c5fd]'
+        ? 'bg-[#93c5fd] shadow-optimized-high-height'
         : `${isMobile && !collapsed ? 'bg-yellowAccent-50' : 'bg-yellowAccent-50'}`
       }
     `}>

@@ -35,6 +35,11 @@ module.exports = {
       screens: {
         'is-touch-device': { 'raw': '(pointer: coarse)' },
         // => @media (pointer:coarse) { ... }
+      },
+      boxShadow: {
+        'optimized-low-height': 'var(--shadow-elevation-medium)',
+        'optimized-medium-height': 'var(--shadow-elevation-medium)',
+        'optimized-high-height': 'var(--shadow-elevation-medium)',
       }
     },
   },

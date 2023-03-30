@@ -9,7 +9,7 @@ import { BlueButtonLink } from './atoms/BlueButtonLink';
 import { Subheadline } from './atoms/TextAtoms';
 
 export const BlogPostTile = ({ blogPost, index }: { blogPost: BlogPostData; index: number }) => (
-  <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded '>
+  <div className='group flex flex-col items-center grow w-80 text-center bg-skyPrimary-100 rounded shadow-optimized-medium-height'>
     <Link href={ `/blog/${blogPost.slug.current}`} className='w-full h-full'>
       <Image
         className='rounded-t rounded-b-none'

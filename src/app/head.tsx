@@ -1,3 +1,5 @@
+import { RegisterSW } from 'src/lib/registerServiceworker';
+
 export default function Head() {
   return (
     <>
@@ -19,6 +21,7 @@ export default function Head() {
       <meta property="og:image"
         content="https://cdn.sanity.io/images/mr7ql4ob/production/3c6aa7727d9abca0331b9672330649f84984d00e-242x226.jpg"
       />
+      <RegisterSW />
     </>
   );
 }

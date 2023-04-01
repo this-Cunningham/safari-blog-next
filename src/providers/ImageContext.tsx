@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { registerServiceWorker } from 'src/lib/registerServiceworker';
 
 type BlogImageId = string;
 
@@ -21,7 +20,6 @@ export const ImageContextProvider = ({ children, imageIdList }: { children: Reac
   const [currentImageIndex, setCurrentImageIndex] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    registerServiceWorker();
     const idList = localStorage.getItem(LOCAL_STORAGE_ID_LIST_KEY);
     // this is for page reloads while browsing image... want to maintain img context if there is one...
     // otherwise we want to default to the initial img ID list we load into context

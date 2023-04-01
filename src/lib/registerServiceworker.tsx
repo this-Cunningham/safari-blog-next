@@ -1,4 +1,8 @@
-export const registerServiceWorker = async () => {
+'use client';
+
+import React from 'react';
+
+const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register('/sw.js', {
@@ -15,4 +19,11 @@ export const registerServiceWorker = async () => {
       console.error(`Registration failed with ${error}`);
     }
   }
+};
+
+export const RegisterSW = () => {
+  React.useEffect(() => {
+    registerServiceWorker();
+  }, []);
+  return null;
 };
